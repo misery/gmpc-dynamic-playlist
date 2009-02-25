@@ -299,10 +299,11 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 
 void findSimilar(const mpd_Song* l_song)
 {
-	g_assert(l_song != NULL && m_curSong == NULL);
+	g_assert(l_song != NULL);
 
 	if(!g_static_mutex_trylock(&m_mutex))
 		return;
+	g_assert(m_curSong == NULL);
 
 	if(l_song->artist != NULL || l_song->genre != NULL)
 	{
