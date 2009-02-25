@@ -12,12 +12,16 @@ typedef struct _fmSong
 } fmSong;
 
 typedef GSList fmList;
+typedef void (*lastfm_callback) (fmList* l_list);
 
 fmSong* new_fmSong(xmlChar* l_artist, xmlChar* l_title/*, xmlChar* l_match*/);
 void free_fmSong(fmSong* l_song);
 void free_fmList(fmList* l_list);
 void clear_fmList(fmList* l_list, gboolean l_free_list);
 
+
+void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist);
+void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, const gchar* l_title);
 
 /* Modified from gmpc-last.fm-plugin (Qball Cow)
  * ***************************************************************************************/

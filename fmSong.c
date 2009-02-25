@@ -63,6 +63,63 @@ void clear_fmList(fmList* l_list, gboolean l_free_list)
 		g_slist_free(l_list);
 }
 
+static void lastfm_get_artist_callback(const GEADAsyncHandler* l_handle, const GEADStatus l_status, gpointer l_data)
+{
+	if(l_status == GEAD_DONE)
+	{
+		goffset length = 0;
+		const char* data = gmpc_easy_handler_get_data(l_handle, &length);
+		fmList* result = lastfm_get_artist_parse(data, length);
+		lastfm_callback cb = (lastfm_callback) l_data;
+		cb(result);
+	}
+	else if(l_status == GEAD_CANCELLED || l_status == GEAD_FAILED)
+	{
+		lastfm_callback cb = (lastfm_callback) l_data;
+		cb(NULL);
+	}
+}
+
+void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist)
+{
+	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
+	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&artist=%s&api_key=%s", artist, LASTFM_API_KEY);
+
+	gmpc_easy_async_downloader(furl, lastfm_get_artist_callback, l_callback);
+
+	g_free(artist);
+	g_free(furl);
+}
+
+static void lastfm_get_song_callback(const GEADAsyncHandler* l_handle, const GEADStatus l_status, gpointer l_data)
+{
+	if(l_status == GEAD_DONE)
+	{
+		goffset length = 0;
+		const char* data = gmpc_easy_handler_get_data(l_handle, &length);
+		fmList* result = lastfm_get_song_parse(data, length);
+		lastfm_callback cb = (lastfm_callback) l_data;
+		cb(result);
+	}
+	else if(l_status == GEAD_CANCELLED || l_status == GEAD_FAILED)
+	{
+		lastfm_callback cb = (lastfm_callback) l_data;
+		cb(NULL);
+	}
+}
+
+void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, const gchar* l_title)
+{
+	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
+	gchar* title =  gmpc_easy_download_uri_escape(l_title);
+	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=track.getsimilar&artist=%s&track=%s&api_key=%s", artist, title, LASTFM_API_KEY);
+
+	gmpc_easy_async_downloader(furl, lastfm_get_song_callback, l_callback);
+
+	g_free(artist);
+	g_free(title);
+	g_free(furl);
+}
 
 /* Modified from gmpc-last.fm-plugin (Qball Cow)
  * ***************************************************************************************/
@@ -127,7 +184,7 @@ fmList* lastfm_get_artist_parse(const gchar* l_data, gint l_size)
 
 fmList* lastfm_get_artist(const gchar* l_artist)
 {
-	gmpc_easy_download_struct data= {NULL, 0, -1, NULL, NULL};
+	gmpc_easy_download_struct data = {NULL, 0, -1, NULL, NULL};
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
 	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&artist=%s&api_key=%s", artist, LASTFM_API_KEY);
 	g_free(artist);
@@ -196,7 +253,7 @@ fmList* lastfm_get_song_parse(const gchar* l_data, gint l_size)
 
 fmList* lastfm_get_song(const gchar* l_artist, const gchar* l_title)
 {
-	gmpc_easy_download_struct data= {NULL, 0, -1, NULL, NULL};
+	gmpc_easy_download_struct data = {NULL, 0, -1, NULL, NULL};
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
 	gchar* title =  gmpc_easy_download_uri_escape(l_title);
 	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=track.getsimilar&artist=%s&track=%s&api_key=%s", artist, title, LASTFM_API_KEY);
