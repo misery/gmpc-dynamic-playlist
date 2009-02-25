@@ -65,6 +65,8 @@ void clear_fmList(fmList* l_list, gboolean l_free_list)
 
 static void lastfm_get_artist_callback(const GEADAsyncHandler* l_handle, const GEADStatus l_status, gpointer l_data)
 {
+	g_assert(l_data != NULL);
+
 	if(l_status == GEAD_DONE)
 	{
 		goffset length = 0;
@@ -82,6 +84,8 @@ static void lastfm_get_artist_callback(const GEADAsyncHandler* l_handle, const G
 
 void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist)
 {
+	g_assert(l_callback != NULL && l_artist != NULL);
+
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
 	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&artist=%s&api_key=%s", artist, LASTFM_API_KEY);
 
@@ -93,6 +97,8 @@ void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist)
 
 static void lastfm_get_song_callback(const GEADAsyncHandler* l_handle, const GEADStatus l_status, gpointer l_data)
 {
+	g_assert(l_data != NULL);
+
 	if(l_status == GEAD_DONE)
 	{
 		goffset length = 0;
@@ -110,6 +116,8 @@ static void lastfm_get_song_callback(const GEADAsyncHandler* l_handle, const GEA
 
 void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, const gchar* l_title)
 {
+	g_assert(l_callback != NULL && l_artist != NULL && l_title != NULL);
+
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
 	gchar* title =  gmpc_easy_download_uri_escape(l_title);
 	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=track.getsimilar&artist=%s&track=%s&api_key=%s", artist, title, LASTFM_API_KEY);
@@ -184,6 +192,8 @@ fmList* lastfm_get_artist_parse(const gchar* l_data, gint l_size)
 
 fmList* lastfm_get_artist(const gchar* l_artist)
 {
+	g_assert(l_artist != NULL);
+
 	gmpc_easy_download_struct data = {NULL, 0, -1, NULL, NULL};
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
 	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&artist=%s&api_key=%s", artist, LASTFM_API_KEY);
@@ -253,6 +263,8 @@ fmList* lastfm_get_song_parse(const gchar* l_data, gint l_size)
 
 fmList* lastfm_get_song(const gchar* l_artist, const gchar* l_title)
 {
+	g_assert(l_artist != NULL && l_title != NULL);
+
 	gmpc_easy_download_struct data = {NULL, 0, -1, NULL, NULL};
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
 	gchar* title =  gmpc_easy_download_uri_escape(l_title);
