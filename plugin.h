@@ -4,6 +4,14 @@
 #include "fmSong.h"
 #include "dbSong.h"
 
+typedef enum
+{
+	NotFound = 0 << 0,
+	Found = 1 << 0,
+	FromSong = 1 << 1,
+	FromArtist = 1 << 2
+} status;
+
 /* Queue function for m_lastSongs */
 static void add_lastSongs(dbSong* l_song);
 static gboolean exists_lastSongs(const xmlChar* l_artist, const xmlChar* l_title);
@@ -13,10 +21,10 @@ static dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const g
 static strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count);
 static gboolean database_tryToAdd_artist(const gchar* l_artist);
 static gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count);
-static gboolean tryToAdd_artists(const fmList* l_list, const gchar* l_artist);
-static gboolean tryToAdd_songs(const fmList* l_list);
+static void tryToAdd_artists(fmList* l_list);
+static void tryToAdd_songs(fmList* l_list);
 static gboolean tryToAdd_genre(const gchar* l_genre);
-static gboolean findSimilar_lastfm(const gchar* l_artist, const gchar* l_title);
+static void tryToAdd_select(status l_status);
 static void findSimilar(const mpd_Song* l_song);
 static void prune_playlist(gint l_curPos);
 

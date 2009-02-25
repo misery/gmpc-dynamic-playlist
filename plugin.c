@@ -30,6 +30,7 @@ gboolean m_similar_artists = FALSE;
 gboolean m_enabled = FALSE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
+mpd_Song* m_curSong = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
 
 void add_lastSongs(dbSong* l_song)
@@ -186,67 +187,97 @@ gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count)
 	return found;
 }
 
-gboolean tryToAdd_artists(const fmList* l_list, const gchar* l_artist)
+static void tryToAdd_select(status l_status)
 {
-	g_assert(l_list != NULL);
+	g_assert(m_curSong != NULL);
 
-	gboolean ret = FALSE;
-	gint count = 0;
-	strList* artistList = NULL;
-	const fmList* iter;
-	for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
+	if(l_status & Found)
 	{
-		fmSong* song = (fmSong*) iter->data;
-		artistList = database_get_artists(artistList, (const gchar*) song->artist, NULL, &count);
+		mpd_freeSong(m_curSong);
+		g_static_mutex_unlock(&m_mutex);
 	}
-
-	if(count > 0)
+	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && m_curSong->artist != NULL && m_curSong->title != NULL)
+		lastfm_get_song_async(tryToAdd_songs, m_curSong->artist, m_curSong->title);
+	else if(m_similar_artists && l_status != FromArtist && m_curSong->artist != NULL)
+		lastfm_get_artist_async(tryToAdd_artists, m_curSong->artist);
+	else if(m_curSong->genre != NULL && tryToAdd_genre(m_curSong->genre))
+		tryToAdd_select(Found);
+	else
 	{
-		if(l_artist != NULL) // add one artist to artistList (mostly because 'same artist' is also 'similar')
-			artistList = database_get_artists(artistList, l_artist, NULL, &count);
-		ret = database_tryToAdd_artists(&artistList, count);
+		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song", ERROR_INFO);
+		mpd_freeSong(m_curSong);
+		g_static_mutex_unlock(&m_mutex);
 	}
-
-	if(artistList != NULL)
-		free_strList(artistList);
-
-	return ret;
 }
 
-gboolean tryToAdd_songs(const fmList* l_list)
+void tryToAdd_artists(fmList* l_list)
 {
-	g_assert(l_list != NULL);
-
-	gint count = 0;
-	dbList* songList = NULL;
-	const fmList* iter;
-	for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
+	status ret = FromArtist;
+	if(l_list != NULL)
 	{
-		fmSong* song = (fmSong*) iter->data;
-		songList = database_get_songs(songList, (const gchar*) song->artist, (const gchar*) song->title, &count);
+		gint count = 0;
+		strList* artistList = NULL;
+		const fmList* iter;
+		for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
+		{
+			fmSong* song = (fmSong*) iter->data;
+			artistList = database_get_artists(artistList, (const gchar*) song->artist, NULL, &count);
+		}
+
+		if(count > 0)
+		{
+			if(m_curSong->artist != NULL) // add one artist to artistList (mostly because 'same artist' is also 'similar')
+				artistList = database_get_artists(artistList, m_curSong->artist, NULL, &count);
+			if(database_tryToAdd_artists(&artistList, count))
+				ret |= Found;
+		}
+
+		if(artistList != NULL)
+			free_strList(artistList);
+
+		free_fmList(l_list);
 	}
 
-	if(count > 0)
+	tryToAdd_select(ret);
+}
+
+void tryToAdd_songs(fmList* l_list)
+{
+	status ret = FromSong;
+	if(l_list != NULL)
 	{
-		g_assert(songList != NULL);
+		gint count = 0;
+		dbList* songList = NULL;
+		const fmList* iter;
+		for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
+		{
+			fmSong* song = (fmSong*) iter->data;
+			songList = database_get_songs(songList, (const gchar*) song->artist, (const gchar*) song->title, &count);
+		}
 
-		gint random = g_rand_int_range(m_rand, 0, count);
-		gint i = 0;
-		dbList* songListIter;
-		for(songListIter = songList; i < random; ++i)
-			songListIter = g_list_next(songListIter);
+		if(count > 0)
+		{
+			g_assert(songList != NULL);
 
-		dbSong* song = (dbSong*) songListIter->data;
-		mpd_playlist_add(connection, song->path);
-		add_lastSongs(song);
+			gint random = g_rand_int_range(m_rand, 0, count);
+			gint i = 0;
+			dbList* songListIter;
+			for(songListIter = songList; i < random; ++i)
+				songListIter = g_list_next(songListIter);
 
-		// Remove added dbSong* from dbList so it won't be freed
-		songList = g_list_delete_link(songList, songListIter);
-		free_dbList(songList);
-		return TRUE;
+			dbSong* song = (dbSong*) songListIter->data;
+			mpd_playlist_add(connection, song->path);
+			add_lastSongs(song);
+
+			// Remove added dbSong* from dbList so it won't be freed
+			songList = g_list_delete_link(songList, songListIter);
+			free_dbList(songList);
+			ret |= Found;
+		}
+		free_fmList(l_list);
 	}
 
-	return FALSE;
+	tryToAdd_select(ret);
 }
 
 gboolean tryToAdd_genre(const gchar* l_genre)
@@ -265,44 +296,22 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 	return ret;
 }
 
-gboolean findSimilar_lastfm(const gchar* l_artist, const gchar* l_title)
-{
-	g_assert(l_artist != NULL);
-
-	fmList* list;
-	gboolean ret = FALSE;
-
-	if(l_title == NULL)
-	{
-		list = lastfm_get_artist(l_artist);
-		if(list != NULL)
-			ret = tryToAdd_artists(list, l_artist);
-	}
-	else
-	{
-		list = lastfm_get_song(l_artist, l_title);
-		if(list != NULL)
-			ret = tryToAdd_songs(list);
-	}
-
-	if(list != NULL)
-		free_fmList(list);
-
-	return ret;
-}
 
 void findSimilar(const mpd_Song* l_song)
 {
-	g_assert(l_song != NULL);
+	g_assert(l_song != NULL && m_curSong == NULL);
 
-	if(m_similar_songs && findSimilar_lastfm(l_song->artist, l_song->title))
-		g_debug("Similar song found");
-	else if(m_similar_artists && findSimilar_lastfm(l_song->artist, NULL))
-		g_debug("Similar artist found");
-	else if(l_song->genre != NULL && tryToAdd_genre(l_song->genre))
-		g_debug("Similar genre found");
+	if(!g_static_mutex_trylock(&m_mutex))
+		return;
+
+	if(l_song->artist != NULL || l_song->genre != NULL)
+	{
+		m_curSong = mpd_songDup(l_song);
+		tryToAdd_select(NotFound);
+	}
 	else
-		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song", ERROR_INFO);
+		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song "
+				"because current song has no useable artist or genre tag", ERROR_INFO);
 }
 
 void prune_playlist(gint l_curPos)
@@ -321,9 +330,6 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 	if(m_enabled && (l_what & MPD_CST_PLAYLIST || l_what & MPD_CST_SONGPOS ||
 			(l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_PLAY)))
 	{
-		if(!g_static_mutex_trylock(&m_mutex))
-			return;
-
 		mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 		if(curSong != NULL)
 		{
@@ -335,8 +341,6 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			if(m_keep >= 0 && curSong->pos > 0)
 				prune_playlist(curSong->pos);
 		}
-
-		g_static_mutex_unlock(&m_mutex);
 	}
 }
 
