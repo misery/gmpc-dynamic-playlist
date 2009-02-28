@@ -279,7 +279,8 @@ void tryToAdd_songs(fmList* l_list)
 
 			// Remove added dbSong* from dbList so it won't be freed
 			songList = g_list_delete_link(songList, songListIter);
-			free_dbList(songList);
+			if(songList != NULL)
+				free_dbList(songList);
 			ret |= Found;
 		}
 		free_fmList(l_list);
