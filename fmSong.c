@@ -101,7 +101,7 @@ void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist, 
 
 static void lastfm_get_song_callback(const GEADAsyncHandler* l_handle, const GEADStatus l_status, gpointer l_data)
 {
-	g_assert(l_data != NULL);
+	g_assert(l_handle != NULL && l_data != NULL);
 
 	if(l_status == GEAD_DONE)
 	{
