@@ -404,7 +404,7 @@ void dyn_init()
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, "prune", "[0-9]*",  "Prune playlist", (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, "dynlist", "(on|off|)",  "Dynamic playlist (on|off)", (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, "similar", "",  "Search for similar song/artist", (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, "similar", "",  "Search for similar song/artist/genre", (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
 
 	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
 	{
