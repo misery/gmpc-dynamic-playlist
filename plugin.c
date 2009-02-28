@@ -25,6 +25,7 @@
 
 gint m_keep = -1;
 gint m_block = 0;
+gint m_similar_songs_max = 0;
 gboolean m_similar_songs = FALSE;
 gboolean m_similar_artists = FALSE;
 gboolean m_enabled = FALSE;
@@ -250,8 +251,9 @@ void tryToAdd_songs(fmList* l_list)
 	{
 		gint count = 0;
 		dbList* songList = NULL;
+		gint maxIter = 0;
 		const fmList* iter;
-		for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
+		for(iter = l_list; iter != NULL && maxIter < m_similar_songs_max; iter = g_slist_next(iter), ++maxIter)
 		{
 			fmSong* song = (fmSong*) iter->data;
 			songList = database_get_songs(songList, (const gchar*) song->artist, (const gchar*) song->title, &count);
@@ -353,6 +355,7 @@ void dyn_init()
 
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
 	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
+	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxSongs", 20);
 	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_songs", FALSE);
 	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artists", FALSE);
 	m_rand = g_rand_new();
@@ -422,6 +425,13 @@ void pref_spins(GtkSpinButton* l_widget, gpointer l_data)
 		m_block = value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block", m_block);
 	}
+	else if(spin == 3)
+	{
+		m_similar_songs_max = value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxSongs", m_similar_songs_max);
+	}
+	else
+		g_assert_not_reached();
 }
 
 void pref_construct(GtkWidget* l_con)
@@ -461,6 +471,17 @@ void pref_construct(GtkWidget* l_con)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(similar_songs), m_similar_songs);
 	gtk_box_pack_start(GTK_BOX(vbox), similar_songs, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(similar_songs), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(META_SONG_SIMILAR));
+
+	/* Search for max similar songs */
+	GtkWidget* song_hbox = gtk_hbox_new(FALSE, 5);
+	GtkWidget* song_label = gtk_label_new("Search max. songs in database:");
+	GtkAdjustment* song_adj = (GtkAdjustment*) gtk_adjustment_new(m_similar_songs_max, 1.0, 200, 1.0, 5.0, 0.0);
+	GtkWidget* song_spin = gtk_spin_button_new(song_adj, 1.0, 0);
+	g_signal_connect(G_OBJECT(song_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(3));
+
+	gtk_box_pack_start(GTK_BOX(song_hbox), song_label, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(song_hbox), song_spin, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), song_hbox, FALSE, FALSE, 0);
 
 	/* Search for similar artists */
 	GtkWidget* similar_artists = gtk_check_button_new_with_label("Search songs in »similar artists«");
