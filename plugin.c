@@ -579,7 +579,7 @@ gint plugin_api_version = PLUGIN_API_VERSION;
 
 gmpcPlugin plugin = {
 	.name               = "Dynamic Playlist (Last.FM)",
-	.version            = {0,9,0},
+	.version            = {0,9,1},
 	.plugin_type        = GMPC_PLUGIN_NO_GUI,
 	.init               = dyn_init,
 	.destroy            = dyn_destroy,
