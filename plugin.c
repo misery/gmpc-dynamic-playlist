@@ -304,6 +304,25 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 	return ret;
 }
 
+void findSimilar_easy()
+{
+	if(!g_static_mutex_trylock(&m_mutex))
+	{
+		playlist3_show_error_message("Dynamic playlist already search for a »similar« song", ERROR_INFO);
+		return;
+	}
+
+	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
+	if(curSong == NULL)
+	{
+		playlist3_show_error_message("You need to play a song that will be used", ERROR_INFO);
+		return;
+	}
+
+	g_assert(m_curSong == NULL);
+	m_curSong = mpd_songDup(curSong);
+	tryToAdd_select(NotFound);
+}
 
 void findSimilar(const mpd_Song* l_song)
 {
@@ -385,6 +404,7 @@ void dyn_init()
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, "prune", "[0-9]*",  "Prune playlist", (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, "dynlist", "(on|off|)",  "Dynamic playlist (on|off)", (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, "similar", "",  "Search for similar song/artist", (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
 
 	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
 	{
