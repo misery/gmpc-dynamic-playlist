@@ -321,7 +321,6 @@ void findSimilar_easy()
 		return;
 	}
 
-	g_assert(m_curSong == NULL);
 	m_curSong = mpd_songDup(curSong);
 	tryToAdd_select(NotFound);
 }
