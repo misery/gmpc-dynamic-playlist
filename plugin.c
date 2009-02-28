@@ -344,7 +344,8 @@ void findSimilar(const mpd_Song* l_song)
 
 void prune_playlist(gint l_curPos, gint l_keep)
 {
-	g_assert(l_curPos > 0);
+	if(l_keep < 0 || l_curPos < 1)
+		return;
 
 	gint del;
 	for(del = 0; del < l_curPos - l_keep; ++del)
@@ -384,8 +385,7 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			if(remains < 1)
 				findSimilar(curSong);
 
-			if(m_keep >= 0 && curSong->pos > 0)
-				prune_playlist(curSong->pos, m_keep);
+			prune_playlist(curSong->pos, m_keep);
 		}
 	}
 }
