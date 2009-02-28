@@ -19,9 +19,12 @@
 
 #include <gmpc/plugin.h>
 #include <gmpc/playlist3-messages.h>
+#include <gmpc/gmpc-easy-command.h>
 #include <libmpd/libmpd-internal.h>
 #include <glib.h>
 #include "plugin.h"
+
+extern GmpcEasyCommand* gmpc_easy_command;
 
 gint m_keep = -1;
 gint m_block = 0;
@@ -331,6 +334,24 @@ void prune_playlist(gint l_curPos, gint l_keep)
 	mpd_playlist_queue_commit(connection);
 }
 
+void prune_playlist_easy(gpointer l_data, const gchar* l_param)
+{
+	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
+	if(curSong == NULL)
+	{
+		playlist3_show_error_message("Cannot prune playlist! There is no current song as position.", ERROR_INFO);
+		return;
+	}
+
+	if(strlen(l_param) > 0)
+	{
+		gint keep = atoi(l_param);
+		prune_playlist(curSong->pos, keep);
+	}
+	else
+		prune_playlist(curSong->pos, m_keep);
+}
+
 void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata)
 {
 	if(m_enabled && (l_what & MPD_CST_PLAYLIST || l_what & MPD_CST_SONGPOS ||
@@ -361,6 +382,8 @@ void dyn_init()
 	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_songs", FALSE);
 	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artists", FALSE);
 	m_rand = g_rand_new();
+
+	gmpc_easy_command_add_entry(gmpc_easy_command, "prune", "[0-9]*",  "Prune playlist", (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 
 	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
 	{

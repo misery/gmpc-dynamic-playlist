@@ -27,6 +27,7 @@ static gboolean tryToAdd_genre(const gchar* l_genre);
 static void tryToAdd_select(status l_status);
 static void findSimilar(const mpd_Song* l_song);
 static void prune_playlist(gint l_curPos, gint l_keep);
+static void prune_playlist_easy(gpointer l_data, const gchar* l_param);
 
 /* plugin function */
 void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata);
