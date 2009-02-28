@@ -26,6 +26,7 @@
 gint m_keep = -1;
 gint m_block = 0;
 gint m_similar_songs_max = 0;
+gint m_similar_artists_max = 0;
 gboolean m_similar_songs = FALSE;
 gboolean m_similar_artists = FALSE;
 gboolean m_enabled = FALSE;
@@ -201,7 +202,7 @@ static void tryToAdd_select(status l_status)
 	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && m_curSong->artist != NULL && m_curSong->title != NULL)
 		lastfm_get_song_async(tryToAdd_songs, m_curSong->artist, m_curSong->title);
 	else if(m_similar_artists && l_status != FromArtist && m_curSong->artist != NULL)
-		lastfm_get_artist_async(tryToAdd_artists, m_curSong->artist);
+		lastfm_get_artist_async(tryToAdd_artists, m_curSong->artist, m_similar_artists_max);
 	else if(m_curSong->genre != NULL && tryToAdd_genre(m_curSong->genre))
 		tryToAdd_select(Found);
 	else
@@ -356,6 +357,7 @@ void dyn_init()
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
 	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxSongs", 20);
+	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxArtists", 30);
 	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_songs", FALSE);
 	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artists", FALSE);
 	m_rand = g_rand_new();
@@ -430,6 +432,11 @@ void pref_spins(GtkSpinButton* l_widget, gpointer l_data)
 		m_similar_songs_max = value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxSongs", m_similar_songs_max);
 	}
+	else if(spin == 4)
+	{
+		m_similar_artists_max = value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxArtists", m_similar_artists_max);
+	}
 	else
 		g_assert_not_reached();
 }
@@ -488,6 +495,18 @@ void pref_construct(GtkWidget* l_con)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(similar_artists), m_similar_artists);
 	gtk_box_pack_start(GTK_BOX(vbox), similar_artists, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(similar_artists), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(META_ARTIST_SIMILAR));
+
+	/* Search for max similar artists */
+	GtkWidget* artist_hbox = gtk_hbox_new(FALSE, 5);
+	GtkWidget* artist_label = gtk_label_new("Search max. artists in database:");
+	GtkAdjustment* artist_adj = (GtkAdjustment*) gtk_adjustment_new(m_similar_artists_max, 1.0, 200, 1.0, 5.0, 0.0);
+	GtkWidget* artist_spin = gtk_spin_button_new(artist_adj, 1.0, 0);
+	g_signal_connect(G_OBJECT(artist_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(4));
+
+	gtk_box_pack_start(GTK_BOX(artist_hbox), artist_label, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(artist_hbox), artist_spin, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), artist_hbox, FALSE, FALSE, 0);
+
 
 	if(!dyn_get_enabled())
 		gtk_widget_set_sensitive(GTK_WIDGET(vbox), FALSE);

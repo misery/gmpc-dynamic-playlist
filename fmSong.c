@@ -82,12 +82,16 @@ static void lastfm_get_artist_callback(const GEADAsyncHandler* l_handle, const G
 	}
 }
 
-void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist)
+void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist, gint l_limit)
 {
 	g_assert(l_callback != NULL && l_artist != NULL);
 
 	gchar* artist = gmpc_easy_download_uri_escape(l_artist);
-	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&artist=%s&api_key=%s", artist, LASTFM_API_KEY);
+	gchar* furl;
+	if(l_limit > 0)
+		furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&limit=%d&artist=%s&api_key=%s", l_limit, artist, LASTFM_API_KEY);
+	else
+		furl = g_strdup_printf(LASTFM_API_ROOT"?method=artist.getsimilar&artist=%s&api_key=%s", artist, LASTFM_API_KEY);
 
 	gmpc_easy_async_downloader(furl, lastfm_get_artist_callback, l_callback);
 

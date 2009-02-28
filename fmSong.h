@@ -20,7 +20,7 @@ void free_fmList(fmList* l_list);
 void clear_fmList(fmList* l_list, gboolean l_free_list);
 
 
-void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist);
+void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist, gint l_limit);
 void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, const gchar* l_title);
 
 /* Modified from gmpc-last.fm-plugin (Qball Cow)
