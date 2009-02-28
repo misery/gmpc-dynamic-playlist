@@ -27,9 +27,7 @@ void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, co
  * ***************************************************************************************/
 xmlNodePtr get_first_node_by_name(xmlNodePtr l_xml, const gchar* l_name);
 fmList* lastfm_get_artist_parse(const gchar* l_data, gint l_size);
-fmList* lastfm_get_artist(const gchar* l_artist);
 fmList* lastfm_get_song_parse(const gchar* l_data, gint l_size);
-fmList* lastfm_get_song(const gchar* l_artist, const gchar* l_title);
 /* ***************************************************************************************/
 
 #endif
