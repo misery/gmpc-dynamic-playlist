@@ -316,6 +316,7 @@ void findSimilar_easy()
 	if(curSong == NULL)
 	{
 		playlist3_show_error_message("You need to play a song that will be used", ERROR_INFO);
+		g_static_mutex_unlock(&m_mutex);
 		return;
 	}
 
@@ -338,8 +339,11 @@ void findSimilar(const mpd_Song* l_song)
 		tryToAdd_select(NotFound);
 	}
 	else
+	{
 		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song "
 				"because current song has no useable artist or genre tag", ERROR_INFO);
+		g_static_mutex_unlock(&m_mutex);
+	}
 }
 
 void prune_playlist(gint l_curPos, gint l_keep)
