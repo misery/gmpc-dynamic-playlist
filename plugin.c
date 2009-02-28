@@ -384,6 +384,7 @@ void dyn_init()
 	m_rand = g_rand_new();
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, "prune", "[0-9]*",  "Prune playlist", (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, "dynlist", "(on|off|)",  "Dynamic playlist (on|off)", (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
 
 	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
 	{
@@ -400,6 +401,16 @@ void dyn_destroy()
 		clear_dbQueue(&m_lastSongs);
 
 	g_rand_free(m_rand);
+}
+
+void dyn_enable_easy(gpointer l_data, const gchar* l_param)
+{
+	if(strncmp(l_param, "on", 2) == 0)
+		dyn_set_enabled(1);
+	else if(strncmp(l_param, "off", 3) == 0)
+		dyn_set_enabled(0);
+	else
+		dyn_set_enabled(!m_enabled);
 }
 
 gint dyn_get_enabled()

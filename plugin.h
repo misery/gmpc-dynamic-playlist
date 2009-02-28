@@ -33,6 +33,7 @@ static void prune_playlist_easy(gpointer l_data, const gchar* l_param);
 void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata);
 void dyn_init();
 void dyn_destroy();
+static void dyn_enable_easy(gpointer l_data, const gchar* l_param);
 gint dyn_get_enabled();
 void dyn_set_enabled(gint l_enabled);
 
