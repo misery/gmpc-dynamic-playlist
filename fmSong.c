@@ -186,7 +186,7 @@ fmList* lastfm_get_artist_parse(const gchar* l_data, gint l_size)
 //						xmlFree(match);
 				}
 			}
-//			ret = g_slist_reverse(ret); // to have the match-order
+			ret = g_slist_reverse(ret); // to have the match-order
 		}
 		xmlFreeDoc(doc);
 	}
@@ -237,7 +237,7 @@ fmList* lastfm_get_song_parse(const gchar* l_data, gint l_size)
 //						xmlFree(match);
 				}
 			}
-//			ret = g_slist_reverse(ret); // to have the match-order
+			ret = g_slist_reverse(ret); // to have the match-order
 		}
 		xmlFreeDoc(doc);
 	}
