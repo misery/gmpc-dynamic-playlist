@@ -425,9 +425,9 @@ void dyn_destroy()
 
 void dyn_enable_easy(gpointer l_data, const gchar* l_param)
 {
-	if(strncmp(l_param, "on", 2) == 0)
+	if(g_str_has_prefix(l_param, "on"))
 		dyn_set_enabled(1);
-	else if(strncmp(l_param, "off", 3) == 0)
+	else if(g_str_has_prefix(l_param, "off"))
 		dyn_set_enabled(0);
 	else
 		dyn_set_enabled(!m_enabled);
