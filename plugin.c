@@ -194,6 +194,7 @@ static void tryToAdd_select(status l_status)
 	if(l_status & Found)
 	{
 		mpd_freeSong(m_curSong);
+		m_curSong = NULL;
 		g_static_mutex_unlock(&m_mutex);
 	}
 	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && m_curSong->artist != NULL && m_curSong->title != NULL)
@@ -206,6 +207,7 @@ static void tryToAdd_select(status l_status)
 	{
 		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song", ERROR_INFO);
 		mpd_freeSong(m_curSong);
+		m_curSong = NULL;
 		g_static_mutex_unlock(&m_mutex);
 	}
 }
