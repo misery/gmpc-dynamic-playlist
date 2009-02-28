@@ -360,6 +360,8 @@ void prune_playlist(gint l_curPos, gint l_keep)
 
 void prune_playlist_easy(gpointer l_data, const gchar* l_param)
 {
+	g_assert(l_param != NULL);
+
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 	if(curSong == NULL)
 	{
@@ -367,13 +369,10 @@ void prune_playlist_easy(gpointer l_data, const gchar* l_param)
 		return;
 	}
 
-	if(strlen(l_param) > 0)
-	{
-		gint keep = atoi(l_param);
-		prune_playlist(curSong->pos, keep);
-	}
-	else
+	if(l_param[0] == '\0')
 		prune_playlist(curSong->pos, m_keep);
+	else
+		prune_playlist(curSong->pos, atoi(l_param));
 }
 
 void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata)
