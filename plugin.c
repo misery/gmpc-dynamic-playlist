@@ -37,6 +37,7 @@ dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
 mpd_Song* m_curSong = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
+GtkWidget* m_menu_item = NULL;
 
 void add_lastSongs(dbSong* l_song)
 {
@@ -443,8 +444,28 @@ gint dyn_get_enabled()
 
 void dyn_set_enabled(gint l_enabled)
 {
+	g_assert(m_menu_item != NULL);
+
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled);
+}
+
+void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
+{
+	gboolean active = gtk_check_menu_item_get_active(l_menu_item);
+	dyn_set_enabled(active);
+}
+
+int dyn_tool_menu_integration(GtkMenu* l_menu)
+{
+	g_assert(m_menu_item == NULL);
+
+	m_menu_item = gtk_check_menu_item_new_with_label("Dynamic playlist");
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), dyn_get_enabled());
+	g_signal_connect(G_OBJECT(m_menu_item), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
+	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
+	return 1;
 }
 
 void pref_destroy(GtkWidget* l_con)
@@ -589,7 +610,8 @@ gmpcPlugin plugin = {
 	.mpd_status_changed = dyn_changed_status,
 	.pref               = &dyn_pref,
 	.get_enabled        = dyn_get_enabled,
-	.set_enabled        = dyn_set_enabled
+	.set_enabled        = dyn_set_enabled,
+	.tool_menu_integration = dyn_tool_menu_integration
 };
 
 /* vim:set ts=4 sw=4: */
