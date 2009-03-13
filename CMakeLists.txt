@@ -8,7 +8,7 @@ IF(NOT PKG_CONFIG_FOUND)
 ENDIF()
 
 
-pkg_check_modules(GMPC REQUIRED gmpc>=0.18.95)
+pkg_check_modules(GMPC REQUIRED gmpc>=0.18.1)
 pkg_check_modules(DEPS REQUIRED
 	libmpd>=0.18
 	glib-2.0>=2.16
