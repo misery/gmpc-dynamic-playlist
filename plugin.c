@@ -465,6 +465,11 @@ int dyn_tool_menu_integration(GtkMenu* l_menu)
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), dyn_get_enabled());
 	g_signal_connect(G_OBJECT(m_menu_item), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
+
+	GtkWidget* similar_item = gtk_image_menu_item_new_with_label("Add similar song");
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(similar_item), gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
+	g_signal_connect(G_OBJECT(similar_item), "activate", G_CALLBACK(findSimilar_easy), NULL);
+	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), similar_item);
 	return 1;
 }
 
