@@ -459,8 +459,6 @@ void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
 {
-	g_assert(m_menu_item == NULL);
-
 	m_menu_item = gtk_check_menu_item_new_with_label("Dynamic playlist");
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), dyn_get_enabled());
 	g_signal_connect(G_OBJECT(m_menu_item), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
