@@ -37,6 +37,7 @@ static gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count);
 static void tryToAdd_artists(fmList* l_list);
 static void tryToAdd_songs(fmList* l_list);
 static gboolean tryToAdd_genre(const gchar* l_genre);
+static gboolean tryToAdd_random();
 static void tryToAdd_select(status l_status);
 static void findSimilar_easy();
 static void findSimilar(const mpd_Song* l_song);

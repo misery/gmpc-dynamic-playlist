@@ -92,7 +92,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 
 strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count)
 {
-	g_assert( (l_artist != NULL || l_genre != NULL) && l_out_count != NULL && *l_out_count >= 0 );
+	g_assert(l_out_count != NULL && *l_out_count >= 0 );
 
 	mpd_database_search_field_start(connection, MPD_TAG_ITEM_ARTIST);
 	if(l_artist != NULL)
@@ -212,6 +212,8 @@ static void tryToAdd_select(status l_status)
 		lastfm_get_artist_async(tryToAdd_artists, m_curSong->artist, m_similar_artists_max);
 	else if(m_same_genre && m_curSong->genre != NULL && tryToAdd_genre(m_curSong->genre))
 		tryToAdd_select(Found);
+	else if(tryToAdd_random())
+		tryToAdd_select(Found);
 	else
 	{
 		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song", ERROR_INFO);
@@ -295,8 +297,6 @@ void tryToAdd_songs(fmList* l_list)
 
 gboolean tryToAdd_genre(const gchar* l_genre)
 {
-	g_assert(l_genre != NULL);
-
 	gboolean ret = FALSE;
 	gint count = 0;
 	strList* artistList = database_get_artists(NULL, NULL, l_genre, &count);
@@ -307,6 +307,11 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 		free_strList(artistList);
 
 	return ret;
+}
+
+gboolean tryToAdd_random()
+{
+	return tryToAdd_genre(NULL);
 }
 
 void findSimilar_easy()
