@@ -12,6 +12,19 @@ typedef enum
 	FromArtist = 1 << 2
 } status;
 
+typedef enum
+{
+	similar_song = 1 << 0,
+	similar_song_max = 1 << 1,
+	similar_artist = 1 << 2,
+	similar_artist_max = 1 << 3,
+	similar_genre = 1 << 4,
+	similar_genre_max = 1 << 5,
+	prune = 1 << 6,
+	block = 1 << 7,
+	same_genre = 1 << 8
+} option;
+
 /* Queue function for m_lastSongs */
 static void add_lastSongs(dbSong* l_song);
 static gboolean exists_lastSongs(const xmlChar* l_artist, const xmlChar* l_title);
