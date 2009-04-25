@@ -298,7 +298,7 @@ fmList* lastfm_get_genre_parse(const gchar* l_data, gint l_size)
 					xmlChar* genre = NULL;
 
 					xmlNodePtr cur3 = cur2->xmlChildrenNode;
-					for(; cur3 != NULL && genre != NULL; cur3 = cur3->next)
+					for(; cur3 != NULL && genre == NULL; cur3 = cur3->next)
 					{
 						if(xmlStrEqual(cur3->name, (xmlChar*) "name"))
 							genre = xmlNodeGetContent(cur3);
