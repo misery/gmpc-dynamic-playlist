@@ -349,7 +349,7 @@ void findSimilar_easy()
 {
 	if(!g_static_mutex_trylock(&m_mutex))
 	{
-		playlist3_show_error_message("Dynamic playlist already search for a »similar« song", ERROR_INFO);
+		playlist3_show_error_message("Dynamic playlist already search for a song", ERROR_INFO);
 		return;
 	}
 
@@ -382,6 +382,7 @@ void findSimilar(const mpd_Song* l_song)
 	{
 		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song "
 				"because current song has no useable artist or genre tag", ERROR_INFO);
+		tryToAdd_random();
 		g_static_mutex_unlock(&m_mutex);
 	}
 }
