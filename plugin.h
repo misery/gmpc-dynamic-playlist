@@ -9,7 +9,8 @@ typedef enum
 	NotFound = 0 << 0,
 	Found = 1 << 0,
 	FromSong = 1 << 1,
-	FromArtist = 1 << 2
+	FromArtist = 1 << 2,
+	FromGenre = 1 << 3
 } status;
 
 typedef enum
@@ -36,6 +37,7 @@ static gboolean database_tryToAdd_artist(const gchar* l_artist);
 static gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count);
 static void tryToAdd_artists(fmList* l_list);
 static void tryToAdd_songs(fmList* l_list);
+static void tryToAdd_multiple_genre(fmList* l_list);
 static gboolean tryToAdd_genre(const gchar* l_genre);
 static gboolean tryToAdd_random();
 static void tryToAdd_select(status l_status);

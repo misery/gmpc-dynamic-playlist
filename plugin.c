@@ -206,11 +206,13 @@ static void tryToAdd_select(status l_status)
 		m_curSong = NULL;
 		g_static_mutex_unlock(&m_mutex);
 	}
-	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && m_curSong->artist != NULL && m_curSong->title != NULL)
+	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && l_status != FromGenre && m_curSong->artist != NULL && m_curSong->title != NULL)
 		lastfm_get_song_async(tryToAdd_songs, m_curSong->artist, m_curSong->title);
-	else if(m_similar_artists && l_status != FromArtist && m_curSong->artist != NULL)
+	else if(m_similar_artists && l_status != FromArtist && l_status != FromGenre && m_curSong->artist != NULL)
 		lastfm_get_artist_async(tryToAdd_artists, m_curSong->artist, m_similar_artists_max);
-	else if(m_same_genre && m_curSong->genre != NULL && tryToAdd_genre(m_curSong->genre))
+	else if(m_similar_genre && l_status != FromGenre && m_curSong->genre != NULL)
+		lastfm_get_genre_async(tryToAdd_multiple_genre, m_curSong->genre);
+	else if(m_same_genre && !m_similar_genre && m_curSong->genre != NULL && tryToAdd_genre(m_curSong->genre))
 		tryToAdd_select(Found);
 	else if(tryToAdd_random())
 		tryToAdd_select(Found);
@@ -289,6 +291,35 @@ void tryToAdd_songs(fmList* l_list)
 				free_dbList(songList);
 			ret |= Found;
 		}
+		free_fmList(l_list);
+	}
+
+	tryToAdd_select(ret);
+}
+
+void tryToAdd_multiple_genre(fmList* l_list)
+{
+	status ret = FromGenre;
+	if(l_list != NULL)
+	{
+		gint count = 0;
+		strList* artistList = NULL;
+		gint maxIter = 0;
+		const fmList* iter;
+		for(iter = l_list; iter != NULL && maxIter < m_similar_genre_max; iter = g_slist_next(iter), ++maxIter)
+		{
+			fmSong* song = (fmSong*) iter->data;
+			artistList = database_get_artists(artistList, NULL, (const gchar*) song->artist, &count); // FIXME song->artist is genre here!
+		}
+		// add one genre to artistList (mostly because 'same genre' is also 'similar')
+		artistList = database_get_artists(artistList, NULL, m_curSong->genre, &count);
+
+		if(count > 0 && database_tryToAdd_artists(&artistList, count))
+				ret |= Found;
+
+		if(artistList != NULL)
+			free_strList(artistList);
+
 		free_fmList(l_list);
 	}
 
@@ -410,7 +441,7 @@ void dyn_init()
 	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxSongs", 20);
 	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxArtists", 30);
-	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxGenres", 5);
+	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxGenres", 20);
 	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_songs", FALSE);
 	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artists", FALSE);
 	m_similar_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre", FALSE);
@@ -601,7 +632,6 @@ void pref_construct(GtkWidget* l_con)
 	GtkWidget* genre_toggle = gtk_check_button_new_with_label("Search songs in »similar genre«");
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(genre_toggle), m_similar_genre);
 	gtk_box_pack_start(GTK_BOX(vbox), genre_toggle, FALSE, FALSE, 0);
-	gtk_widget_set_sensitive(genre_toggle, FALSE);
 	g_signal_connect(G_OBJECT(genre_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_genre));
 
 	/* Search for max similar genre */
@@ -609,7 +639,6 @@ void pref_construct(GtkWidget* l_con)
 	GtkWidget* genre_label = gtk_label_new("Search max. genre in database:");
 	GtkAdjustment* genre_adj = (GtkAdjustment*) gtk_adjustment_new(m_similar_genre_max, 1.0, 20, 1.0, 5.0, 0.0);
 	GtkWidget* genre_spin = gtk_spin_button_new(genre_adj, 1.0, 0);
-	gtk_widget_set_sensitive(genre_spin, FALSE);
 	g_signal_connect(G_OBJECT(genre_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_genre_max));
 
 	gtk_box_pack_start(GTK_BOX(genre_hbox), genre_label, FALSE, FALSE, 0);
