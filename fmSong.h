@@ -22,12 +22,14 @@ void clear_fmList(fmList* l_list, gboolean l_free_list);
 
 void lastfm_get_artist_async(lastfm_callback l_callback, const gchar* l_artist, gint l_limit);
 void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, const gchar* l_title);
+void lastfm_get_genre_async(lastfm_callback l_callback, const gchar* l_genre);
 
 /* Modified from gmpc-last.fm-plugin (Qball Cow)
  * ***************************************************************************************/
 xmlNodePtr get_first_node_by_name(xmlNodePtr l_xml, const gchar* l_name);
 fmList* lastfm_get_artist_parse(const gchar* l_data, gint l_size);
 fmList* lastfm_get_song_parse(const gchar* l_data, gint l_size);
+fmList* lastfm_get_genre_parse(const gchar* l_data, gint l_size);
 /* ***************************************************************************************/
 
 #endif

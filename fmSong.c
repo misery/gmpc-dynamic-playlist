@@ -133,6 +133,38 @@ void lastfm_get_song_async(lastfm_callback l_callback, const gchar* l_artist, co
 	g_free(furl);
 }
 
+static void lastfm_get_genre_callback(const GEADAsyncHandler* l_handle, const GEADStatus l_status, gpointer l_data)
+{
+	g_assert(l_handle != NULL && l_data != NULL);
+
+	if(l_status == GEAD_DONE)
+	{
+		goffset length = 0;
+		const char* data = gmpc_easy_handler_get_data(l_handle, &length);
+		fmList* result = lastfm_get_genre_parse(data, length);
+		lastfm_callback cb = (lastfm_callback) l_data;
+		cb(result);
+	}
+	else if(l_status == GEAD_CANCELLED || l_status == GEAD_FAILED)
+	{
+		lastfm_callback cb = (lastfm_callback) l_data;
+		cb(NULL);
+	}
+}
+
+void lastfm_get_genre_async(lastfm_callback l_callback, const gchar* l_genre)
+{
+	g_assert(l_callback != NULL && l_genre != NULL);
+
+	gchar* genre = gmpc_easy_download_uri_escape(l_genre);
+	gchar* furl = g_strdup_printf(LASTFM_API_ROOT"?method=tag.getsimilar&tag=%s&api_key=%s", genre, LASTFM_API_KEY);
+
+	gmpc_easy_async_downloader(furl, lastfm_get_genre_callback, l_callback);
+
+	g_free(genre);
+	g_free(furl);
+}
+
 /* Modified from gmpc-last.fm-plugin (Qball Cow)
  * ***************************************************************************************/
 xmlNodePtr get_first_node_by_name(xmlNodePtr l_xml, const gchar* l_name)
@@ -235,6 +267,45 @@ fmList* lastfm_get_song_parse(const gchar* l_data, gint l_size)
 						ret = g_slist_prepend(ret, new_fmSong(artist, title/*, match*/));
 //					else if(match != NULL) // free allocated match if artist and title are NULL
 //						xmlFree(match);
+				}
+			}
+			ret = g_slist_reverse(ret); // to have the match-order
+		}
+		xmlFreeDoc(doc);
+	}
+
+	return ret;
+}
+
+fmList* lastfm_get_genre_parse(const gchar* l_data, gint l_size)
+{
+	if(l_size <= 0 || l_data == NULL || l_data[0] != '<')
+		return NULL;
+
+	fmList* ret = NULL;
+	xmlDocPtr doc = xmlParseMemory(l_data, l_size);
+	if(doc != NULL)
+	{
+		xmlNodePtr root = xmlDocGetRootElement(doc);
+		xmlNodePtr cur = get_first_node_by_name(root, "similartags");
+		if(cur != NULL)
+		{
+			xmlNodePtr cur2 = cur->xmlChildrenNode;
+			for(; cur2 != NULL; cur2 = cur2->next)
+			{
+				if(xmlStrEqual(cur2->name, (xmlChar*) "tag"))
+				{
+					xmlChar* genre = NULL;
+
+					xmlNodePtr cur3 = cur2->xmlChildrenNode;
+					for(; cur3 != NULL && genre != NULL; cur3 = cur3->next)
+					{
+						if(xmlStrEqual(cur3->name, (xmlChar*) "name"))
+							genre = xmlNodeGetContent(cur3);
+					}
+
+					if(genre != NULL)
+						ret = g_slist_prepend(ret, new_fmSong(genre, NULL));
 				}
 			}
 			ret = g_slist_reverse(ret); // to have the match-order
