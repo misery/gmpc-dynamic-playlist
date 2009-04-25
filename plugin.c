@@ -216,7 +216,7 @@ static void tryToAdd_select(status l_status)
 		tryToAdd_select(Found);
 	else
 	{
-		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song", ERROR_INFO);
+		playlist3_show_error_message("Dynamic playlist cannot find a new song", ERROR_INFO);
 		mpd_freeSong(m_curSong);
 		m_curSong = NULL;
 		g_static_mutex_unlock(&m_mutex);
