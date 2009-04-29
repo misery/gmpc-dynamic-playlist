@@ -461,7 +461,6 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 void dyn_init()
 {
 	g_assert(m_rand == NULL);
-	g_debug("file: %s", gmpc_get_user_path("dynamic_store"));
 
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
 	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
