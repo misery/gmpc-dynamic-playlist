@@ -15,7 +15,6 @@ pkg_check_modules(DEPS REQUIRED
 	gtk+-2.0>=2.8
 	gobject-2.0>=2.4
 	gmodule-2.0
-	libxml-2.0
 	gthread-2.0
 	)
 
