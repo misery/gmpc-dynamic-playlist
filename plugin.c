@@ -38,7 +38,6 @@ gboolean m_same_genre = FALSE;
 gboolean m_enabled = FALSE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
-mpd_Song* m_curSong = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
 GtkWidget* m_menu_item = NULL;
 
@@ -49,7 +48,7 @@ void add_lastSongs(dbSong* l_song)
 		free_dbSong( (dbSong*) g_queue_pop_tail(&m_lastSongs) );
 }
 
-gboolean exists_lastSongs(const xmlChar* l_artist, const xmlChar* l_title)
+gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title)
 {
 	g_assert(l_artist != NULL && l_title != NULL);
 
@@ -59,7 +58,7 @@ gboolean exists_lastSongs(const xmlChar* l_artist, const xmlChar* l_title)
 		for(; iter != NULL; iter = g_list_next(iter))
 		{
 			dbSong* song = (dbSong*) iter->data;
-			if(xmlStrcasecmp((xmlChar*) song->artist, l_artist) == 0 && xmlStrcasecmp((xmlChar*) song->title, l_title) == 0)
+			if(strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
 				return TRUE;
 		}
 	}
@@ -79,7 +78,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
 		if(data->type == MPD_DATA_TYPE_SONG && data->song->artist != NULL && data->song->title != NULL
-			&& !exists_lastSongs((xmlChar*) data->song->artist, (xmlChar*) data->song->title))
+			&& !exists_lastSongs(data->song->artist, data->song->title))
 		{
 			dbSong* song = new_dbSong(data->song->artist, data->song->title, data->song->file);
 			l_list = g_list_prepend(l_list, song);
@@ -92,7 +91,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 
 strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count)
 {
-	g_assert(l_out_count != NULL && *l_out_count >= 0 );
+	g_assert(l_out_count != NULL && *l_out_count >= 0);
 
 	mpd_database_search_field_start(connection, MPD_TAG_ITEM_ARTIST);
 	if(l_artist != NULL)
@@ -127,7 +126,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 	for(data = mpd_database_search_commit(connection); data != NULL;)
 	{
 		if(data->type != MPD_DATA_TYPE_SONG || data->song->artist == NULL || data->song->title == NULL
-			|| exists_lastSongs((xmlChar*) data->song->artist, (xmlChar*) data->song->title))
+			|| exists_lastSongs(data->song->artist, data->song->title))
 		{
 			data = mpd_data_delete_item(data);
 			if( data == NULL || (first && ((MpdData_real*) data)->prev == NULL) )
@@ -196,79 +195,99 @@ gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count)
 	return found;
 }
 
-static void tryToAdd_select(status l_status)
+static void tryToAdd_select(status l_status, mpd_Song* l_song)
 {
-	g_assert(m_curSong != NULL);
+	g_assert(l_song != NULL);
 
 	if(l_status & Found)
+		g_static_mutex_unlock(&m_mutex);
+	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && l_status != FromGenre && l_song->artist != NULL && l_song->title != NULL)
 	{
-		mpd_freeSong(m_curSong);
-		m_curSong = NULL;
+		g_debug("[dynlist] Try similar song...");
+		gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, NULL);
+	}
+	else if(m_similar_artists && l_status != FromArtist && l_status != FromGenre && l_song->artist != NULL)
+	{
+		g_debug("[dynlist] Try similar artist...");
+		gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, NULL);
+	}
+	else if(m_similar_genre && l_status != FromGenre && l_song->genre != NULL)
+	{
+		g_debug("[dynlist] Try similar genre...");
+		gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, NULL);
+	}
+	else if(m_same_genre && !m_similar_genre && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
+	{
+		g_debug("[dynlist] Added same genre song");
 		g_static_mutex_unlock(&m_mutex);
 	}
-	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && l_status != FromGenre && m_curSong->artist != NULL && m_curSong->title != NULL)
-		lastfm_get_song_async(tryToAdd_songs, m_curSong->artist, m_curSong->title);
-	else if(m_similar_artists && l_status != FromArtist && l_status != FromGenre && m_curSong->artist != NULL)
-		lastfm_get_artist_async(tryToAdd_artists, m_curSong->artist, m_similar_artists_max);
-	else if(m_similar_genre && l_status != FromGenre && m_curSong->genre != NULL)
-		lastfm_get_genre_async(tryToAdd_multiple_genre, m_curSong->genre);
-	else if(m_same_genre && !m_similar_genre && m_curSong->genre != NULL && tryToAdd_genre(m_curSong->genre))
-		tryToAdd_select(Found);
 	else if(tryToAdd_random())
-		tryToAdd_select(Found);
+	{
+		g_debug("[dynlist] Added random song");
+		g_static_mutex_unlock(&m_mutex);
+	}
 	else
 	{
 		playlist3_show_error_message("Dynamic playlist cannot find a new song", ERROR_INFO);
-		mpd_freeSong(m_curSong);
-		m_curSong = NULL;
 		g_static_mutex_unlock(&m_mutex);
 	}
 }
 
-void tryToAdd_artists(fmList* l_list)
+void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data)
 {
+	if(l_result == META_DATA_FETCHING)
+		return;
+
 	status ret = FromArtist;
-	if(l_list != NULL)
+	if(l_result == META_DATA_AVAILABLE)
 	{
+		g_assert(l_data != NULL && l_data->type == META_ARTIST_SIMILAR);
+
 		gint count = 0;
 		strList* artistList = NULL;
-		const fmList* iter;
-		for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
+		gint maxIter = 0;
+		const GList* iter;
+		for(iter = meta_data_get_text_list(l_data); iter != NULL && maxIter < m_similar_artists_max; iter = g_list_next(iter), ++maxIter)
 		{
-			fmSong* song = (fmSong*) iter->data;
-			artistList = database_get_artists(artistList, (const gchar*) song->artist, NULL, &count);
+			const gchar* artist = (const gchar*) iter->data;
+			artistList = database_get_artists(artistList, artist, NULL, &count);
 		}
 
 		if(count > 0)
 		{
-			if(m_curSong->artist != NULL) // add one artist to artistList (mostly because 'same artist' is also 'similar')
-				artistList = database_get_artists(artistList, m_curSong->artist, NULL, &count);
+			if(l_song->artist != NULL) // add one artist to artistList (mostly because 'same artist' is also 'similar')
+				artistList = database_get_artists(artistList, l_song->artist, NULL, &count);
 			if(database_tryToAdd_artists(&artistList, count))
 				ret |= Found;
 		}
 
 		if(artistList != NULL)
 			free_strList(artistList);
-
-		free_fmList(l_list);
 	}
 
-	tryToAdd_select(ret);
+	tryToAdd_select(ret, l_song);
 }
 
-void tryToAdd_songs(fmList* l_list)
+void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data)
 {
+	if(l_result == META_DATA_FETCHING)
+		return;
+
 	status ret = FromSong;
-	if(l_list != NULL)
+	if(l_result == META_DATA_AVAILABLE)
 	{
+		g_assert(l_data != NULL && l_data->type == META_SONG_SIMILAR);
+
 		gint count = 0;
 		dbList* songList = NULL;
 		gint maxIter = 0;
-		const fmList* iter;
-		for(iter = l_list; iter != NULL && maxIter < m_similar_songs_max; iter = g_slist_next(iter), ++maxIter)
+		const GList* iter;
+		for(iter = meta_data_get_text_list(l_data); iter != NULL && maxIter < m_similar_songs_max; iter = g_list_next(iter), ++maxIter)
 		{
-			fmSong* song = (fmSong*) iter->data;
-			songList = database_get_songs(songList, (const gchar*) song->artist, (const gchar*) song->title, &count);
+			gchar** song = g_strsplit(iter->data, "::", 2);
+			if(song[0] != NULL && song[1] != NULL)
+				songList = database_get_songs(songList, song[0], song[1], &count);
+			g_strfreev(song);
 		}
 
 		if(count > 0)
@@ -291,39 +310,41 @@ void tryToAdd_songs(fmList* l_list)
 				free_dbList(songList);
 			ret |= Found;
 		}
-		free_fmList(l_list);
 	}
 
-	tryToAdd_select(ret);
+	tryToAdd_select(ret, l_song);
 }
 
-void tryToAdd_multiple_genre(fmList* l_list)
+void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data)
 {
+	if(l_result == META_DATA_FETCHING)
+		return;
+
 	status ret = FromGenre;
-	if(l_list != NULL)
+	if(l_result == META_DATA_AVAILABLE)
 	{
+		g_assert(l_data != NULL && l_data->type == META_GENRE_SIMILAR);
+
 		gint count = 0;
 		strList* artistList = NULL;
 		gint maxIter = 0;
-		const fmList* iter;
-		for(iter = l_list; iter != NULL && maxIter < m_similar_genre_max; iter = g_slist_next(iter), ++maxIter)
+		const GList* iter;
+		for(iter = meta_data_get_text_list(l_data); iter != NULL && maxIter < m_similar_genre_max; iter = g_list_next(iter), ++maxIter)
 		{
-			fmSong* song = (fmSong*) iter->data;
-			artistList = database_get_artists(artistList, NULL, (const gchar*) song->artist, &count); // FIXME song->artist is genre here!
+			const gchar* genre = (const gchar*) iter->data;
+			artistList = database_get_artists(artistList, NULL, genre, &count);
 		}
 		// add one genre to artistList (mostly because 'same genre' is also 'similar')
-		artistList = database_get_artists(artistList, NULL, m_curSong->genre, &count);
+		artistList = database_get_artists(artistList, NULL, l_song->genre, &count);
 
 		if(count > 0 && database_tryToAdd_artists(&artistList, count))
 				ret |= Found;
 
 		if(artistList != NULL)
 			free_strList(artistList);
-
-		free_fmList(l_list);
 	}
 
-	tryToAdd_select(ret);
+	tryToAdd_select(ret, l_song);
 }
 
 gboolean tryToAdd_genre(const gchar* l_genre)
@@ -361,23 +382,18 @@ void findSimilar_easy()
 		return;
 	}
 
-	m_curSong = mpd_songDup(curSong);
-	tryToAdd_select(NotFound);
+	tryToAdd_select(NotFound, curSong);
 }
 
-void findSimilar(const mpd_Song* l_song)
+void findSimilar(mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
 
 	if(!g_static_mutex_trylock(&m_mutex))
 		return;
-	g_assert(m_curSong == NULL);
 
 	if(l_song->artist != NULL || l_song->genre != NULL)
-	{
-		m_curSong = mpd_songDup(l_song);
-		tryToAdd_select(NotFound);
-	}
+		tryToAdd_select(NotFound, l_song);
 	else
 	{
 		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song "
@@ -437,6 +453,7 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 void dyn_init()
 {
 	g_assert(m_rand == NULL);
+	g_debug("file: %s", gmpc_get_user_path("dynamic_store"));
 
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
 	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
@@ -697,7 +714,7 @@ gmpcPrefPlugin dyn_pref =
 gint plugin_api_version = PLUGIN_API_VERSION;
 
 gmpcPlugin plugin = {
-	.name               = "Dynamic Playlist (Last.FM)",
+	.name               = "Dynamic Playlist",
 	.version            = {0,9,1},
 	.plugin_type        = GMPC_PLUGIN_NO_GUI,
 	.init               = dyn_init,

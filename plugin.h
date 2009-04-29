@@ -1,7 +1,6 @@
 #ifndef _DYN_LIST_PLUGIN
 #define _DYN_LIST_PLUGIN
 
-#include "fmSong.h"
 #include "dbSong.h"
 
 typedef enum
@@ -28,21 +27,21 @@ typedef enum
 
 /* Queue function for m_lastSongs */
 static void add_lastSongs(dbSong* l_song);
-static gboolean exists_lastSongs(const xmlChar* l_artist, const xmlChar* l_title);
+static gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title);
 
 /* main function to find similar songs */
 static dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count);
 static strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count);
 static gboolean database_tryToAdd_artist(const gchar* l_artist);
 static gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count);
-static void tryToAdd_artists(fmList* l_list);
-static void tryToAdd_songs(fmList* l_list);
-static void tryToAdd_multiple_genre(fmList* l_list);
+static void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data);
+static void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data);
+static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data);
 static gboolean tryToAdd_genre(const gchar* l_genre);
 static gboolean tryToAdd_random();
-static void tryToAdd_select(status l_status);
+static void tryToAdd_select(status l_status, mpd_Song* l_song);
 static void findSimilar_easy();
-static void findSimilar(const mpd_Song* l_song);
+static void findSimilar(mpd_Song* l_song);
 static void prune_playlist(gint l_curPos, gint l_keep);
 static void prune_playlist_easy(gpointer l_data, const gchar* l_param);
 
