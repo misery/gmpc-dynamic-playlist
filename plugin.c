@@ -99,7 +99,13 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 
 	mpd_database_search_field_start(connection, MPD_TAG_ITEM_ARTIST);
 	if(l_artist != NULL)
-		mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_ARTIST, l_artist);
+	{
+		gchar** artist_split = g_strsplit(l_artist, " ", -1);
+		gint i;
+		for(i = 0; artist_split != NULL && artist_split[i] != NULL; ++i)
+			mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_ARTIST, artist_split[i]);
+		g_strfreev(artist_split);
+	}
 	if(l_genre != NULL)
 		mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_GENRE, l_genre);
 
@@ -121,11 +127,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 	g_assert(l_artist != NULL);
 
 	mpd_database_search_start(connection, FALSE);
-	gchar** artist_split = g_strsplit(l_artist, " ", -1);
-	gint i;
-	for(i = 0; artist_split != NULL && artist_split[i] != NULL; ++i)
-		mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_ARTIST, artist_split[i]);
-	g_strfreev(artist_split);
+	mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_ARTIST, l_artist);
 
 	gint count = 0;
 	MpdData* prev = NULL;
