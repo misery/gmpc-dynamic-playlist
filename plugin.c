@@ -22,6 +22,7 @@
 #include <gmpc/gmpc-easy-command.h>
 #include <libmpd/libmpd-internal.h>
 #include <glib.h>
+#include <glib/gi18n-lib.h>
 #include "plugin.h"
 
 extern GmpcEasyCommand* gmpc_easy_command;
@@ -238,7 +239,7 @@ static void tryToAdd_select(status l_status, mpd_Song* l_song)
 	}
 	else
 	{
-		playlist3_show_error_message("Dynamic playlist cannot find a new song", ERROR_INFO);
+		playlist3_show_error_message(_("Dynamic playlist cannot find a new song"), ERROR_INFO);
 		g_static_mutex_unlock(&m_mutex);
 	}
 }
@@ -380,14 +381,14 @@ void findSimilar_easy()
 {
 	if(!g_static_mutex_trylock(&m_mutex))
 	{
-		playlist3_show_error_message("Dynamic playlist already search for a song", ERROR_INFO);
+		playlist3_show_error_message(_("Dynamic playlist already search for a song"), ERROR_INFO);
 		return;
 	}
 
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 	if(curSong == NULL)
 	{
-		playlist3_show_error_message("You need to play a song that will be used", ERROR_INFO);
+		playlist3_show_error_message(_("You need to play a song that will be used"), ERROR_INFO);
 		g_static_mutex_unlock(&m_mutex);
 		return;
 	}
@@ -406,8 +407,8 @@ void findSimilar(mpd_Song* l_song)
 		tryToAdd_select(NotFound, l_song);
 	else
 	{
-		playlist3_show_error_message("Dynamic playlist cannot find a »similar« song "
-				"because current song has no useable artist or genre tag", ERROR_INFO);
+		playlist3_show_error_message(_("Dynamic playlist cannot find a similar song "
+				"because current song has no useable artist or genre tag"), ERROR_INFO);
 		tryToAdd_random();
 		g_static_mutex_unlock(&m_mutex);
 	}
@@ -432,7 +433,7 @@ void prune_playlist_easy(gpointer l_data, const gchar* l_param)
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 	if(curSong == NULL)
 	{
-		playlist3_show_error_message("Cannot prune playlist! There is no current song as position.", ERROR_INFO);
+		playlist3_show_error_message(_("Cannot prune playlist! There is no current song as position"), ERROR_INFO);
 		return;
 	}
 
@@ -464,6 +465,9 @@ void dyn_init()
 {
 	g_assert(m_rand == NULL);
 
+	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
 	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxSongs", 20);
@@ -475,14 +479,14 @@ void dyn_init()
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "same_genre", FALSE);
 	m_rand = g_rand_new();
 
-	gmpc_easy_command_add_entry(gmpc_easy_command, "prune", "[0-9]*",  "Prune playlist", (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, "dynlist", "(on|off|)",  "Dynamic playlist (on|off)", (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, "similar", "",  "Search for similar song/artist/genre", (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynlist"), _("(on|off|)"),  _("Dynamic playlist (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"), (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
 
 	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
 	{
 		m_enabled = FALSE;
-		playlist3_show_error_message("Dynamic playlist disabled because of too old mpd (< 0.12)'", ERROR_INFO);
+		playlist3_show_error_message(_("Dynamic playlist disabled because of too old mpd (< 0.12)'"), ERROR_INFO);
 	}
 	else
 		m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
@@ -528,12 +532,12 @@ void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
 {
-	m_menu_item = gtk_check_menu_item_new_with_label("Dynamic playlist");
+	m_menu_item = gtk_check_menu_item_new_with_label(_("Dynamic playlist"));
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), dyn_get_enabled());
 	g_signal_connect(G_OBJECT(m_menu_item), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
 
-	GtkWidget* similar_item = gtk_image_menu_item_new_with_label("Add similar song");
+	GtkWidget* similar_item = gtk_image_menu_item_new_with_label(_("Add similar song"));
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(similar_item), gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
 	g_signal_connect(G_OBJECT(similar_item), "activate", G_CALLBACK(findSimilar_easy), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), similar_item);
@@ -618,18 +622,18 @@ void pref_construct(GtkWidget* l_con)
 
 	/* last.fm label */
 	GtkWidget* label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(label), "<b>Last.FM options</b>");
+	gtk_label_set_markup(GTK_LABEL(label), _("<b>Last.FM options</b>"));
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
 
 	/* Search for similar songs */
-	GtkWidget* song_toggle = gtk_check_button_new_with_label("Search songs in »similar songs«");
+	GtkWidget* song_toggle = gtk_check_button_new_with_label(_("Search songs in 'similar songs'"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(song_toggle), m_similar_songs);
 	gtk_box_pack_start(GTK_BOX(vbox), song_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(song_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_song));
 
 	/* Search for max similar songs */
 	GtkWidget* song_hbox = gtk_hbox_new(FALSE, 5);
-	GtkWidget* song_label = gtk_label_new("Search max. songs in database:");
+	GtkWidget* song_label = gtk_label_new(_("Search max. songs in database:"));
 	GtkAdjustment* song_adj = (GtkAdjustment*) gtk_adjustment_new(m_similar_songs_max, 1.0, 200, 1.0, 5.0, 0.0);
 	GtkWidget* song_spin = gtk_spin_button_new(song_adj, 1.0, 0);
 	g_signal_connect(G_OBJECT(song_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_song_max));
@@ -639,14 +643,14 @@ void pref_construct(GtkWidget* l_con)
 	gtk_box_pack_start(GTK_BOX(vbox), song_hbox, FALSE, FALSE, 0);
 
 	/* Search for similar artists */
-	GtkWidget* artist_toggle = gtk_check_button_new_with_label("Search songs in »similar artists«");
+	GtkWidget* artist_toggle = gtk_check_button_new_with_label(_("Search songs in 'similar artists'"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(artist_toggle), m_similar_artists);
 	gtk_box_pack_start(GTK_BOX(vbox), artist_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(artist_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist));
 
 	/* Search for max similar artists */
 	GtkWidget* artist_hbox = gtk_hbox_new(FALSE, 5);
-	GtkWidget* artist_label = gtk_label_new("Search max. artists in database:");
+	GtkWidget* artist_label = gtk_label_new(_("Search max. artists in database:"));
 	GtkAdjustment* artist_adj = (GtkAdjustment*) gtk_adjustment_new(m_similar_artists_max, 1.0, 200, 1.0, 5.0, 0.0);
 	GtkWidget* artist_spin = gtk_spin_button_new(artist_adj, 1.0, 0);
 	g_signal_connect(G_OBJECT(artist_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_artist_max));
@@ -656,14 +660,14 @@ void pref_construct(GtkWidget* l_con)
 	gtk_box_pack_start(GTK_BOX(vbox), artist_hbox, FALSE, FALSE, 0);
 
 	/* Search for similar genre */
-	GtkWidget* genre_toggle = gtk_check_button_new_with_label("Search songs in »similar genre«");
+	GtkWidget* genre_toggle = gtk_check_button_new_with_label(_("Search songs in 'similar genre'"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(genre_toggle), m_similar_genre);
 	gtk_box_pack_start(GTK_BOX(vbox), genre_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(genre_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_genre));
 
 	/* Search for max similar genre */
 	GtkWidget* genre_hbox = gtk_hbox_new(FALSE, 5);
-	GtkWidget* genre_label = gtk_label_new("Search max. genre in database:");
+	GtkWidget* genre_label = gtk_label_new(_("Search max. genre in database:"));
 	GtkAdjustment* genre_adj = (GtkAdjustment*) gtk_adjustment_new(m_similar_genre_max, 1.0, 20, 1.0, 5.0, 0.0);
 	GtkWidget* genre_spin = gtk_spin_button_new(genre_adj, 1.0, 0);
 	g_signal_connect(G_OBJECT(genre_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_genre_max));
@@ -675,18 +679,18 @@ void pref_construct(GtkWidget* l_con)
 
 	/* other options label */
 	label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(label), "<b>Local options</b>");
+	gtk_label_set_markup(GTK_LABEL(label), _("<b>Local options</b>"));
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
 
 	/* Search in same genre */
-	GtkWidget* same_genre_toggle = gtk_check_button_new_with_label("Search songs in same genre");
+	GtkWidget* same_genre_toggle = gtk_check_button_new_with_label(_("Search songs in same genre"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(same_genre_toggle), m_same_genre);
 	gtk_box_pack_start(GTK_BOX(vbox), same_genre_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(same_genre_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(same_genre));
 
 	/* Prune Playlist - SpinButton */
 	GtkWidget* prune_hbox = gtk_hbox_new(FALSE, 5);
-	GtkWidget* prune_label = gtk_label_new("Keep x songs after current:");
+	GtkWidget* prune_label = gtk_label_new(_("Keep x songs after current:"));
 	GtkAdjustment* prune_adj = (GtkAdjustment*) gtk_adjustment_new(m_keep, -1.0, 100, 1.0, 5.0, 0.0);
 	GtkWidget* prune_spin = gtk_spin_button_new(prune_adj, 1.0, 0);
 	g_signal_connect(G_OBJECT(prune_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(prune));
@@ -697,7 +701,7 @@ void pref_construct(GtkWidget* l_con)
 
 	/* Block Songs - SpinButton */
 	GtkWidget* block_hbox = gtk_hbox_new(FALSE, 5);
-	GtkWidget* block_label = gtk_label_new("Block played song for at least x songs:");
+	GtkWidget* block_label = gtk_label_new(_("Block played song for at least x songs:"));
 	GtkAdjustment* block_adj = (GtkAdjustment*) gtk_adjustment_new(m_block, 0.0, 500, 1.0, 5.0, 0.0);
 	GtkWidget* block_spin = gtk_spin_button_new(block_adj, 1.0, 0);
 	g_signal_connect(G_OBJECT(block_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block));
@@ -714,6 +718,11 @@ void pref_construct(GtkWidget* l_con)
 	gtk_container_add(GTK_CONTAINER(l_con), frame);
 }
 
+static const gchar* dyn_get_translation_domain()
+{
+	return GETTEXT_PACKAGE;
+}
+
 gmpcPrefPlugin dyn_pref =
 {
 	.construct = pref_construct,
@@ -723,7 +732,7 @@ gmpcPrefPlugin dyn_pref =
 gint plugin_api_version = PLUGIN_API_VERSION;
 
 gmpcPlugin plugin = {
-	.name               = "Dynamic Playlist",
+	.name               = N_("Dynamic Playlist"),
 	.version            = {0,9,2},
 	.plugin_type        = GMPC_PLUGIN_NO_GUI,
 	.init               = dyn_init,
@@ -732,7 +741,8 @@ gmpcPlugin plugin = {
 	.pref               = &dyn_pref,
 	.get_enabled        = dyn_get_enabled,
 	.set_enabled        = dyn_set_enabled,
-	.tool_menu_integration = dyn_tool_menu_integration
+	.tool_menu_integration = dyn_tool_menu_integration,
+	.get_translation_domain = dyn_get_translation_domain
 };
 
 /* vim:set ts=4 sw=4: */
