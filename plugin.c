@@ -206,50 +206,87 @@ gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count)
 	return found;
 }
 
-static void tryToAdd_select(status l_status, mpd_Song* l_song)
+static status getNextStatus(status l_status)
+{
+	status ret = NotFound;
+
+	gint available[STATUS_COUNT];
+	gint count = 0;
+	gint i;
+	for(i = 1; i < STATUS_COUNT; ++i) /* index 0 is Found/NotFound */
+	{
+		if( !(1 << i & l_status) )
+			available[count++] = i;
+	}
+
+	if(count > 0)
+	{
+		ret = Found;
+		ret |= 1 << available[ g_rand_int_range(m_rand, 0, count) ];
+	}
+
+	return ret;
+}
+
+static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
 
 	if(l_status & Found)
+	{
 		g_static_mutex_unlock(&m_mutex);
-	else if(m_similar_songs && l_status != FromSong && l_status != FromArtist && l_status != FromGenre && l_song->artist != NULL && l_song->title != NULL)
-	{
-		g_debug("[dynlist] Try similar song...");
-		gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, NULL);
+		return;
 	}
-	else if(m_similar_artists && l_status != FromArtist && l_status != FromGenre && l_song->artist != NULL)
+
+	status next = getNextStatus(l_status);
+	if(next & Found)
 	{
-		g_debug("[dynlist] Try similar artist...");
-		gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, NULL);
-	}
-	else if(m_similar_genre && l_status != FromGenre && l_song->genre != NULL)
-	{
-		g_debug("[dynlist] Try similar genre...");
-		gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, NULL);
-	}
-	else if(m_same_genre && !m_similar_genre && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
-	{
-		g_debug("[dynlist] Added same genre song");
-		g_static_mutex_unlock(&m_mutex);
-	}
-	else if(tryToAdd_random())
-	{
-		g_debug("[dynlist] Added random song");
-		g_static_mutex_unlock(&m_mutex);
+		if(next & Song)
+		{
+			g_debug("[dynlist] Try similar song...");
+			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, GINT_TO_POINTER(l_status));
+		}
+		else if(next & Artist)
+		{
+			g_debug("[dynlist] Try similar artist...");
+			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, GINT_TO_POINTER(l_status));
+		}
+		else if(next & Genre)
+		{
+			g_debug("[dynlist] Try similar genre...");
+			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, GINT_TO_POINTER(l_status));
+		}
+		else
+			g_assert_not_reached();
 	}
 	else
 	{
-		playlist3_show_error_message(_("Dynamic playlist cannot find a new song"), ERROR_INFO);
-		g_static_mutex_unlock(&m_mutex);
+		if(m_same_genre && !(l_status & Genre) && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
+		{
+			g_debug("[dynlist] Added same genre song");
+			g_static_mutex_unlock(&m_mutex);
+		}
+		else if(tryToAdd_random())
+		{
+			g_debug("[dynlist] Added random song");
+			g_static_mutex_unlock(&m_mutex);
+		}
+		else
+		{
+			playlist3_show_error_message(_("Dynamic playlist cannot find a new song"), ERROR_INFO);
+			g_static_mutex_unlock(&m_mutex);
+		}
 	}
 }
 
-void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data)
+void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
 {
 	if(l_result == META_DATA_FETCHING)
 		return;
 
-	status ret = FromArtist;
+	status l_status = GPOINTER_TO_INT(l_last_status);
+	g_assert(!(l_status & Artist));
+	l_status |= Artist;
 	if(l_result == META_DATA_AVAILABLE)
 	{
 		g_assert(l_data != NULL && l_data->type == META_ARTIST_SIMILAR);
@@ -269,22 +306,24 @@ void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_dat
 			if(l_song->artist != NULL) // add one artist to artistList (mostly because 'same artist' is also 'similar')
 				artistList = database_get_artists(artistList, l_song->artist, NULL, &count);
 			if(database_tryToAdd_artists(&artistList, count))
-				ret |= Found;
+				l_status |= Found;
 		}
 
 		if(artistList != NULL)
 			free_strList(artistList);
 	}
 
-	tryToAdd_select(ret, l_song);
+	tryToAdd_select(l_status, l_song);
 }
 
-void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data)
+void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
 {
 	if(l_result == META_DATA_FETCHING)
 		return;
 
-	status ret = FromSong;
+	status l_status = GPOINTER_TO_INT(l_last_status);
+	g_assert(!(l_status & Song));
+	l_status |= Song;
 	if(l_result == META_DATA_AVAILABLE)
 	{
 		g_assert(l_data != NULL && l_data->type == META_SONG_SIMILAR);
@@ -319,19 +358,21 @@ void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data,
 			songList = g_list_delete_link(songList, songListIter);
 			if(songList != NULL)
 				free_dbList(songList);
-			ret |= Found;
+			l_status |= Found;
 		}
 	}
 
-	tryToAdd_select(ret, l_song);
+	tryToAdd_select(l_status, l_song);
 }
 
-void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data)
+void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
 {
 	if(l_result == META_DATA_FETCHING)
 		return;
 
-	status ret = FromGenre;
+	status l_status = (status) l_last_status;
+	g_assert(!(l_status & Genre));
+	l_status |= Genre;
 	if(l_result == META_DATA_AVAILABLE)
 	{
 		g_assert(l_data != NULL && l_data->type == META_GENRE_SIMILAR);
@@ -349,13 +390,13 @@ void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData
 		artistList = database_get_artists(artistList, NULL, l_song->genre, &count);
 
 		if(count > 0 && database_tryToAdd_artists(&artistList, count))
-				ret |= Found;
+				l_status |= Found;
 
 		if(artistList != NULL)
 			free_strList(artistList);
 	}
 
-	tryToAdd_select(ret, l_song);
+	tryToAdd_select(l_status, l_song);
 }
 
 gboolean tryToAdd_genre(const gchar* l_genre)
@@ -393,25 +434,24 @@ void findSimilar_easy()
 		return;
 	}
 
-	tryToAdd_select(NotFound, curSong);
+	findSimilar(curSong);
 }
 
 void findSimilar(mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
 
-	if(!g_static_mutex_trylock(&m_mutex))
-		return;
+	status start = NotFound;
+	if(!m_similar_songs || l_song->artist == NULL || l_song->title == NULL)
+		start |= Song;
 
-	if(l_song->artist != NULL || l_song->genre != NULL)
-		tryToAdd_select(NotFound, l_song);
-	else
-	{
-		playlist3_show_error_message(_("Dynamic playlist cannot find a similar song "
-				"because current song has no useable artist or genre tag"), ERROR_INFO);
-		tryToAdd_random();
-		g_static_mutex_unlock(&m_mutex);
-	}
+	if(!m_similar_artists || l_song->artist == NULL)
+		start |= Artist;
+
+	if(!m_similar_genre || l_song->genre == NULL)
+		start |= Genre;
+
+	tryToAdd_select(start, l_song);
 }
 
 void prune_playlist(gint l_curPos, gint l_keep)
@@ -453,7 +493,7 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 		{
 			const gint remains = mpd_playlist_get_playlist_length(connection) - curSong->pos - 1;
 
-			if(remains < 1)
+			if(remains < 1 && g_static_mutex_trylock(&m_mutex))
 				findSimilar(curSong);
 
 			prune_playlist(curSong->pos, m_keep);

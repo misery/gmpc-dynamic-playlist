@@ -3,13 +3,14 @@
 
 #include "dbSong.h"
 
+#define STATUS_COUNT 4
 typedef enum
 {
 	NotFound = 0 << 0,
 	Found = 1 << 0,
-	FromSong = 1 << 1,
-	FromArtist = 1 << 2,
-	FromGenre = 1 << 3
+	Song = 1 << 1,
+	Artist = 1 << 2,
+	Genre = 1 << 3
 } status;
 
 typedef enum
@@ -34,12 +35,13 @@ static dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const g
 static strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count);
 static gboolean database_tryToAdd_artist(const gchar* l_artist);
 static gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count);
-static void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data);
-static void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data);
-static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_user_data);
+static status getNextStatus(status l_status);
+static void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status);
+static void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status);
+static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status);
 static gboolean tryToAdd_genre(const gchar* l_genre);
 static gboolean tryToAdd_random();
-static void tryToAdd_select(status l_status, mpd_Song* l_song);
+static void tryToAdd_select(const status l_status, mpd_Song* l_song);
 static void findSimilar_easy();
 static void findSimilar(mpd_Song* l_song);
 static void prune_playlist(gint l_curPos, gint l_keep);
