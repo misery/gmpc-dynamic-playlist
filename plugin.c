@@ -491,12 +491,12 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 		mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 		if(curSong != NULL)
 		{
-			const gint remains = mpd_playlist_get_playlist_length(connection) - curSong->pos - 1;
-
+			const gint curPos = curSong->pos;
+			const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
 			if(remains < 1 && g_static_mutex_trylock(&m_mutex))
 				findSimilar(curSong);
 
-			prune_playlist(curSong->pos, m_keep);
+			prune_playlist(curPos, m_keep);
 		}
 	}
 }
