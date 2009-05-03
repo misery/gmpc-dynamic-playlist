@@ -19,11 +19,13 @@ typedef enum
 	similar_song_max = 1 << 1,
 	similar_artist = 1 << 2,
 	similar_artist_max = 1 << 3,
-	similar_genre = 1 << 4,
-	similar_genre_max = 1 << 5,
-	prune = 1 << 6,
-	block = 1 << 7,
-	same_genre = 1 << 8
+	similar_artist_same = 1 << 4,
+	similar_genre = 1 << 5,
+	similar_genre_max = 1 << 6,
+	similar_genre_same = 1 << 7,
+	prune = 1 << 8,
+	block = 1 << 9,
+	same_genre = 1 << 10
 } option;
 
 /* Queue function for m_lastSongs */

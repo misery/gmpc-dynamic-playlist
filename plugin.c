@@ -32,6 +32,8 @@ gint m_block = 0;
 gint m_similar_songs_max = 0;
 gint m_similar_artists_max = 0;
 gint m_similar_genre_max = 0;
+gint m_similar_artist_same = TRUE;
+gint m_similar_genre_same = TRUE;
 gboolean m_similar_songs = FALSE;
 gboolean m_similar_artists = FALSE;
 gboolean m_similar_genre = FALSE;
@@ -303,7 +305,7 @@ void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_dat
 
 		if(count > 0)
 		{
-			if(l_song->artist != NULL) // add one artist to artistList (mostly because 'same artist' is also 'similar')
+			if(l_song->artist != NULL && m_similar_artist_same) // add one artist to artistList (mostly because 'same artist' is also 'similar')
 				artistList = database_get_artists(artistList, l_song->artist, NULL, &count);
 			if(database_tryToAdd_artists(&artistList, count))
 				l_status |= Found;
@@ -386,8 +388,10 @@ void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData
 			const gchar* genre = (const gchar*) iter->data;
 			artistList = database_get_artists(artistList, NULL, genre, &count);
 		}
+
 		// add one genre to artistList (mostly because 'same genre' is also 'similar')
-		artistList = database_get_artists(artistList, NULL, l_song->genre, &count);
+		if(m_similar_genre_same)
+			artistList = database_get_artists(artistList, NULL, l_song->genre, &count);
 
 		if(count > 0 && database_tryToAdd_artists(&artistList, count))
 				l_status |= Found;
@@ -516,6 +520,8 @@ void dyn_init()
 	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_songs", FALSE);
 	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artists", FALSE);
 	m_similar_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre", FALSE);
+	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artist_same", TRUE);
+	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre_same", TRUE);
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "same_genre", FALSE);
 	m_rand = g_rand_new();
 
@@ -600,6 +606,11 @@ void pref_similar(GtkWidget* l_con, gpointer l_data)
 		m_similar_artists = value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_artists", m_similar_artists);
 	}
+	else if(type == similar_artist_same)
+	{
+		m_similar_artist_same = value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_artist_same", m_similar_artist_same);
+	}
 	else if(type == similar_song)
 	{
 		m_similar_songs = value;
@@ -609,6 +620,11 @@ void pref_similar(GtkWidget* l_con, gpointer l_data)
 	{
 		m_similar_genre = value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_genre", m_similar_genre);
+	}
+	else if(type == similar_genre_same)
+	{
+		m_similar_genre_same = value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_genre_same", m_similar_genre_same);
 	}
 	else if(type == same_genre)
 	{
@@ -688,6 +704,12 @@ void pref_construct(GtkWidget* l_con)
 	gtk_box_pack_start(GTK_BOX(vbox), artist_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(artist_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist));
 
+	/* Search for same similar artist */
+	GtkWidget* artist_same_toggle = gtk_check_button_new_with_label(_("Same artist is also 'similar'"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(artist_same_toggle), m_similar_artist_same);
+	gtk_box_pack_start(GTK_BOX(vbox), artist_same_toggle, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(artist_same_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist_same));
+
 	/* Search for max similar artists */
 	GtkWidget* artist_hbox = gtk_hbox_new(FALSE, 5);
 	GtkWidget* artist_label = gtk_label_new(_("Search max. artists in database:"));
@@ -704,6 +726,12 @@ void pref_construct(GtkWidget* l_con)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(genre_toggle), m_similar_genre);
 	gtk_box_pack_start(GTK_BOX(vbox), genre_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(genre_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_genre));
+
+	/* Search for same similar genre */
+	GtkWidget* genre_same_toggle = gtk_check_button_new_with_label(_("Same genre is also 'similar'"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(genre_same_toggle), m_similar_genre_same);
+	gtk_box_pack_start(GTK_BOX(vbox), genre_same_toggle, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(genre_same_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_genre_same));
 
 	/* Search for max similar genre */
 	GtkWidget* genre_hbox = gtk_hbox_new(FALSE, 5);
