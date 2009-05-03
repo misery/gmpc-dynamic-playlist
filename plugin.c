@@ -261,7 +261,7 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	}
 	else
 	{
-		if(m_same_genre && !(l_status & Genre) && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
+		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
 		{
 			g_debug("[dynlist] Added same genre song");
 			g_static_mutex_unlock(&m_mutex);
