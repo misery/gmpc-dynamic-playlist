@@ -210,7 +210,7 @@ static status getNextStatus(status l_status)
 {
 	status ret = NotFound;
 
-	gint available[STATUS_COUNT];
+	gint available[STATUS_COUNT-1];
 	gint count = 0;
 	gint i;
 	for(i = 1; i < STATUS_COUNT; ++i) /* index 0 is Found/NotFound */
