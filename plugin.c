@@ -678,7 +678,7 @@ void pref_construct(GtkWidget* l_con)
 
 	/* last.fm label */
 	GtkWidget* label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(label), _("<b>Last.FM options</b>"));
+	gtk_label_set_markup(GTK_LABEL(label), _("<b>Meta-Data options</b>"));
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
 
 	/* Search for similar songs */
