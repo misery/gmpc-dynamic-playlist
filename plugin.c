@@ -67,12 +67,12 @@ gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title)
 			dbSong* song = (dbSong*) iter->data;
 			if(i < m_block_artist && strcasecmp(song->artist, l_artist) == 0)
 			{
-				g_debug("[dynlist] Artist blocked: %s", l_artist);
+				g_log("dynlist", G_LOG_LEVEL_DEBUG, "Artist blocked: %s", l_artist);
 				return TRUE;
 			}
 			if(i < m_block_song && l_title != NULL && strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
 			{
-				g_debug("[dynlist] Song blocked: %s::%s", l_artist, l_title);
+				g_log("dynlist", G_LOG_LEVEL_DEBUG, "Song blocked: %s::%s", l_artist, l_title);
 				return TRUE;
 			}
 		}
@@ -262,17 +262,17 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	{
 		if(next & Song)
 		{
-			g_debug("[dynlist] Try similar song...");
+			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Try similar song...");
 			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, GINT_TO_POINTER(l_status));
 		}
 		else if(next & Artist)
 		{
-			g_debug("[dynlist] Try similar artist...");
+			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Try similar artist...");
 			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, GINT_TO_POINTER(l_status));
 		}
 		else if(next & Genre)
 		{
-			g_debug("[dynlist] Try similar genre...");
+			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Try similar genre...");
 			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, GINT_TO_POINTER(l_status));
 		}
 		else
@@ -282,12 +282,12 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	{
 		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
 		{
-			g_debug("[dynlist] Added same genre song");
+			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Added same genre song");
 			g_static_mutex_unlock(&m_mutex);
 		}
 		else if(tryToAdd_random())
 		{
-			g_debug("[dynlist] Added random song");
+			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Added random song");
 			g_static_mutex_unlock(&m_mutex);
 		}
 		else
