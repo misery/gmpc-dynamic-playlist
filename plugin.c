@@ -551,14 +551,6 @@ void dyn_init()
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), _("(on|off|)"),  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"), (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
-
-	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
-	{
-		m_enabled = FALSE;
-		playlist3_show_error_message(_("Dynamic playlist disabled because of too old mpd (< 0.12)'"), ERROR_INFO);
-	}
-	else
-		m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
 }
 
 void dyn_destroy()
