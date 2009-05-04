@@ -576,8 +576,8 @@ void dyn_set_enabled(gint l_enabled)
 
 void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
 {
-	gboolean active = gtk_check_menu_item_get_active(l_menu_item);
-	pref_similar_set(similar_search, active);
+	m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
+	cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_search", m_enabled_search);
 }
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
@@ -644,6 +644,7 @@ void pref_similar_set(option l_type, gint l_value)
 	{
 		m_enabled_search = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_search", m_enabled_search);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled_search);
 	}
 	else
 		g_assert_not_reached();
