@@ -25,7 +25,8 @@ typedef enum
 	similar_genre_same = 1 << 7,
 	prune = 1 << 8,
 	block = 1 << 9,
-	same_genre = 1 << 10
+	same_genre = 1 << 10,
+	similar_search = 1 << 11
 } option;
 
 /* Queue function for m_lastSongs */
@@ -62,7 +63,9 @@ static int dyn_tool_menu_integration(GtkMenu* l_menu);
 /* preferences */
 void pref_destroy(GtkWidget* l_con);
 void pref_similar(GtkWidget* l_con, gpointer l_data);
+void pref_similar_set(option l_type, gint l_value);
 void pref_spins(GtkSpinButton* l_widget, gpointer l_data);
+void pref_spins_set(option l_type, gint l_value);
 void pref_construct(GtkWidget* l_con);
 
 #endif

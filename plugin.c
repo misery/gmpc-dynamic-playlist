@@ -39,6 +39,7 @@ gboolean m_similar_artists = FALSE;
 gboolean m_similar_genre = FALSE;
 gboolean m_same_genre = FALSE;
 gboolean m_enabled = FALSE;
+gboolean m_enabled_search = TRUE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
@@ -496,9 +497,12 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 		if(curSong != NULL)
 		{
 			const gint curPos = curSong->pos;
-			const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
-			if(remains < 1 && g_static_mutex_trylock(&m_mutex))
-				findSimilar(curSong);
+			if(m_enabled_search)
+			{
+				const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
+				if(remains < 1 && g_static_mutex_trylock(&m_mutex))
+					findSimilar(curSong);
+			}
 
 			prune_playlist(curPos, m_keep);
 		}
@@ -523,10 +527,11 @@ void dyn_init()
 	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artist_same", TRUE);
 	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre_same", TRUE);
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "same_genre", FALSE);
+	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_search", TRUE);
 	m_rand = g_rand_new();
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynlist"), _("(on|off|)"),  _("Dynamic playlist (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), _("(on|off|)"),  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"), (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
 
 	if(mpd_check_connected(connection) && !mpd_server_check_version(connection, 0, 12, 0))
@@ -549,11 +554,11 @@ void dyn_destroy()
 void dyn_enable_easy(gpointer l_data, const gchar* l_param)
 {
 	if(g_str_has_prefix(l_param, "on"))
-		dyn_set_enabled(TRUE);
+		pref_similar_set(similar_search, TRUE);
 	else if(g_str_has_prefix(l_param, "off"))
-		dyn_set_enabled(FALSE);
+		pref_similar_set(similar_search, FALSE);
 	else
-		dyn_set_enabled(!m_enabled);
+		pref_similar_set(similar_search, !m_enabled_search);
 }
 
 gint dyn_get_enabled()
@@ -567,19 +572,18 @@ void dyn_set_enabled(gint l_enabled)
 
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled);
 }
 
 void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
 {
 	gboolean active = gtk_check_menu_item_get_active(l_menu_item);
-	dyn_set_enabled(active);
+	pref_similar_set(similar_search, active);
 }
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
 {
-	m_menu_item = gtk_check_menu_item_new_with_label(_("Dynamic playlist"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), dyn_get_enabled());
+	m_menu_item = gtk_check_menu_item_new_with_label(_("Dynamic search"));
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled_search);
 	g_signal_connect(G_OBJECT(m_menu_item), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
 
@@ -601,35 +605,45 @@ void pref_similar(GtkWidget* l_con, gpointer l_data)
 {
 	option type = (option) GPOINTER_TO_INT(l_data);
 	gint value = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(l_con));
-	if(type == similar_artist)
+	pref_similar_set(type, value);
+}
+
+void pref_similar_set(option l_type, gint l_value)
+{
+	if(l_type == similar_artist)
 	{
-		m_similar_artists = value;
+		m_similar_artists = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_artists", m_similar_artists);
 	}
-	else if(type == similar_artist_same)
+	else if(l_type == similar_artist_same)
 	{
-		m_similar_artist_same = value;
+		m_similar_artist_same = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_artist_same", m_similar_artist_same);
 	}
-	else if(type == similar_song)
+	else if(l_type == similar_song)
 	{
-		m_similar_songs = value;
+		m_similar_songs = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_songs", m_similar_songs);
 	}
-	else if(type == similar_genre)
+	else if(l_type == similar_genre)
 	{
-		m_similar_genre = value;
+		m_similar_genre = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_genre", m_similar_genre);
 	}
-	else if(type == similar_genre_same)
+	else if(l_type == similar_genre_same)
 	{
-		m_similar_genre_same = value;
+		m_similar_genre_same = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_genre_same", m_similar_genre_same);
 	}
-	else if(type == same_genre)
+	else if(l_type == same_genre)
 	{
-		m_same_genre = value;
+		m_same_genre = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "same_genre", m_same_genre);
+	}
+	else if(l_type == similar_search)
+	{
+		m_enabled_search = l_value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_search", m_enabled_search);
 	}
 	else
 		g_assert_not_reached();
@@ -637,31 +651,36 @@ void pref_similar(GtkWidget* l_con, gpointer l_data)
 
 void pref_spins(GtkSpinButton* l_widget, gpointer l_data)
 {
-	option spin = (option) GPOINTER_TO_INT(l_data);
+	option type = (option) GPOINTER_TO_INT(l_data);
 	gint value = gtk_spin_button_get_value_as_int(l_widget);
-	if(spin == prune)
+	pref_spins_set(type, value);
+}
+
+void pref_spins_set(option l_type, gint l_value)
+{
+	if(l_type == prune)
 	{
-		m_keep = value;
+		m_keep = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "keep", m_keep);
 	}
-	else if(spin == block)
+	else if(l_type == block)
 	{
-		m_block = value;
+		m_block = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block", m_block);
 	}
-	else if(spin == similar_song_max)
+	else if(l_type == similar_song_max)
 	{
-		m_similar_songs_max = value;
+		m_similar_songs_max = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxSongs", m_similar_songs_max);
 	}
-	else if(spin == similar_artist_max)
+	else if(l_type == similar_artist_max)
 	{
-		m_similar_artists_max = value;
+		m_similar_artists_max = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxArtists", m_similar_artists_max);
 	}
-	else if(spin == similar_genre_max)
+	else if(l_type == similar_genre_max)
 	{
-		m_similar_genre_max = value;
+		m_similar_genre_max = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxGenres", m_similar_genre_max);
 	}
 	else
@@ -749,6 +768,12 @@ void pref_construct(GtkWidget* l_con)
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<b>Local options</b>"));
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 0);
+
+	/* Enable similar/dynamic search */
+	GtkWidget* similar_search_toggle = gtk_check_button_new_with_label(_("Enable dynamic search"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(similar_search_toggle), m_enabled_search);
+	gtk_box_pack_start(GTK_BOX(vbox), similar_search_toggle, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(similar_search_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_search));
 
 	/* Search in same genre */
 	GtkWidget* same_genre_toggle = gtk_check_button_new_with_label(_("Search songs in same genre"));
