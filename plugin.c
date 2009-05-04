@@ -28,7 +28,8 @@
 extern GmpcEasyCommand* gmpc_easy_command;
 
 gint m_keep = -1;
-gint m_block = 0;
+gint m_block_song = 0;
+gint m_block_artist = 0;
 gint m_similar_songs_max = 0;
 gint m_similar_artists_max = 0;
 gint m_similar_genre_max = 0;
@@ -44,30 +45,45 @@ dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
 GtkWidget* m_menu_item = NULL;
+GtkWidget* m_artist_same_toggle = NULL;
 
 void add_lastSongs(dbSong* l_song)
 {
 	g_queue_push_head(&m_lastSongs, l_song);
-	if(g_queue_get_length(&m_lastSongs) > m_block)
+	if(g_queue_get_length(&m_lastSongs) > MAX(m_block_song, m_block_artist))
 		free_dbSong( (dbSong*) g_queue_pop_tail(&m_lastSongs) );
 }
 
 gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title)
 {
-	g_assert(l_artist != NULL && l_title != NULL);
+	g_assert(l_artist != NULL);
 
 	if(!g_queue_is_empty(&m_lastSongs))
 	{
 		dbList* iter = g_queue_peek_head_link(&m_lastSongs);
-		for(; iter != NULL; iter = g_list_next(iter))
+		gint i;
+		for(i = 0; iter != NULL; iter = g_list_next(iter), ++i)
 		{
 			dbSong* song = (dbSong*) iter->data;
-			if(strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
+			if(i < m_block_artist && strcasecmp(song->artist, l_artist) == 0)
+			{
+				g_debug("[dynlist] Artist blocked: %s", l_artist);
 				return TRUE;
+			}
+			if(i < m_block_song && l_title != NULL && strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
+			{
+				g_debug("[dynlist] Song blocked: %s::%s", l_artist, l_title);
+				return TRUE;
+			}
 		}
 	}
 
 	return FALSE;
+}
+
+gboolean exists_lastArtists(const gchar* l_artist)
+{
+	return exists_lastSongs(l_artist, NULL);
 }
 
 dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count)
@@ -116,7 +132,7 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST)
+		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST && !exists_lastArtists(data->tag))
 		{
 			l_list = new_strListItem(l_list, data->tag);
 			++(*l_out_count);
@@ -306,7 +322,8 @@ void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_dat
 
 		if(count > 0)
 		{
-			if(l_song->artist != NULL && m_similar_artist_same) // add one artist to artistList (mostly because 'same artist' is also 'similar')
+			// add one artist to artistList (mostly because 'same artist' is also 'similar')
+			if(l_song->artist != NULL && m_similar_artist_same && !m_block_artist)
 				artistList = database_get_artists(artistList, l_song->artist, NULL, &count);
 			if(database_tryToAdd_artists(&artistList, count))
 				l_status |= Found;
@@ -517,7 +534,8 @@ void dyn_init()
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
-	m_block = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
+	m_block_song = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
+	m_block_artist = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block_artist", 0);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxSongs", 20);
 	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxArtists", 30);
 	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxGenres", 20);
@@ -664,10 +682,17 @@ void pref_spins_set(option l_type, gint l_value)
 		m_keep = l_value;
 		cfg_set_single_value_as_int(config, "dynlist-lastfm", "keep", m_keep);
 	}
-	else if(l_type == block)
+	else if(l_type == block_song)
 	{
-		m_block = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block", m_block);
+		m_block_song = l_value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block", m_block_song);
+	}
+	else if(l_type == block_artist)
+	{
+		m_block_artist = l_value;
+		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block_artist", m_block_artist);
+		if(m_artist_same_toggle != NULL)
+			gtk_widget_set_sensitive(m_artist_same_toggle, !m_block_artist);
 	}
 	else if(l_type == similar_song_max)
 	{
@@ -725,10 +750,11 @@ void pref_construct(GtkWidget* l_con)
 	g_signal_connect(G_OBJECT(artist_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist));
 
 	/* Search for same similar artist */
-	GtkWidget* artist_same_toggle = gtk_check_button_new_with_label(_("Same artist is also 'similar'"));
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(artist_same_toggle), m_similar_artist_same);
-	gtk_box_pack_start(GTK_BOX(vbox), artist_same_toggle, FALSE, FALSE, 0);
-	g_signal_connect(G_OBJECT(artist_same_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist_same));
+	m_artist_same_toggle = gtk_check_button_new_with_label(_("Same artist is also 'similar'"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_artist_same_toggle), m_similar_artist_same);
+	gtk_widget_set_sensitive(m_artist_same_toggle, !m_block_artist);
+	gtk_box_pack_start(GTK_BOX(vbox), m_artist_same_toggle, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(m_artist_same_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist_same));
 
 	/* Search for max similar artists */
 	GtkWidget* artist_hbox = gtk_hbox_new(FALSE, 5);
@@ -796,13 +822,24 @@ void pref_construct(GtkWidget* l_con)
 	/* Block Songs - SpinButton */
 	GtkWidget* block_hbox = gtk_hbox_new(FALSE, 5);
 	GtkWidget* block_label = gtk_label_new(_("Block played song for at least x songs:"));
-	GtkAdjustment* block_adj = (GtkAdjustment*) gtk_adjustment_new(m_block, 0.0, 500, 1.0, 5.0, 0.0);
+	GtkAdjustment* block_adj = (GtkAdjustment*) gtk_adjustment_new(m_block_song, 0.0, 500, 1.0, 5.0, 0.0);
 	GtkWidget* block_spin = gtk_spin_button_new(block_adj, 1.0, 0);
-	g_signal_connect(G_OBJECT(block_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block));
+	g_signal_connect(G_OBJECT(block_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block_song));
 
 	gtk_box_pack_start(GTK_BOX(block_hbox), block_label, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(block_hbox), block_spin, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), block_hbox, FALSE, FALSE, 0);
+
+	/* Block Artists - SpinButton */
+	GtkWidget* block_artist_hbox = gtk_hbox_new(FALSE, 5);
+	GtkWidget* block_artist_label = gtk_label_new(_("Block played artist for at least x songs:"));
+	GtkAdjustment* block_artist_adj = (GtkAdjustment*) gtk_adjustment_new(m_block_artist, 0.0, 100, 1.0, 5.0, 0.0);
+	GtkWidget* block_artist_spin = gtk_spin_button_new(block_artist_adj, 1.0, 0);
+	g_signal_connect(G_OBJECT(block_artist_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block_artist));
+
+	gtk_box_pack_start(GTK_BOX(block_artist_hbox), block_artist_label, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(block_artist_hbox), block_artist_spin, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), block_artist_hbox, FALSE, FALSE, 0);
 
 
 	if(!dyn_get_enabled())

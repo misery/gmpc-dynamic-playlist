@@ -24,14 +24,16 @@ typedef enum
 	similar_genre_max = 1 << 6,
 	similar_genre_same = 1 << 7,
 	prune = 1 << 8,
-	block = 1 << 9,
-	same_genre = 1 << 10,
-	similar_search = 1 << 11
+	block_song = 1 << 9,
+	block_artist = 1 << 10,
+	same_genre = 1 << 11,
+	similar_search = 1 << 12
 } option;
 
 /* Queue function for m_lastSongs */
 static void add_lastSongs(dbSong* l_song);
 static gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title);
+static gboolean exists_lastArtists(const gchar* l_artist);
 
 /* main function to find similar songs */
 static dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count);
