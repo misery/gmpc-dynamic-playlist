@@ -546,6 +546,7 @@ void dyn_init()
 	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre_same", TRUE);
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "same_genre", FALSE);
 	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_search", TRUE);
+	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynlist-playlist", "enable", TRUE);
 	m_rand = g_rand_new();
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
