@@ -1,7 +1,7 @@
 /* gmpc-dynamic-playlist (GMPC plugin)
  * Copyright (C) 2009 Andre Klitzing <andre@incubo.de>
  * Homepage: http://www.incubo.de
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -533,20 +533,20 @@ void dyn_init()
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 
-	m_keep = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "keep", -1);
-	m_block_song = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block", 100);
-	m_block_artist = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "block_artist", 0);
-	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxSongs", 20);
-	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxArtists", 30);
-	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "maxGenres", 20);
-	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_songs", FALSE);
-	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artists", FALSE);
-	m_similar_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre", FALSE);
-	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_artist_same", TRUE);
-	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_genre_same", TRUE);
-	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "same_genre", FALSE);
-	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynlist-lastfm", "similar_search", TRUE);
-	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynlist-playlist", "enable", TRUE);
+	m_keep = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "keep", -1);
+	m_block_song = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block", 100);
+	m_block_artist = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block_artist", 0);
+	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxSongs", 20);
+	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxArtists", 30);
+	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxGenres", 20);
+	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_songs", FALSE);
+	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_artists", FALSE);
+	m_similar_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre", FALSE);
+	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_artist_same", TRUE);
+	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre_same", TRUE);
+	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "same_genre", FALSE);
+	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", TRUE);
+	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
 	m_rand = g_rand_new();
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
@@ -588,7 +588,7 @@ void dyn_set_enabled(gint l_enabled)
 void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
 {
 	m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
-	cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_search", m_enabled_search);
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 }
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
@@ -624,37 +624,37 @@ void pref_similar_set(option l_type, gint l_value)
 	if(l_type == similar_artist)
 	{
 		m_similar_artists = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_artists", m_similar_artists);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_artists", m_similar_artists);
 	}
 	else if(l_type == similar_artist_same)
 	{
 		m_similar_artist_same = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_artist_same", m_similar_artist_same);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_artist_same", m_similar_artist_same);
 	}
 	else if(l_type == similar_song)
 	{
 		m_similar_songs = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_songs", m_similar_songs);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_songs", m_similar_songs);
 	}
 	else if(l_type == similar_genre)
 	{
 		m_similar_genre = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_genre", m_similar_genre);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_genre", m_similar_genre);
 	}
 	else if(l_type == similar_genre_same)
 	{
 		m_similar_genre_same = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_genre_same", m_similar_genre_same);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_genre_same", m_similar_genre_same);
 	}
 	else if(l_type == same_genre)
 	{
 		m_same_genre = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "same_genre", m_same_genre);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "same_genre", m_same_genre);
 	}
 	else if(l_type == similar_search)
 	{
 		m_enabled_search = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "similar_search", m_enabled_search);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled_search);
 	}
 	else
@@ -673,34 +673,34 @@ void pref_spins_set(option l_type, gint l_value)
 	if(l_type == prune)
 	{
 		m_keep = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "keep", m_keep);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "keep", m_keep);
 	}
 	else if(l_type == block_song)
 	{
 		m_block_song = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block", m_block_song);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "block", m_block_song);
 	}
 	else if(l_type == block_artist)
 	{
 		m_block_artist = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "block_artist", m_block_artist);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "block_artist", m_block_artist);
 		if(m_artist_same_toggle != NULL)
 			gtk_widget_set_sensitive(m_artist_same_toggle, !m_block_artist);
 	}
 	else if(l_type == similar_song_max)
 	{
 		m_similar_songs_max = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxSongs", m_similar_songs_max);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxSongs", m_similar_songs_max);
 	}
 	else if(l_type == similar_artist_max)
 	{
 		m_similar_artists_max = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxArtists", m_similar_artists_max);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxArtists", m_similar_artists_max);
 	}
 	else if(l_type == similar_genre_max)
 	{
 		m_similar_genre_max = l_value;
-		cfg_set_single_value_as_int(config, "dynlist-lastfm", "maxGenres", m_similar_genre_max);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxGenres", m_similar_genre_max);
 	}
 	else
 		g_assert_not_reached();
