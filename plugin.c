@@ -292,7 +292,7 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 		}
 		else
 		{
-			playlist3_show_error_message(_("Dynamic playlist cannot find a new song"), ERROR_INFO);
+			playlist3_show_error_message(_("Dynamic search cannot find a new song"), ERROR_INFO);
 			g_static_mutex_unlock(&m_mutex);
 		}
 	}
@@ -444,7 +444,7 @@ void findSimilar_easy()
 {
 	if(!g_static_mutex_trylock(&m_mutex))
 	{
-		playlist3_show_error_message(_("Dynamic playlist already search for a song"), ERROR_INFO);
+		playlist3_show_error_message(_("Dynamic search is already busy"), ERROR_INFO);
 		return;
 	}
 
