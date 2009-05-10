@@ -550,7 +550,7 @@ void dyn_init()
 	m_rand = g_rand_new();
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), _("(on|off|)"),  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
+	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), "(on|off|)",  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"), (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
 }
 
