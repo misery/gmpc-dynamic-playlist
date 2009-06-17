@@ -39,8 +39,8 @@ gboolean m_similar_songs = FALSE;
 gboolean m_similar_artists = FALSE;
 gboolean m_similar_genre = FALSE;
 gboolean m_same_genre = FALSE;
-gboolean m_enabled = FALSE;
-gboolean m_enabled_search = TRUE;
+gboolean m_enabled = TRUE;
+gboolean m_enabled_search = FALSE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
@@ -547,7 +547,7 @@ void dyn_init()
 	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_artist_same", TRUE);
 	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre_same", TRUE);
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "same_genre", FALSE);
-	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", TRUE);
+	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
 	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
 	m_rand = g_rand_new();
 
