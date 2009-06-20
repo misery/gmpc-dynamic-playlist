@@ -52,7 +52,16 @@ void add_lastSongs(dbSong* l_song)
 	g_assert(l_song != NULL);
 
 	g_queue_push_head(&m_lastSongs, l_song);
-	if(g_queue_get_length(&m_lastSongs) > MAX(m_block_song, m_block_artist))
+	flush_lastSongs( MAX(m_block_song, m_block_artist) );
+}
+
+void flush_lastSongs(gint l_max)
+{
+	g_assert(l_max > 0);
+
+	const gint max = g_queue_get_length(&m_lastSongs) - l_max;
+	gint i;
+	for(i = 0; i < max; ++i)
 		free_dbSong( (dbSong*) g_queue_pop_tail(&m_lastSongs) );
 }
 

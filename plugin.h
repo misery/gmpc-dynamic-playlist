@@ -32,6 +32,7 @@ typedef enum
 
 /* Queue function for m_lastSongs */
 static void add_lastSongs(dbSong* l_song);
+static void flush_lastSongs(gint l_max);
 static gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title);
 static gboolean exists_lastArtists(const gchar* l_artist);
 
