@@ -78,12 +78,12 @@ gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title)
 			dbSong* song = (dbSong*) iter->data;
 			if(i < m_block_artist && strcasecmp(song->artist, l_artist) == 0)
 			{
-				g_log("dynlist", G_LOG_LEVEL_DEBUG, "Artist blocked: %s", l_artist);
+				g_debug("Artist blocked: %s", l_artist);
 				return TRUE;
 			}
 			if(i < m_block_song && l_title != NULL && strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
 			{
-				g_log("dynlist", G_LOG_LEVEL_DEBUG, "Song blocked: %s::%s", l_artist, l_title);
+				g_debug("Song blocked: %s::%s", l_artist, l_title);
 				return TRUE;
 			}
 		}
@@ -264,7 +264,7 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 
 	if(l_status & Found)
 	{
-		g_log("dynlist", G_LOG_LEVEL_DEBUG, "Song added");
+		g_debug("Song added");
 		g_static_mutex_unlock(&m_mutex);
 		return;
 	}
@@ -274,17 +274,17 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	{
 		if(next & Song)
 		{
-			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Try similar song... %s - %s", l_song->artist, l_song->title);
+			g_debug("Try similar song... %s - %s", l_song->artist, l_song->title);
 			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, GINT_TO_POINTER(l_status));
 		}
 		else if(next & Artist)
 		{
-			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Try similar artist... %s", l_song->artist);
+			g_debug("Try similar artist... %s", l_song->artist);
 			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, GINT_TO_POINTER(l_status));
 		}
 		else if(next & Genre)
 		{
-			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Try similar genre... %s", l_song->genre);
+			g_debug("Try similar genre... %s", l_song->genre);
 			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, GINT_TO_POINTER(l_status));
 		}
 		else
@@ -294,18 +294,18 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	{
 		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
 		{
-			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Added same genre song... %s", l_song->genre);
+			g_debug("Added same genre song... %s", l_song->genre);
 			g_static_mutex_unlock(&m_mutex);
 		}
 		else if(tryToAdd_random())
 		{
-			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Added random song");
+			g_debug("Added random song");
 			g_static_mutex_unlock(&m_mutex);
 		}
 		else
 		{
 			playlist3_show_error_message(_("Dynamic search cannot find a new song"), ERROR_INFO);
-			g_log("dynlist", G_LOG_LEVEL_DEBUG, "Cannot find a new song");
+			g_debug("Cannot find a new song");
 			g_static_mutex_unlock(&m_mutex);
 		}
 	}
