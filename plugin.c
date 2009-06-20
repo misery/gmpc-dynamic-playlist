@@ -57,7 +57,7 @@ void add_lastSongs(dbSong* l_song)
 
 void flush_lastSongs(gint l_max)
 {
-	g_assert(l_max > 0);
+	g_assert(l_max >= 0);
 
 	const gint max = g_queue_get_length(&m_lastSongs) - l_max;
 	gint i;
