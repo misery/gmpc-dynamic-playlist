@@ -49,6 +49,8 @@ GtkWidget* m_artist_same_toggle = NULL;
 
 void add_lastSongs(dbSong* l_song)
 {
+	g_assert(l_song != NULL);
+
 	g_queue_push_head(&m_lastSongs, l_song);
 	if(g_queue_get_length(&m_lastSongs) > MAX(m_block_song, m_block_artist))
 		free_dbSong( (dbSong*) g_queue_pop_tail(&m_lastSongs) );
