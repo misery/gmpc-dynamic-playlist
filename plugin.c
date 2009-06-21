@@ -44,7 +44,13 @@ gboolean m_enabled_search = FALSE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
+
+/* Menu */
 GtkWidget* m_menu_item = NULL;
+GtkWidget* m_menu = NULL;
+GtkWidget* m_menu_search = NULL;
+
+/* Option Dialog */
 GtkWidget* m_artist_same_toggle = NULL;
 
 void add_lastSongs(dbSong* l_song)
@@ -455,6 +461,12 @@ gboolean tryToAdd_random()
 
 void findSimilar_easy()
 {
+	if(!m_enabled)
+	{
+		playlist3_show_error_message(_("Dynamic playlist is disabled"), ERROR_INFO);
+		return;
+	}
+
 	if(!g_static_mutex_trylock(&m_mutex))
 	{
 		playlist3_show_error_message(_("Dynamic search is already busy"), ERROR_INFO);
@@ -504,6 +516,12 @@ void prune_playlist(gint l_curPos, gint l_keep)
 void prune_playlist_easy(gpointer l_data, const gchar* l_param)
 {
 	g_assert(l_param != NULL);
+
+	if(!m_enabled)
+	{
+		playlist3_show_error_message(_("Dynamic playlist is disabled"), ERROR_INFO);
+		return;
+	}
 
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 	if(curSong == NULL)
@@ -596,6 +614,7 @@ void dyn_set_enabled(gint l_enabled)
 
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
+	gtk_widget_set_sensitive(m_menu_item, m_enabled);
 }
 
 void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
@@ -606,15 +625,22 @@ void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
 {
-	m_menu_item = gtk_check_menu_item_new_with_label(_("Dynamic search"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled_search);
-	g_signal_connect(G_OBJECT(m_menu_item), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
+	m_menu_item = gtk_image_menu_item_new_with_label(_("Dynamic Playlist"));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(m_menu_item), gtk_image_new_from_stock(GTK_STOCK_INDEX, GTK_ICON_SIZE_MENU));
+	m_menu = gtk_menu_new();
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(m_menu_item), m_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
+	gtk_widget_set_sensitive(m_menu_item, m_enabled);
 
-	GtkWidget* similar_item = gtk_image_menu_item_new_with_label(_("Add similar song"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(similar_item), gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
-	g_signal_connect(G_OBJECT(similar_item), "activate", G_CALLBACK(findSimilar_easy), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), similar_item);
+	m_menu_search = gtk_check_menu_item_new_with_label(_("Dynamic search"));
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
+	g_signal_connect(G_OBJECT(m_menu_search), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
+	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_search);
+
+	GtkWidget* menu_add_song = gtk_image_menu_item_new_with_label(_("Add similar song"));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_add_song), gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
+	g_signal_connect(G_OBJECT(menu_add_song), "activate", G_CALLBACK(findSimilar_easy), NULL);
+	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), menu_add_song);
 	return 1;
 }
 
@@ -668,7 +694,7 @@ void pref_similar_set(option l_type, gint l_value)
 	{
 		m_enabled_search = l_value;
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_item), m_enabled_search);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
 	}
 	else
 		g_assert_not_reached();
