@@ -1,7 +1,7 @@
 /* gmpc-dynamic-playlist (GMPC plugin)
  * Copyright (C) 2009 Andre Klitzing <andre@incubo.de>
  * Homepage: http://www.incubo.de
- 
+
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or

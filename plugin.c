@@ -24,6 +24,7 @@
 #include <glib.h>
 #include <glib/gi18n-lib.h>
 #include "plugin.h"
+#include "blacklist.h"
 
 extern GmpcEasyCommand* gmpc_easy_command;
 
@@ -119,6 +120,8 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
 		if(data->type == MPD_DATA_TYPE_SONG && data->song->artist != NULL && data->song->title != NULL
+			&& (data->song->genre == NULL || !is_blacklisted_genre(data->song->genre))
+			&& !is_blacklisted_artist(data->song->artist)
 			&& !exists_lastSongs(data->song->artist, data->song->title))
 		{
 			dbSong* song = new_dbSong(data->song->artist, data->song->title, data->song->file);
@@ -149,7 +152,8 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST && !exists_lastArtists(data->tag))
+		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST &&
+				!is_blacklisted_artist(data->tag) && !exists_lastArtists(data->tag))
 		{
 			l_list = new_strListItem(l_list, data->tag);
 			++(*l_out_count);
@@ -173,6 +177,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 	for(data = mpd_database_search_commit(connection); data != NULL;)
 	{
 		if(data->type != MPD_DATA_TYPE_SONG || data->song->artist == NULL || data->song->title == NULL
+			|| (data->song->genre != NULL && is_blacklisted_genre(data->song->genre))
 			|| exists_lastSongs(data->song->artist, data->song->title))
 		{
 			data = mpd_data_delete_item(data);
@@ -298,7 +303,7 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	}
 	else
 	{
-		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && tryToAdd_genre(l_song->genre))
+		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
 		{
 			g_debug("Added same genre song... %s", l_song->genre);
 			g_static_mutex_unlock(&m_mutex);
@@ -555,6 +560,8 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			prune_playlist(curPos, m_keep);
 		}
 	}
+	else if(m_enabled && l_what & MPD_CST_STORED_PLAYLIST)
+		reload_blacklists();
 }
 
 void dyn_init()
@@ -579,6 +586,8 @@ void dyn_init()
 	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
 	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
 	m_rand = g_rand_new();
+	if(m_enabled)
+		reload_blacklists();
 
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), "(on|off|)",  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
@@ -590,6 +599,7 @@ void dyn_destroy()
 	if(!g_queue_is_empty(&m_lastSongs))
 		clear_dbQueue(&m_lastSongs);
 
+	free_blacklists();
 	g_rand_free(m_rand);
 }
 
@@ -615,6 +625,8 @@ void dyn_set_enabled(gint l_enabled)
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
 	gtk_widget_set_sensitive(m_menu_item, m_enabled);
+	if(m_enabled)
+		reload_blacklists();
 }
 
 void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
