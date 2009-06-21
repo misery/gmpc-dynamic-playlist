@@ -305,7 +305,7 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	{
 		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
 		{
-			g_debug("Added same genre song... %s", l_song->genre);
+			g_debug("Added same genre song");
 			g_static_mutex_unlock(&m_mutex);
 		}
 		else if(tryToAdd_random())
@@ -502,6 +502,10 @@ void findSimilar(mpd_Song* l_song)
 
 	if(!m_similar_genre || l_song->genre == NULL)
 		start |= Genre;
+
+	g_debug("Search | song: %d | artist: %d | genre: %d | artist: %s | title: %s | genre: %s",
+			!(start & Song), !(start & Artist), !(start & Genre),
+			l_song->artist, l_song->title, l_song->genre);
 
 	tryToAdd_select(start, l_song);
 }
