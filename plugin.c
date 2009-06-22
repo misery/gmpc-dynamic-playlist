@@ -109,6 +109,9 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 {
 	g_assert(l_artist != NULL && l_title != NULL && l_out_count != NULL && l_out_count >= 0);
 
+	if(is_blacklisted_artist(l_artist))
+		return l_list;
+
 	mpd_database_search_start(connection, FALSE);
 	gchar** artist_split = g_strsplit(l_artist, " ", -1);
 	gint i;
@@ -138,7 +141,7 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 {
 	g_assert(l_out_count != NULL && *l_out_count >= 0);
 
-	if(is_blacklisted_genre(l_genre))
+	if(is_blacklisted_genre(l_genre) || is_blacklisted_artist(l_artist))
 		return l_list;
 
 	mpd_database_search_field_start(connection, MPD_TAG_ITEM_ARTIST);
@@ -156,8 +159,9 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST &&
-				!is_blacklisted_artist(data->tag) && !exists_lastArtists(data->tag))
+		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST
+				&& !is_blacklisted_artist(data->tag)
+				&& !exists_lastArtists(data->tag))
 		{
 			l_list = new_strListItem(l_list, data->tag);
 			++(*l_out_count);
