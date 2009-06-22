@@ -121,9 +121,12 @@ void load_blacklist_genre()
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
 
-		GQuark value = g_quark_from_string(data->song->genre);
-		g_debug("Add genre to blacklist: %s", data->song->genre);
-		m_blacklist_genre = g_slist_prepend(m_blacklist_genre, GUINT_TO_POINTER(value));
+		const GQuark value = g_quark_from_string(data->song->genre);
+		if(value != 0)
+		{
+			g_debug("Add genre to blacklist: %s", data->song->genre);
+			m_blacklist_genre = g_slist_prepend(m_blacklist_genre, GUINT_TO_POINTER(value));
+		}
 	}
 }
 
@@ -136,9 +139,12 @@ void load_blacklist_artist()
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
 
-		GQuark value = g_quark_from_string(data->song->artist);
-		g_debug("Add artist to blacklist: %s", data->song->artist);
-		m_blacklist_artist = g_slist_prepend(m_blacklist_artist, GUINT_TO_POINTER(value));
+		const GQuark value = g_quark_from_string(data->song->artist);
+		if(value != 0)
+		{
+			g_debug("Add artist to blacklist: %s", data->song->artist);
+			m_blacklist_artist = g_slist_prepend(m_blacklist_artist, GUINT_TO_POINTER(value));
+		}
 	}
 }
 
