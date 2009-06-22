@@ -2,7 +2,6 @@
 #define _DYN_LIST_PLUGIN_BLACKLIST
 
 #include <glib.h>
-#include <libmpd/libmpd.h>
 
 void set_active_blacklist(gboolean l_value);
 gboolean get_active_blacklist();
@@ -16,6 +15,8 @@ gboolean is_blacklisted_artist(const gchar* l_artist);
 gboolean is_blacklisted_album(const gchar* l_artist, const gchar* l_album);
 gboolean is_blacklisted_song(const gchar* l_artist, const gchar* l_title);
 
+void create_blacklists();
+gboolean create_blacklists_search(MpdData** l_out_lists, const gchar* l_blacklist);
 void check_for_reload();
 void reload_blacklists();
 

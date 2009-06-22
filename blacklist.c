@@ -18,9 +18,11 @@
 */
 
 #include <gmpc/plugin.h>
+#include <libmpd/libmpd-internal.h>
 #include <glib/gi18n-lib.h>
 #include "blacklist.h"
 
+#define BLACKLIST_COUNT 4
 typedef enum _blacklist_name
 {
 	GENRE,
@@ -155,12 +157,46 @@ gboolean is_blacklisted_song(const gchar* l_artist, const gchar* l_title)
 	return is_blacklisted_tuple(m_blacklist_song, l_artist, l_title);
 }
 
+void create_blacklists()
+{
+	MpdData* lists = mpd_database_playlist_list(connection);
+	gint8 i;
+	for(i = 0; i < BLACKLIST_COUNT; ++i)
+	{
+		if(lists == NULL || !create_blacklists_search(&lists, blacklist[i]))
+			mpd_database_playlist_clear(connection, blacklist[i]);
+	}
+
+	if(lists != NULL)
+		mpd_data_free(lists);
+}
+
+gboolean create_blacklists_search(MpdData** l_out_lists, const gchar* l_blacklist)
+{
+	g_assert(l_out_lists != NULL && *l_out_lists != NULL && l_blacklist != NULL);
+
+	MpdData* iter = *l_out_lists;
+	for(; iter != NULL; iter = mpd_data_get_next_real(iter, FALSE))
+	{
+		if(strcmp(iter->playlist->path, l_blacklist) == 0)
+		{
+			iter = mpd_data_delete_item(iter);
+			if(iter == NULL || ((MpdData_real*) iter)->prev == NULL)
+				*l_out_lists = iter;
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
 void check_for_reload()
 {
 	g_static_mutex_lock(&m_mutex);
 	if(m_reload_blacklist)
 	{
 		load_blacklists();
+		create_blacklists();
 		m_reload_blacklist = FALSE;
 	}
 	g_static_mutex_unlock(&m_mutex);
