@@ -7,6 +7,9 @@
 #include <glib.h>
 #include <libmpd/libmpd.h>
 
+void set_active_blacklist(gboolean l_value);
+gboolean get_active_blacklist();
+
 gboolean is_blacklisted(const mpd_Song* l_song);
 gboolean is_blacklisted_slist(GSList* l_list, const gchar* l_value);
 

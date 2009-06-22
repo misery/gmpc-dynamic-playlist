@@ -50,6 +50,7 @@ static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
 GtkWidget* m_menu_item = NULL;
 GtkWidget* m_menu = NULL;
 GtkWidget* m_menu_search = NULL;
+GtkWidget* m_menu_blacklist = NULL;
 
 /* Option Dialog */
 GtkWidget* m_artist_same_toggle = NULL;
@@ -591,6 +592,7 @@ void dyn_init()
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "same_genre", FALSE);
 	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
 	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
+	set_active_blacklist(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "blacklist", TRUE));
 	m_rand = g_rand_new();
 	if(m_enabled)
 		reload_blacklists();
@@ -635,10 +637,22 @@ void dyn_set_enabled(gint l_enabled)
 		reload_blacklists();
 }
 
-void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item)
+void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_type)
 {
-	m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
-	cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
+	if(l_type == similar_search)
+	{
+		m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
+	}
+	else if(l_type == blacklist)
+	{
+		gboolean active = gtk_check_menu_item_get_active(l_menu_item);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", active);
+		set_active_blacklist(active);
+	}
+	else
+		g_assert_not_reached();
+
 }
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)
@@ -652,8 +666,13 @@ int dyn_tool_menu_integration(GtkMenu* l_menu)
 
 	m_menu_search = gtk_check_menu_item_new_with_label(_("Dynamic search"));
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
-	g_signal_connect(G_OBJECT(m_menu_search), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), NULL);
+	g_signal_connect(G_OBJECT(m_menu_search), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), GINT_TO_POINTER(similar_search));
 	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_search);
+
+	m_menu_blacklist = gtk_check_menu_item_new_with_label(_("Use blacklist"));
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), get_active_blacklist());
+	g_signal_connect(G_OBJECT(m_menu_blacklist), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), GINT_TO_POINTER(blacklist));
+	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_blacklist);
 
 	GtkWidget* menu_add_song = gtk_image_menu_item_new_with_label(_("Add similar song"));
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_add_song), gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
@@ -713,6 +732,11 @@ void pref_similar_set(option l_type, gint l_value)
 		m_enabled_search = l_value;
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
+	}
+	else if(l_type == blacklist)
+	{
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", l_value);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), l_value);
 	}
 	else
 		g_assert_not_reached();
@@ -857,6 +881,12 @@ void pref_construct(GtkWidget* l_con)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(same_genre_toggle), m_same_genre);
 	gtk_box_pack_start(GTK_BOX(vbox), same_genre_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(same_genre_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(same_genre));
+
+	/* Use blacklist */
+	GtkWidget* blacklist_toggle = gtk_check_button_new_with_label(_("Use blacklist"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(blacklist_toggle), get_active_blacklist());
+	gtk_box_pack_start(GTK_BOX(vbox), blacklist_toggle, FALSE, FALSE, 0);
+	g_signal_connect(G_OBJECT(blacklist_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(blacklist));
 
 	/* Prune Playlist - SpinButton */
 	GtkWidget* prune_hbox = gtk_hbox_new(FALSE, 5);

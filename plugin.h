@@ -27,7 +27,8 @@ typedef enum
 	block_song = 1 << 9,
 	block_artist = 1 << 10,
 	same_genre = 1 << 11,
-	similar_search = 1 << 12
+	similar_search = 1 << 12,
+	blacklist = 1 << 13
 } option;
 
 /* Queue function for m_lastSongs */
@@ -60,7 +61,7 @@ void dyn_destroy();
 static void dyn_enable_easy(gpointer l_data, const gchar* l_param);
 gint dyn_get_enabled();
 void dyn_set_enabled(gint l_enabled);
-static void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item);
+static void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_type);
 static int dyn_tool_menu_integration(GtkMenu* l_menu);
 
 /* preferences */

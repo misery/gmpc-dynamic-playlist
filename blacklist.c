@@ -21,21 +21,41 @@
 #include <gmpc/plugin.h>
 
 static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
+gboolean m_blacklist_enabled = FALSE;
 gboolean m_reload_blacklist = FALSE;
 GSList* m_blacklist_genre = NULL;
 GSList* m_blacklist_artist = NULL;
 
+void set_active_blacklist(gboolean l_value)
+{
+	m_blacklist_enabled = l_value;
+	if(m_blacklist_enabled)
+		reload_blacklists();
+}
+
+gboolean get_active_blacklist()
+{
+	return m_blacklist_enabled;
+}
+
 gboolean is_blacklisted(const mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
+
+	if(!m_blacklist_enabled)
+		return FALSE;
+
 	return is_blacklisted_genre(l_song->genre) || is_blacklisted_artist(l_song->artist);
 }
 
 gboolean is_blacklisted_slist(GSList* l_list, const gchar* l_value)
 {
 	g_assert(l_value != NULL);
-	check_for_reload();
 
+	if(!m_blacklist_enabled)
+		return FALSE;
+
+	check_for_reload();
 	if(l_list != NULL)
 	{
 		const GQuark value = g_quark_try_string(l_value);
