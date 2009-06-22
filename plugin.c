@@ -123,7 +123,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->type == MPD_DATA_TYPE_SONG && data->song->artist != NULL && data->song->title != NULL
+		if(data->song->artist != NULL && data->song->title != NULL
 			&& !is_blacklisted(data->song)
 			&& !exists_lastSongs(data->song->artist, data->song->title))
 		{
