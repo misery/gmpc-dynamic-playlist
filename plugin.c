@@ -121,7 +121,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
 		if(data->type == MPD_DATA_TYPE_SONG && data->song->artist != NULL && data->song->title != NULL
-			&& (data->song->genre == NULL || !is_blacklisted_genre(data->song->genre))
+			&& !is_blacklisted_genre(data->song->genre)
 			&& !is_blacklisted_artist(data->song->artist)
 			&& !exists_lastSongs(data->song->artist, data->song->title))
 		{
@@ -178,7 +178,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 	for(data = mpd_database_search_commit(connection); data != NULL;)
 	{
 		if(data->type != MPD_DATA_TYPE_SONG || data->song->artist == NULL || data->song->title == NULL
-			|| (data->song->genre != NULL && is_blacklisted_genre(data->song->genre))
+			|| is_blacklisted_genre(data->song->genre)
 			|| exists_lastSongs(data->song->artist, data->song->title))
 		{
 			data = mpd_data_delete_item(data);

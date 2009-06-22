@@ -50,9 +50,7 @@ gboolean is_blacklisted(const mpd_Song* l_song)
 
 gboolean is_blacklisted_slist(GSList* l_list, const gchar* l_value)
 {
-	g_assert(l_value != NULL);
-
-	if(!m_blacklist_enabled)
+	if(l_value == NULL || !m_blacklist_enabled)
 		return FALSE;
 
 	check_for_reload();
