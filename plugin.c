@@ -639,11 +639,12 @@ void dyn_set_enabled(gint l_enabled)
 {
 	g_assert(m_menu_item != NULL);
 
+	if(!m_enabled && l_enabled)
+		reload_blacklists();
+
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
 	gtk_widget_set_sensitive(m_menu_item, m_enabled);
-	if(m_enabled)
-		reload_blacklists();
 }
 
 void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_type)

@@ -53,9 +53,10 @@ GSList* m_blacklist_song = NULL;
 
 void set_active_blacklist(gboolean l_value)
 {
-	m_blacklist_enabled = l_value;
-	if(m_blacklist_enabled)
+	if(!m_blacklist_enabled && l_value)
 		reload_blacklists();
+
+	m_blacklist_enabled = l_value;
 }
 
 gboolean get_active_blacklist()
