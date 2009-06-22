@@ -109,7 +109,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 {
 	g_assert(l_artist != NULL && l_title != NULL && l_out_count != NULL && l_out_count >= 0);
 
-	if(is_blacklisted_artist(l_artist))
+	if(is_blacklisted_artist(l_artist) || is_blacklisted_song(l_artist, l_title))
 		return l_list;
 
 	mpd_database_search_start(connection, FALSE);
@@ -124,8 +124,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
 		if(data->type == MPD_DATA_TYPE_SONG && data->song->artist != NULL && data->song->title != NULL
-			&& !is_blacklisted_genre(data->song->genre)
-			&& !is_blacklisted_artist(data->song->artist)
+			&& !is_blacklisted(data->song)
 			&& !exists_lastSongs(data->song->artist, data->song->title))
 		{
 			dbSong* song = new_dbSong(data->song->artist, data->song->title, data->song->file);
@@ -180,12 +179,15 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 
 	gint count = 0;
 	MpdData* prev = NULL;
-	MpdData* data;
 	gboolean first = TRUE;
-	for(data = mpd_database_search_commit(connection); data != NULL;)
+	MpdData* data = mpd_database_search_commit(connection);
+	while(data != NULL)
 	{
-		if(data->type != MPD_DATA_TYPE_SONG || data->song->artist == NULL || data->song->title == NULL
+		const gchar* artist = data->song->albumartist == NULL ? data->song->artist : data->song->albumartist;
+		if(data->song->artist == NULL || data->song->title == NULL
 			|| is_blacklisted_genre(data->song->genre)
+			|| is_blacklisted_album(artist, data->song->album)
+			|| is_blacklisted_song(artist, data->song->title)
 			|| exists_lastSongs(data->song->artist, data->song->title))
 		{
 			data = mpd_data_delete_item(data);
