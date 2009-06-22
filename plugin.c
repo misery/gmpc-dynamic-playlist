@@ -203,9 +203,11 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 		g_assert(data != NULL);
 
 		dbSong* song = new_dbSong(data->song->artist, data->song->title, data->song->file);
-		mpd_data_free(data);
 		mpd_playlist_add(connection, song->path);
 		add_lastSongs(song);
+		g_debug("Added via artist | artist: %s | title: %s | genre: %s",
+				data->song->artist, data->song->title, data->song->genre);
+		mpd_data_free(data);
 
 		return TRUE;
 	}
@@ -275,7 +277,6 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 
 	if(l_status & Found)
 	{
-		g_debug("Song added");
 		g_static_mutex_unlock(&m_mutex);
 		return;
 	}
@@ -397,6 +398,7 @@ void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data,
 			dbSong* song = (dbSong*) songListIter->data;
 			mpd_playlist_add(connection, song->path);
 			add_lastSongs(song);
+			g_debug("Added via song | artist: %s | title: %s", song->artist, song->title);
 
 			// Remove added dbSong* from dbList so it won't be freed
 			songList = g_list_delete_link(songList, songListIter);
