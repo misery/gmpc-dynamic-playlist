@@ -38,10 +38,10 @@ gboolean is_blacklisted_slist(GSList* l_list, const gchar* l_value)
 
 	if(l_list != NULL)
 	{
-		GQuark value = g_quark_try_string(l_value);
+		const GQuark value = g_quark_try_string(l_value);
 		if(value != 0)
 		{
-			GSList* iter;
+			const GSList* iter;
 			for(iter = l_list; iter != NULL; iter = g_slist_next(iter))
 			{
 				if( GPOINTER_TO_UINT(iter->data) == value )
