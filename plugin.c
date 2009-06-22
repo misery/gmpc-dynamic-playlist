@@ -158,7 +158,7 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->type == MPD_DATA_TYPE_TAG && data->tag_type == MPD_TAG_ITEM_ARTIST
+		if(data->tag_type == MPD_TAG_ITEM_ARTIST
 				&& !is_blacklisted_artist(data->tag)
 				&& !exists_lastArtists(data->tag))
 		{
