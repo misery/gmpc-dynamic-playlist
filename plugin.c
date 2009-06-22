@@ -138,6 +138,9 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 {
 	g_assert(l_out_count != NULL && *l_out_count >= 0);
 
+	if(is_blacklisted_genre(l_genre))
+		return l_list;
+
 	mpd_database_search_field_start(connection, MPD_TAG_ITEM_ARTIST);
 	if(l_artist != NULL)
 	{
