@@ -70,7 +70,11 @@ gboolean is_blacklisted(const mpd_Song* l_song)
 	if(!m_blacklist_enabled)
 		return FALSE;
 
-	return is_blacklisted_genre(l_song->genre) || is_blacklisted_artist(l_song->artist);
+	const gchar* artist = l_song->albumartist == NULL ? l_song->artist : l_song->albumartist;
+	return is_blacklisted_genre(l_song->genre)
+			|| is_blacklisted_artist(l_song->artist)
+			|| is_blacklisted_album(artist, l_song->album)
+			|| is_blacklisted_song(artist, l_song->title);
 }
 
 gboolean is_blacklisted_single(const GSList* l_list, const gchar* l_value)
