@@ -679,7 +679,7 @@ int dyn_tool_menu_integration(GtkMenu* l_menu)
 	g_signal_connect(G_OBJECT(m_menu_search), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), GINT_TO_POINTER(similar_search));
 	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_search);
 
-	m_menu_blacklist = gtk_check_menu_item_new_with_label(_("Use blacklist"));
+	m_menu_blacklist = gtk_check_menu_item_new_with_label(_("Use blacklists"));
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), get_active_blacklist());
 	g_signal_connect(G_OBJECT(m_menu_blacklist), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), GINT_TO_POINTER(blacklist));
 	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_blacklist);
@@ -892,8 +892,8 @@ void pref_construct(GtkWidget* l_con)
 	gtk_box_pack_start(GTK_BOX(vbox), same_genre_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(same_genre_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(same_genre));
 
-	/* Use blacklist */
-	GtkWidget* blacklist_toggle = gtk_check_button_new_with_label(_("Use blacklist"));
+	/* Use blacklists */
+	GtkWidget* blacklist_toggle = gtk_check_button_new_with_label(_("Use blacklists"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(blacklist_toggle), get_active_blacklist());
 	gtk_box_pack_start(GTK_BOX(vbox), blacklist_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(blacklist_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(blacklist));
