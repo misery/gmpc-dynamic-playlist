@@ -163,8 +163,8 @@ void create_blacklists()
 	gint8 i;
 	for(i = 0; i < BLACKLIST_COUNT; ++i)
 	{
-		if(lists == NULL || !create_blacklists_search(&lists, blacklist[i]))
-			mpd_database_playlist_clear(connection, blacklist[i]);
+		if(lists == NULL || !create_blacklists_search(&lists, _(blacklist[i])))
+			mpd_database_playlist_clear(connection, _(blacklist[i]));
 	}
 
 	if(lists != NULL)
@@ -225,7 +225,7 @@ void load_blacklist_genre()
 {
 	g_assert(m_blacklist_genre == NULL);
 
-	MpdData* data = mpd_database_get_playlist_content(connection, blacklist[GENRE]);
+	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[GENRE]));
 	for(; data != NULL; data = mpd_data_get_next(data))
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
@@ -243,7 +243,7 @@ void load_blacklist_artist()
 {
 	g_assert(m_blacklist_artist == NULL);
 
-	MpdData* data = mpd_database_get_playlist_content(connection, blacklist[ARTIST]);
+	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[ARTIST]));
 	for(; data != NULL; data = mpd_data_get_next(data))
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
@@ -261,7 +261,7 @@ void load_blacklist_album()
 {
 	g_assert(m_blacklist_album == NULL);
 
-	MpdData* data = mpd_database_get_playlist_content(connection, blacklist[ALBUM]);
+	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[ALBUM]));
 	for(; data != NULL; data = mpd_data_get_next(data))
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
@@ -286,7 +286,7 @@ void load_blacklist_song()
 {
 	g_assert(m_blacklist_song == NULL);
 
-	MpdData* data = mpd_database_get_playlist_content(connection, blacklist[SONG]);
+	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[SONG]));
 	for(; data != NULL; data = mpd_data_get_next(data))
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
