@@ -73,10 +73,9 @@ gboolean is_blacklisted(const mpd_Song* l_song)
 	if(!m_blacklist_enabled)
 		return FALSE;
 
-	const gchar* const artist = l_song->albumartist == NULL ? l_song->artist : l_song->albumartist;
 	return is_blacklisted_genre(l_song->genre)
 			|| is_blacklisted_artist(l_song->artist)
-			|| is_blacklisted_album(artist, l_song->album)
+			|| is_blacklisted_album(l_song->albumartist == NULL ? l_song->artist : l_song->albumartist, l_song->album)
 			|| is_blacklisted_song(l_song->artist, l_song->title);
 }
 
