@@ -187,7 +187,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 		if(data->song->artist == NULL || data->song->title == NULL
 			|| is_blacklisted_genre(data->song->genre)
 			|| is_blacklisted_album(artist, data->song->album)
-			|| is_blacklisted_song(artist, data->song->title)
+			|| is_blacklisted_song(data->song->artist, data->song->title)
 			|| exists_lastSongs(data->song->artist, data->song->title))
 		{
 			data = mpd_data_delete_item(data);

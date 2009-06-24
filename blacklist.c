@@ -73,11 +73,11 @@ gboolean is_blacklisted(const mpd_Song* l_song)
 	if(!m_blacklist_enabled)
 		return FALSE;
 
-	const gchar* artist = l_song->albumartist == NULL ? l_song->artist : l_song->albumartist;
+	const gchar* const artist = l_song->albumartist == NULL ? l_song->artist : l_song->albumartist;
 	return is_blacklisted_genre(l_song->genre)
 			|| is_blacklisted_artist(l_song->artist)
 			|| is_blacklisted_album(artist, l_song->album)
-			|| is_blacklisted_song(artist, l_song->title);
+			|| is_blacklisted_song(l_song->artist, l_song->title);
 }
 
 gboolean is_blacklisted_single(const GSList* l_list, const gchar* l_value)
@@ -292,8 +292,7 @@ void load_blacklist_song()
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
 
-		const gchar* const artistChar = data->song->albumartist == NULL ? data->song->artist : data->song->albumartist;
-		const GQuark artist = g_quark_from_string(artistChar);
+		const GQuark artist = g_quark_from_string(data->song->artist);
 		if(artist != 0)
 		{
 			const GQuark title = g_quark_from_string(data->song->title);
@@ -302,7 +301,7 @@ void load_blacklist_song()
 				tuple* tmp = g_slice_new(tuple);
 				tmp->artist = artist;
 				tmp->name = title;
-				g_debug("Add song to blacklist: %s::%s", artistChar, data->song->title);
+				g_debug("Add song to blacklist: %s::%s", data->song->artist, data->song->title);
 				m_blacklist_song = g_slist_prepend(m_blacklist_song, tmp);
 			}
 		}
