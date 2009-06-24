@@ -266,7 +266,8 @@ void load_blacklist_album()
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
 
-		const GQuark artist = g_quark_from_string(data->song->artist);
+		const gchar* const artistChar = data->song->albumartist == NULL ? data->song->artist : data->song->albumartist;
+		const GQuark artist = g_quark_from_string(artistChar);
 		if(artist != 0)
 		{
 			const GQuark album = g_quark_from_string(data->song->album);
@@ -275,7 +276,7 @@ void load_blacklist_album()
 				tuple* tmp = g_slice_new(tuple);
 				tmp->artist = artist;
 				tmp->name = album;
-				g_debug("Add album to blacklist: %s::%s", data->song->artist, data->song->album);
+				g_debug("Add album to blacklist: %s::%s", artistChar, data->song->album);
 				m_blacklist_album = g_slist_prepend(m_blacklist_album, tmp);
 			}
 		}
@@ -291,7 +292,8 @@ void load_blacklist_song()
 	{
 		g_assert(data->type == MPD_DATA_TYPE_SONG);
 
-		const GQuark artist = g_quark_from_string(data->song->artist);
+		const gchar* const artistChar = data->song->albumartist == NULL ? data->song->artist : data->song->albumartist;
+		const GQuark artist = g_quark_from_string(artistChar);
 		if(artist != 0)
 		{
 			const GQuark title = g_quark_from_string(data->song->title);
@@ -300,7 +302,7 @@ void load_blacklist_song()
 				tuple* tmp = g_slice_new(tuple);
 				tmp->artist = artist;
 				tmp->name = title;
-				g_debug("Add song to blacklist: %s::%s", data->song->artist, data->song->title);
+				g_debug("Add song to blacklist: %s::%s", artistChar, data->song->title);
 				m_blacklist_song = g_slist_prepend(m_blacklist_song, tmp);
 			}
 		}
