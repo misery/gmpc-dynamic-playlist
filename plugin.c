@@ -576,8 +576,11 @@ void prune_playlist_easy(gpointer l_data, const gchar* l_param)
 
 void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata)
 {
-	if(m_enabled && (l_what & MPD_CST_PLAYLIST || l_what & MPD_CST_SONGPOS ||
-			(l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_PLAY)))
+	if(!m_enabled)
+		return;
+
+	if(l_what & MPD_CST_PLAYLIST || l_what & MPD_CST_SONGPOS ||
+			(l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_PLAY))
 	{
 		mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 		if(curSong != NULL)
@@ -600,8 +603,10 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			prune_playlist(curPos, m_keep);
 		}
 	}
-	else if(m_enabled && l_what & MPD_CST_STORED_PLAYLIST)
+	else if(l_what & MPD_CST_STORED_PLAYLIST)
 		reload_blacklists();
+	else if(m_delay_timeout > 0 && l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
+		setDelay(NULL);
 }
 
 void dyn_init()
@@ -680,9 +685,9 @@ void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_
 	if(l_type == similar_search)
 	{
 		m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 		if(!m_enabled_search)
 			setDelay(NULL);
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 	}
 	else if(l_type == blacklist)
 	{
@@ -770,10 +775,10 @@ void pref_similar_set(option l_type, gint l_value)
 	else if(l_type == similar_search)
 	{
 		m_enabled_search = l_value;
-		if(!m_enabled_search)
-			setDelay(NULL);
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
+		if(!m_enabled_search)
+			setDelay(NULL);
 	}
 	else if(l_type == blacklist)
 	{
