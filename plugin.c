@@ -618,9 +618,9 @@ void dyn_destroy()
 
 void dyn_enable_easy(gpointer l_data, const gchar* l_param)
 {
-	if(g_str_has_prefix(l_param, "on"))
+	if(g_str_has_prefix(l_param, _("on")))
 		pref_similar_set(similar_search, TRUE);
-	else if(g_str_has_prefix(l_param, "off"))
+	else if(g_str_has_prefix(l_param, _("off")))
 		pref_similar_set(similar_search, FALSE);
 	else
 		pref_similar_set(similar_search, !m_enabled_search);
