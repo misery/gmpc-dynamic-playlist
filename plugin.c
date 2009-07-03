@@ -284,6 +284,7 @@ static status getNextStatus(status l_status)
 static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
+	g_assert(m_is_searching);
 
 	if(l_status & Found)
 	{
@@ -497,7 +498,7 @@ void findSimilar_easy()
 void findSimilar(mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
-	g_assert(m_is_searching == FALSE);
+	g_assert(!m_is_searching);
 
 	m_is_searching = TRUE;
 	status start = NotFound;
