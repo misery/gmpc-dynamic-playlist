@@ -44,7 +44,7 @@ gboolean m_enabled = TRUE;
 gboolean m_enabled_search = FALSE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
-m_is_searching = FALSE;
+gboolean m_is_searching = FALSE;
 
 /* Menu */
 GtkWidget* m_menu_item = NULL;
