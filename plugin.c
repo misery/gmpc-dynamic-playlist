@@ -44,7 +44,7 @@ gboolean m_enabled = TRUE;
 gboolean m_enabled_search = FALSE;
 dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
-static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
+m_is_searching = FALSE;
 
 /* Menu */
 GtkWidget* m_menu_item = NULL;
@@ -287,7 +287,7 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 
 	if(l_status & Found)
 	{
-		g_static_mutex_unlock(&m_mutex);
+		m_is_searching = FALSE;
 		return;
 	}
 
@@ -315,21 +315,15 @@ static void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	else
 	{
 		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
-		{
 			g_debug("Added same genre song");
-			g_static_mutex_unlock(&m_mutex);
-		}
 		else if(tryToAdd_random())
-		{
 			g_debug("Added random song");
-			g_static_mutex_unlock(&m_mutex);
-		}
 		else
 		{
 			playlist3_show_error_message(_("Dynamic search cannot find a new song"), ERROR_INFO);
 			g_debug("Cannot find a new song");
-			g_static_mutex_unlock(&m_mutex);
 		}
+		m_is_searching = FALSE;
 	}
 }
 
@@ -484,7 +478,7 @@ void findSimilar_easy()
 		return;
 	}
 
-	if(!g_static_mutex_trylock(&m_mutex))
+	if(m_is_searching)
 	{
 		playlist3_show_error_message(_("Dynamic search is already busy"), ERROR_INFO);
 		return;
@@ -494,7 +488,6 @@ void findSimilar_easy()
 	if(curSong == NULL)
 	{
 		playlist3_show_error_message(_("You need to play a song that will be used"), ERROR_INFO);
-		g_static_mutex_unlock(&m_mutex);
 		return;
 	}
 
@@ -504,7 +497,9 @@ void findSimilar_easy()
 void findSimilar(mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
+	g_assert(m_is_searching == FALSE);
 
+	m_is_searching = TRUE;
 	status start = NotFound;
 	if(!m_similar_songs || l_song->artist == NULL || l_song->title == NULL)
 		start |= Song;
@@ -569,7 +564,7 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			if(m_enabled_search)
 			{
 				const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
-				if(remains < 1 && g_static_mutex_trylock(&m_mutex))
+				if(remains < 1 && !m_is_searching)
 					findSimilar(curSong);
 			}
 

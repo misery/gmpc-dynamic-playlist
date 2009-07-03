@@ -45,7 +45,6 @@ typedef struct
 	GQuark name; /* Album or Title */
 } tuple;
 
-static GStaticMutex m_mutex = G_STATIC_MUTEX_INIT;
 gboolean m_blacklist_enabled = FALSE;
 gboolean m_reload_blacklist = FALSE;
 GSList* m_blacklist_genre = NULL;
@@ -191,24 +190,17 @@ gboolean create_blacklists_search(MpdData** l_out_lists, const gchar* l_blacklis
 
 void check_for_reload()
 {
-	g_static_mutex_lock(&m_mutex);
 	if(m_reload_blacklist)
 	{
 		load_blacklists();
 		create_blacklists();
 		m_reload_blacklist = FALSE;
 	}
-	g_static_mutex_unlock(&m_mutex);
 }
 
 void reload_blacklists()
 {
-	/* Needs a lock because it is possible that "findSimilar"
-	 * refreshes blacklist at the moment.
-	 */
-	g_static_mutex_lock(&m_mutex);
 	m_reload_blacklist = TRUE;
-	g_static_mutex_unlock(&m_mutex);
 }
 
 void load_blacklists()
