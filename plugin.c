@@ -26,6 +26,8 @@
 #include "plugin.h"
 #include "blacklist.h"
 
+#define BUFFER_SECONDS 5
+
 extern GmpcEasyCommand* gmpc_easy_command;
 
 guint m_delay_source = 0;
@@ -533,10 +535,22 @@ void setDelay(mpd_Song* l_song)
 		g_source_remove(m_delay_source);
 
 	if(l_song != NULL)
-		m_delay_source = g_timeout_add_seconds(m_delay_timeout, (GSourceFunc) findSimilar_delayed, l_song);
-/*		m_delay_source = g_timeout_add_seconds_full(G_PRIORITY_DEFAULT,
+	{
+		gint timeout;
+		if(l_song->time == MPD_SONG_NO_TIME || l_song->time > m_delay_timeout + BUFFER_SECONDS)
+			timeout = m_delay_timeout;
+		else
+			timeout = l_song->time - BUFFER_SECONDS;
+
+		m_delay_source = g_timeout_add_seconds(timeout,
+							(GSourceFunc) findSimilar_delayed, l_song);
+
+		/*
+		m_delay_source = g_timeout_add_seconds_full(G_PRIORITY_DEFAULT,
 				m_delay_timeout, (GSourceFunc) findSimilar_delayed,
-				mpd_songDup(l_song), (GDestroyNotify) mpd_freeSong);*/
+				mpd_songDup(l_song), (GDestroyNotify) mpd_freeSong);
+		*/
+	}
 }
 
 void prune_playlist(gint l_curPos, gint l_keep)
