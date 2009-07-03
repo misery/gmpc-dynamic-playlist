@@ -28,6 +28,8 @@
 
 extern GmpcEasyCommand* gmpc_easy_command;
 
+guint m_delay_source = 0;
+guint8 m_delay_timeout = 0;
 gint m_keep = -1;
 gint m_block_song = 0;
 gint m_block_artist = 0;
@@ -518,6 +520,25 @@ void findSimilar(mpd_Song* l_song)
 	tryToAdd_select(start, l_song);
 }
 
+gboolean findSimilar_delayed(mpd_Song* l_song)
+{
+	findSimilar(l_song);
+	m_delay_source = 0;
+	return FALSE;
+}
+
+void setDelay(mpd_Song* l_song)
+{
+	if(m_delay_source != 0)
+		g_source_remove(m_delay_source);
+
+	if(l_song != NULL)
+		m_delay_source = g_timeout_add_seconds(m_delay_timeout, (GSourceFunc) findSimilar_delayed, l_song);
+/*		m_delay_source = g_timeout_add_seconds_full(G_PRIORITY_DEFAULT,
+				m_delay_timeout, (GSourceFunc) findSimilar_delayed,
+				mpd_songDup(l_song), (GDestroyNotify) mpd_freeSong);*/
+}
+
 void prune_playlist(gint l_curPos, gint l_keep)
 {
 	if(l_keep < 0 || l_curPos < 1)
@@ -566,7 +587,14 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			{
 				const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
 				if(remains < 1 && !m_is_searching)
-					findSimilar(curSong);
+				{
+					if(m_delay_timeout > 0)
+						setDelay(curSong);
+					else
+						findSimilar(curSong);
+				}
+				else if(m_delay_timeout > 0)
+					setDelay(NULL);
 			}
 
 			prune_playlist(curPos, m_keep);
@@ -583,6 +611,7 @@ void dyn_init()
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 
+	m_delay_timeout = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "delayTimeout", 0);
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "keep", -1);
 	m_block_song = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block", 100);
 	m_block_artist = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block_artist", 0);
@@ -638,6 +667,9 @@ void dyn_set_enabled(gint l_enabled)
 	if(!m_enabled && l_enabled)
 		reload_blacklists();
 
+	if(!l_enabled)
+		setDelay(NULL);
+
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
 	gtk_widget_set_sensitive(m_menu_item, m_enabled);
@@ -648,6 +680,8 @@ void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_
 	if(l_type == similar_search)
 	{
 		m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
+		if(!m_enabled_search)
+			setDelay(NULL);
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 	}
 	else if(l_type == blacklist)
@@ -736,6 +770,8 @@ void pref_similar_set(option l_type, gint l_value)
 	else if(l_type == similar_search)
 	{
 		m_enabled_search = l_value;
+		if(!m_enabled_search)
+			setDelay(NULL);
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
 	}
@@ -788,6 +824,11 @@ void pref_spins_set(option l_type, gint l_value)
 	{
 		m_similar_genre_max = l_value;
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxGenres", m_similar_genre_max);
+	}
+	else if(l_type == delay)
+	{
+		m_delay_timeout = l_value;
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "delayTimeout", m_delay_timeout);
 	}
 	else
 		g_assert_not_reached();
@@ -893,6 +934,17 @@ void pref_construct(GtkWidget* l_con)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(blacklist_toggle), get_active_blacklist());
 	gtk_box_pack_start(GTK_BOX(vbox), blacklist_toggle, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(blacklist_toggle), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(blacklist));
+
+	/* Delay dynamic search - SpinButton */
+	GtkWidget* delay_hbox = gtk_hbox_new(FALSE, 5);
+	GtkWidget* delay_label = gtk_label_new(_("Delay dynamic search for x seconds:"));
+	GtkAdjustment* delay_adj = (GtkAdjustment*) gtk_adjustment_new(m_delay_timeout, 0.0, 60, 5.0, 5.0, 0.0);
+	GtkWidget* delay_spin = gtk_spin_button_new(delay_adj, 5.0, 0);
+	g_signal_connect(G_OBJECT(delay_spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(delay));
+
+	gtk_box_pack_start(GTK_BOX(delay_hbox), delay_label, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(delay_hbox), delay_spin, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), delay_hbox, FALSE, FALSE, 0);
 
 	/* Prune Playlist - SpinButton */
 	GtkWidget* prune_hbox = gtk_hbox_new(FALSE, 5);
