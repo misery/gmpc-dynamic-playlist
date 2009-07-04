@@ -617,9 +617,11 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 			prune_playlist(curPos, m_keep);
 		}
 	}
-	else if(l_what & MPD_CST_STORED_PLAYLIST)
+
+	if(l_what & MPD_CST_STORED_PLAYLIST)
 		reload_blacklists();
-	else if(m_delay_timeout > 0 && l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
+
+	if(m_delay_timeout > 0 && l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
 		setDelay(NULL);
 }
 
