@@ -56,9 +56,6 @@ GtkWidget* m_menu = NULL;
 GtkWidget* m_menu_search = NULL;
 GtkWidget* m_menu_blacklist = NULL;
 
-/* Option Dialog */
-GtkWidget* m_artist_same_toggle = NULL;
-
 void add_lastSongs(dbSong* l_song)
 {
 	g_assert(l_song != NULL);
@@ -833,8 +830,6 @@ void pref_spins_set(option l_type, gint l_value)
 	{
 		m_block_artist = l_value;
 		cfg_set_single_value_as_int(config, "dynamic-playlist", "block_artist", m_block_artist);
-		if(m_artist_same_toggle != NULL)
-			gtk_widget_set_sensitive(m_artist_same_toggle, !m_block_artist);
 	}
 	else if(l_type == similar_song_max)
 	{
