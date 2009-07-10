@@ -93,6 +93,7 @@
                 <child>
                   <object class="GtkLabel" id="label_block_artist">
                     <property name="visible">True</property>
+                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Block played artist for at least x songs:</property>
                   </object>
                   <packing>
@@ -114,7 +115,6 @@
                   <object class="GtkSpinButton" id="spin_delay">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_delay</property>
                   </object>
                   <packing>
@@ -125,7 +125,6 @@
                   <object class="GtkSpinButton" id="spin_keep">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_keep</property>
                   </object>
                   <packing>
@@ -136,7 +135,6 @@
                   <object class="GtkSpinButton" id="spin_block_song">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_block_song</property>
                   </object>
                   <packing>
@@ -147,7 +145,6 @@
                   <object class="GtkSpinButton" id="spin_block_artist">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_block_artist</property>
                   </object>
                   <packing>
@@ -189,7 +186,6 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="yalign">0.46000000834465027</property>
             <property name="draw_indicator">True</property>
           </object>
           <packing>
@@ -303,7 +299,6 @@
                   <object class="GtkSpinButton" id="spin_song">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_max_song</property>
                   </object>
                   <packing>
@@ -314,7 +309,6 @@
                   <object class="GtkSpinButton" id="spin_artist">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_max_artist</property>
                   </object>
                   <packing>
@@ -326,7 +320,6 @@
                   <object class="GtkSpinButton" id="spin_genre">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">adjust_max_genre</property>
                   </object>
                   <packing>
