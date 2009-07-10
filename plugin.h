@@ -23,7 +23,7 @@ typedef enum
 	similar_genre = 1 << 5,
 	similar_genre_max = 1 << 6,
 	similar_genre_same = 1 << 7,
-	prune = 1 << 8,
+	keep = 1 << 8,
 	block_song = 1 << 9,
 	block_artist = 1 << 10,
 	same_genre = 1 << 11,
@@ -67,6 +67,7 @@ gint dyn_get_enabled();
 void dyn_set_enabled(gint l_enabled);
 static void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_type);
 static int dyn_tool_menu_integration(GtkMenu* l_menu);
+static const gchar* dyn_get_translation_domain();
 
 /* preferences */
 void pref_destroy(GtkWidget* l_con);
@@ -75,6 +76,7 @@ void pref_similar_set(option l_type, gint l_value);
 void pref_spins(GtkSpinButton* l_widget, gpointer l_data);
 void pref_spins_set(option l_type, gint l_value);
 void pref_construct(GtkWidget* l_con);
+void pref_construct_signals_and_values(GtkBuilder* l_builder);
 
 #endif
 
