@@ -624,6 +624,10 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 
 void dyn_init()
 {
+#ifdef HG_REV
+	g_debug("Revision: %s", HG_REV);
+#endif
+
 	g_assert(m_rand == NULL);
 
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
