@@ -43,8 +43,6 @@ pkg_check_modules(DEPS REQUIRED
 	glib-2.0>=2.16
 	gtk+-2.0>=2.8
 	gobject-2.0>=2.4
-	gmodule-2.0
-	gthread-2.0
 	)
 
 INCLUDE_DIRECTORIES(${DEPS_INCLUDE_DIRS} ${GMPC_INCLUDE_DIRS} ${LIBMPD_INCLUDE_DIRS})
