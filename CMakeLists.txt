@@ -41,7 +41,7 @@ pkg_check_modules(GMPC REQUIRED gmpc>=0.18.1)
 pkg_check_modules(LIBMPD REQUIRED libmpd>=0.18)
 pkg_check_modules(DEPS REQUIRED
 	glib-2.0>=2.16
-	gtk+-2.0>=2.8
+	gtk+-2.0>=2.12
 	gobject-2.0>=2.4
 	)
 
