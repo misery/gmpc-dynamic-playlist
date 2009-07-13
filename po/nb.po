@@ -1,0 +1,166 @@
+# Norwegian Bokmal translation for gmpc
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the gmpc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gmpc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-07-13 11:59+0200\n"
+"PO-Revision-Date: 2009-07-13 11:17+0000\n"
+"Last-Translator: André Klitzing <aklitzing@online.de>\n"
+"Language-Team: Norwegian Bokmal <nb@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-07-13 11:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: blacklist.c:36
+msgid "!Blacklist Genre"
+msgstr "!Svartelist Sjanger"
+
+#: blacklist.c:37
+msgid "!Blacklist Artist"
+msgstr "!Svartelist Artist"
+
+#: blacklist.c:38
+msgid "!Blacklist Album"
+msgstr "!Svartelist Album"
+
+#: blacklist.c:39
+msgid "!Blacklist Song"
+msgstr "!Svartelist Sang"
+
+#: plugin.c:325
+msgid "Dynamic search cannot find a new song"
+msgstr "Dynamisk søk kan ikke finne en ny sang"
+
+#: plugin.c:479 plugin.c:571
+msgid "Dynamic playlist is disabled"
+msgstr "Dynamisk spilleliste er slått av"
+
+#: plugin.c:485
+msgid "Dynamic search is already busy"
+msgstr "Dynamisk søk er allerede i bruk"
+
+#: plugin.c:492
+msgid "You need to play a song that will be used"
+msgstr "Du må spille av en sang som vill bli brukt"
+
+#: plugin.c:578
+msgid "Cannot prune playlist! There is no current song as position"
+msgstr ""
+
+#: plugin.c:656
+msgid "prune"
+msgstr ""
+
+#: plugin.c:656
+msgid "Prune playlist"
+msgstr ""
+
+#: plugin.c:657
+msgid "dynamic"
+msgstr "Dynamisk"
+
+#: plugin.c:657
+msgid "Dynamic search (on|off)"
+msgstr "Dynamisk søk (På|av)"
+
+#: plugin.c:658
+msgid "similar"
+msgstr "Lignende"
+
+#: plugin.c:658
+msgid "Search for similar song/artist/genre"
+msgstr "Søk for lignende sang/artist/sjanger"
+
+#: plugin.c:672
+msgid "on"
+msgstr "på"
+
+#: plugin.c:674
+msgid "off"
+msgstr "av"
+
+#: plugin.c:722 plugin.c:958
+msgid "Dynamic Playlist"
+msgstr "Dynamisk spilleliste"
+
+#: plugin.c:729
+msgid "Dynamic search"
+msgstr "Dynamisk søk"
+
+#: plugin.c:734 dynlist-ui-options.xml:43
+msgid "Use blacklists"
+msgstr "Bruk svartelister"
+
+#: plugin.c:739
+msgid "Add similar song"
+msgstr "Legg til lignende sang"
+
+#: dynlist-ui-options.xml:17
+msgid "Enable dynamic search"
+msgstr "Slå på dynamisk søk"
+
+#: dynlist-ui-options.xml:30
+msgid "Search songs in same genre"
+msgstr "Søk etter sanger i samme sjanger"
+
+#: dynlist-ui-options.xml:67
+msgid "Delay dynamic search for x seconds:"
+msgstr ""
+
+#: dynlist-ui-options.xml:77
+msgid "Keep x songs after current:"
+msgstr "Behold x sanger etter:"
+
+#: dynlist-ui-options.xml:87
+msgid "Block played song for at least x songs:"
+msgstr ""
+
+#: dynlist-ui-options.xml:97
+msgid "Block played artist for at least x songs:"
+msgstr ""
+
+#: dynlist-ui-options.xml:171
+msgid "Local"
+msgstr ""
+
+#: dynlist-ui-options.xml:185
+msgid "Search songs in 'similar songs'"
+msgstr "Søk etter sanger i 'lignende sanger'"
+
+#: dynlist-ui-options.xml:198
+msgid "Search songs in 'similar artists'"
+msgstr "Søk etter sanger i 'lignende artister'"
+
+#: dynlist-ui-options.xml:211
+msgid "Same artist is also 'similar'"
+msgstr "Samme artist er også 'lignende'"
+
+#: dynlist-ui-options.xml:224
+msgid "Search songs in 'similar genre'"
+msgstr "Søk etter sanger i \"lignende sjangere'"
+
+#: dynlist-ui-options.xml:237
+msgid "Same genre is also 'similar'"
+msgstr "Samme sjanger er også 'lignende'"
+
+#: dynlist-ui-options.xml:261
+msgid "Search max. songs in database:"
+msgstr "Søk maks. Sanger i database:"
+
+#: dynlist-ui-options.xml:271
+msgid "Search max. artists in database:"
+msgstr "Søk max. artister i database:"
+
+#: dynlist-ui-options.xml:281
+msgid "Search max. genre in database:"
+msgstr "Søk maks. sjangere i database:"
+
+#: dynlist-ui-options.xml:349
+msgid "Metadata"
+msgstr ""
