@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc-dynamic-playlist 0.9.3\n"
 "Report-Msgid-Bugs-To: andre@incubo.de\n"
-"POT-Creation-Date: 2009-06-23 19:50+0200\n"
-"PO-Revision-Date: 2009-06-23 19:33+0000\n"
+"POT-Creation-Date: 2009-07-13 11:59+0200\n"
+"PO-Revision-Date: 2009-07-13 11:13+0000\n"
 "Last-Translator: André Klitzing <aklitzing@online.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-06-23 19:36+0000\n"
+"X-Launchpad-Export-Date: 2009-07-13 11:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: blacklist.c:36
@@ -33,124 +33,136 @@ msgstr "!Blacklist Album"
 msgid "!Blacklist Song"
 msgstr "!Blacklist Lied"
 
-#: plugin.c:329
+#: plugin.c:325
 msgid "Dynamic search cannot find a new song"
 msgstr "Die dynamische Suche konnte kein neues Lied finden"
 
-#: plugin.c:483 plugin.c:543
+#: plugin.c:479 plugin.c:571
 msgid "Dynamic playlist is disabled"
 msgstr "Die dynamische Wiedergabeliste ist deaktiviert"
 
-#: plugin.c:489
+#: plugin.c:485
 msgid "Dynamic search is already busy"
 msgstr "Die dynamische Suche ist noch beschäftigt"
 
-#: plugin.c:496
+#: plugin.c:492
 msgid "You need to play a song that will be used"
 msgstr "Sie müssen ein Lied spielen, welches zur Suche benutzt wird"
 
-#: plugin.c:550
+#: plugin.c:578
 msgid "Cannot prune playlist! There is no current song as position"
 msgstr ""
 "Wiedergabeliste kann nicht gesäubert werden! Es gibt kein aktuelles Lied als "
 "Position"
 
-#: plugin.c:609
+#: plugin.c:656
 msgid "prune"
 msgstr "Säubern"
 
-#: plugin.c:609
+#: plugin.c:656
 msgid "Prune playlist"
 msgstr "Wiedergabeliste säubern"
 
-#: plugin.c:610
+#: plugin.c:657
 msgid "dynamic"
 msgstr "dynamisch"
 
-#: plugin.c:610
+#: plugin.c:657
 msgid "Dynamic search (on|off)"
 msgstr "Dynamische Suche (on|off)"
 
-#: plugin.c:611
+#: plugin.c:658
 msgid "similar"
 msgstr "Ähnlich"
 
-#: plugin.c:611
+#: plugin.c:658
 msgid "Search for similar song/artist/genre"
 msgstr "Suche nach ähnlichem Lied/Interpreten/Genre"
 
-#: plugin.c:670 plugin.c:956
+#: plugin.c:672
+msgid "on"
+msgstr "ein"
+
+#: plugin.c:674
+msgid "off"
+msgstr "aus"
+
+#: plugin.c:722 plugin.c:958
 msgid "Dynamic Playlist"
 msgstr "Dynamische Wiedergabeliste"
 
-#: plugin.c:677
+#: plugin.c:729
 msgid "Dynamic search"
 msgstr "Dynamische Suche"
 
-#: plugin.c:682 plugin.c:896
+#: plugin.c:734 dynlist-ui-options.xml:43
 msgid "Use blacklists"
 msgstr "Benutze Blacklists"
 
-#: plugin.c:687
+#: plugin.c:739
 msgid "Add similar song"
 msgstr "Ähnliches Lied hinzufügen"
 
-#: plugin.c:810
-msgid "<b>Meta-Data options</b>"
-msgstr "<b>Meta-Daten Optionen</b>"
-
-#: plugin.c:814
-msgid "Search songs in 'similar songs'"
-msgstr "Suche Lieder in 'ähnliche Lieder'"
-
-#: plugin.c:821
-msgid "Search max. songs in database:"
-msgstr "Suche max. Lieder in der Datenbank:"
-
-#: plugin.c:831
-msgid "Search songs in 'similar artists'"
-msgstr "Suche Lieder in 'ähnliche Interpreten'"
-
-#: plugin.c:837
-msgid "Same artist is also 'similar'"
-msgstr "Derselbe Interpret ist ebenfalls 'ähnlich'"
-
-#: plugin.c:845
-msgid "Search max. artists in database:"
-msgstr "Suche max. Interpreten in der Datenbank:"
-
-#: plugin.c:855
-msgid "Search songs in 'similar genre'"
-msgstr "Suche Lieder in 'ähnliches Genre'"
-
-#: plugin.c:861
-msgid "Same genre is also 'similar'"
-msgstr "Dasselbe Genre ist ebenfalls 'ähnlich'"
-
-#: plugin.c:868
-msgid "Search max. genre in database:"
-msgstr "Suche max. Genre in der Datenbank:"
-
-#: plugin.c:880
-msgid "<b>Local options</b>"
-msgstr "<b>Lokale Optionen</b>"
-
-#: plugin.c:884
+#: dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
 msgstr "Aktiviere dynamische Suche"
 
-#: plugin.c:890
+#: dynlist-ui-options.xml:30
 msgid "Search songs in same genre"
 msgstr "Suche Lieder im selben Genre"
 
-#: plugin.c:903
+#: dynlist-ui-options.xml:67
+msgid "Delay dynamic search for x seconds:"
+msgstr "Verzögere dynamische Suche um x Sekunden:"
+
+#: dynlist-ui-options.xml:77
 msgid "Keep x songs after current:"
 msgstr "Behalte x Lieder nach dem aktuellen Lied:"
 
-#: plugin.c:914
+#: dynlist-ui-options.xml:87
 msgid "Block played song for at least x songs:"
 msgstr "Blockiere gespieltes Lied für mindestens x Lieder:"
 
-#: plugin.c:925
+#: dynlist-ui-options.xml:97
 msgid "Block played artist for at least x songs:"
 msgstr "Blockiere gespielten Interpreten für mindestens x Lieder:"
+
+#: dynlist-ui-options.xml:171
+msgid "Local"
+msgstr "Lokal"
+
+#: dynlist-ui-options.xml:185
+msgid "Search songs in 'similar songs'"
+msgstr "Suche Lieder in 'ähnliche Lieder'"
+
+#: dynlist-ui-options.xml:198
+msgid "Search songs in 'similar artists'"
+msgstr "Suche Lieder in 'ähnliche Interpreten'"
+
+#: dynlist-ui-options.xml:211
+msgid "Same artist is also 'similar'"
+msgstr "Derselbe Interpret ist ebenfalls 'ähnlich'"
+
+#: dynlist-ui-options.xml:224
+msgid "Search songs in 'similar genre'"
+msgstr "Suche Lieder in 'ähnliches Genre'"
+
+#: dynlist-ui-options.xml:237
+msgid "Same genre is also 'similar'"
+msgstr "Dasselbe Genre ist ebenfalls 'ähnlich'"
+
+#: dynlist-ui-options.xml:261
+msgid "Search max. songs in database:"
+msgstr "Suche max. Lieder in der Datenbank:"
+
+#: dynlist-ui-options.xml:271
+msgid "Search max. artists in database:"
+msgstr "Suche max. Interpreten in der Datenbank:"
+
+#: dynlist-ui-options.xml:281
+msgid "Search max. genre in database:"
+msgstr "Suche max. Genre in der Datenbank:"
+
+#: dynlist-ui-options.xml:349
+msgid "Metadata"
+msgstr "Metadaten"
