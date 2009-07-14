@@ -25,6 +25,7 @@
 #include <glib/gi18n-lib.h>
 #include "plugin.h"
 #include "blacklist.h"
+#include "played.h"
 
 #define BUFFER_SECONDS 5
 
@@ -33,8 +34,6 @@ extern GmpcEasyCommand* gmpc_easy_command;
 guint m_delay_source = 0;
 guint8 m_delay_timeout = 0;
 gint m_keep = -1;
-gint m_block_song = 0;
-gint m_block_artist = 0;
 gint m_similar_songs_max = 0;
 gint m_similar_artists_max = 0;
 gint m_similar_genre_max = 0;
@@ -46,7 +45,6 @@ gboolean m_similar_genre = FALSE;
 gboolean m_same_genre = FALSE;
 gboolean m_enabled = TRUE;
 gboolean m_enabled_search = FALSE;
-dbQueue m_lastSongs = G_QUEUE_INIT;
 GRand* m_rand = NULL;
 gboolean m_is_searching = FALSE;
 
@@ -55,56 +53,6 @@ GtkWidget* m_menu_item = NULL;
 GtkWidget* m_menu = NULL;
 GtkWidget* m_menu_search = NULL;
 GtkWidget* m_menu_blacklist = NULL;
-
-void add_lastSongs(dbSong* l_song)
-{
-	g_assert(l_song != NULL);
-
-	g_queue_push_head(&m_lastSongs, l_song);
-	flush_lastSongs( MAX(m_block_song, m_block_artist) );
-}
-
-void flush_lastSongs(gint l_max)
-{
-	g_assert(l_max >= 0);
-
-	const gint max = g_queue_get_length(&m_lastSongs) - l_max;
-	gint i;
-	for(i = 0; i < max; ++i)
-		free_dbSong( (dbSong*) g_queue_pop_tail(&m_lastSongs) );
-}
-
-gboolean exists_lastSongs(const gchar* l_artist, const gchar* l_title)
-{
-	g_assert(l_artist != NULL);
-
-	if(!g_queue_is_empty(&m_lastSongs))
-	{
-		dbList* iter = g_queue_peek_head_link(&m_lastSongs);
-		gint i;
-		for(i = 0; iter != NULL; iter = g_list_next(iter), ++i)
-		{
-			dbSong* song = (dbSong*) iter->data;
-			if(i < m_block_artist && strcasecmp(song->artist, l_artist) == 0)
-			{
-				g_debug("Artist blocked: %s", l_artist);
-				return TRUE;
-			}
-			if(i < m_block_song && l_title != NULL && strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
-			{
-				g_debug("Song blocked: %s::%s", l_artist, l_title);
-				return TRUE;
-			}
-		}
-	}
-
-	return FALSE;
-}
-
-gboolean exists_lastArtists(const gchar* l_artist)
-{
-	return exists_lastSongs(l_artist, NULL);
-}
 
 dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count)
 {
@@ -126,7 +74,7 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	{
 		if(data->song->artist != NULL && data->song->title != NULL
 			&& !is_blacklisted(data->song)
-			&& !exists_lastSongs(data->song->artist, data->song->title))
+			&& !is_played_song(data->song->artist, data->song->title))
 		{
 			dbSong* song = new_dbSong(data->song->artist, data->song->title, data->song->file);
 			l_list = g_list_prepend(l_list, song);
@@ -161,7 +109,7 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 	{
 		if(data->tag_type == MPD_TAG_ITEM_ARTIST
 				&& !is_blacklisted_artist(data->tag)
-				&& !exists_lastArtists(data->tag))
+				&& !is_played_artist(data->tag))
 		{
 			l_list = new_strListItem(l_list, data->tag);
 			++(*l_out_count);
@@ -189,7 +137,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 			|| is_blacklisted_genre(data->song->genre)
 			|| is_blacklisted_album(artist, data->song->album)
 			|| is_blacklisted_song(data->song->artist, data->song->title)
-			|| exists_lastSongs(data->song->artist, data->song->title))
+			|| is_played_song(data->song->artist, data->song->title))
 		{
 			data = mpd_data_delete_item(data);
 			if( data == NULL || (first && ((MpdData_real*) data)->prev == NULL) )
@@ -215,7 +163,7 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 
 		dbSong* song = new_dbSong(data->song->artist, data->song->title, data->song->file);
 		mpd_playlist_add(connection, song->path);
-		add_lastSongs(song);
+		add_played_song(song);
 		g_debug("Added via artist | artist: %s | title: %s | genre: %s",
 				data->song->artist, data->song->title, data->song->genre);
 		mpd_data_free(data);
@@ -354,7 +302,7 @@ void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_dat
 		if(count > 0)
 		{
 			// add one artist to artistList (mostly because 'same artist' is also 'similar')
-			if(l_song->artist != NULL && m_similar_artist_same && !m_block_artist)
+			if(l_song->artist != NULL && m_similar_artist_same && get_played_limit_artist() == 0)
 				artistList = database_get_artists(artistList, l_song->artist, NULL, &count);
 			if(database_tryToAdd_artists(&artistList, count))
 				l_status |= Found;
@@ -403,7 +351,7 @@ void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data,
 
 			dbSong* song = (dbSong*) songListIter->data;
 			mpd_playlist_add(connection, song->path);
-			add_lastSongs(song);
+			add_played_song(song);
 			g_debug("Added via song | artist: %s | title: %s", song->artist, song->title);
 
 			// Remove added dbSong* from dbList so it won't be freed
@@ -635,8 +583,6 @@ void dyn_init()
 
 	m_delay_timeout = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "delayTimeout", 0);
 	m_keep = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "keep", -1);
-	m_block_song = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block", 100);
-	m_block_artist = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block_artist", 0);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxSongs", 20);
 	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxArtists", 30);
 	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxGenres", 20);
@@ -648,6 +594,9 @@ void dyn_init()
 	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "same_genre", FALSE);
 	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
 	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
+
+	set_played_limit_song(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block", 100));
+	set_played_limit_artist(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block_artist", 0));
 	set_active_blacklist(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "blacklist", TRUE));
 	m_rand = g_rand_new();
 	if(m_enabled)
@@ -660,9 +609,7 @@ void dyn_init()
 
 void dyn_destroy()
 {
-	if(!g_queue_is_empty(&m_lastSongs))
-		clear_dbQueue(&m_lastSongs);
-
+	free_played_list();
 	free_blacklists();
 	g_rand_free(m_rand);
 }
@@ -827,13 +774,13 @@ void pref_spins_set(option l_type, gint l_value)
 	}
 	else if(l_type == block_song)
 	{
-		m_block_song = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "block", m_block_song);
+		set_played_limit_song(l_value);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "block", l_value);
 	}
 	else if(l_type == block_artist)
 	{
-		m_block_artist = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "block_artist", m_block_artist);
+		set_played_limit_artist(l_value);
+		cfg_set_single_value_as_int(config, "dynamic-playlist", "block_artist", l_value);
 	}
 	else if(l_type == similar_song_max)
 	{
@@ -905,11 +852,11 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(keep));
 
 	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_block_song"));
-	gtk_spin_button_set_value(spin, m_block_song);
+	gtk_spin_button_set_value(spin, get_played_limit_song());
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block_song));
 
 	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_block_artist"));
-	gtk_spin_button_set_value(spin, m_block_artist);
+	gtk_spin_button_set_value(spin, get_played_limit_artist());
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block_artist));
 
 	/* Metadata */
