@@ -2,7 +2,6 @@
 #define _DYN_LIST_PLUGIN
 
 #include "dbSong.h"
-
 #include <gmpc/plugin.h>
 #include <libmpd/libmpd-internal.h>
 
@@ -35,11 +34,7 @@ typedef enum
 	delay = 1 << 14
 } option;
 
-/* main function to find similar songs */
-static dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count);
-static strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count);
-static gboolean database_tryToAdd_artist(const gchar* l_artist);
-static gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count);
+/* main functions */
 static status getNextStatus(status l_status);
 static void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status);
 static void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status);
