@@ -90,3 +90,5 @@ ELSE()
 	SET(CMAKE_VERBOSE_MAKEFILE on)
 ENDIF()
 
+
+#vim:set ts=4 sw=4:
