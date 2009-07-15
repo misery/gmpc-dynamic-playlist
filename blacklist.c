@@ -17,10 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#include <gmpc/plugin.h>
-#include <libmpd/libmpd-internal.h>
-#include <glib/gi18n-lib.h>
 #include "blacklist.h"
+#include <glib/gi18n-lib.h>
 
 #define BLACKLIST_COUNT 4
 typedef enum _blacklist_name
