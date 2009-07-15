@@ -1,0 +1,24 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0)
+
+IF(${PROJECT_NAME} STREQUAL "Project")
+	MESSAGE(FATAL_ERROR "call parent build file only")
+ENDIF()
+
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
+ADD_LIBRARY(fixture_gmpc SHARED fixture_gmpc.c)
+
+# Played List
+ADD_EXECUTABLE(test_played test_played.c)
+TARGET_LINK_LIBRARIES(test_played dynlist fixture_gmpc ${DEPS_LIBRARIES} ${LIBMPD_LIBRARIES})
+ADD_TEST(Played gtester -k --verbose test_played)
+SET_TESTS_PROPERTIES(Played PROPERTIES PASS_REGULAR_EXPRESSION "PASS")
+SET_TESTS_PROPERTIES(Played PROPERTIES FAIL_REGULAR_EXPRESSION "FAIL")
+
+# Blacklist
+ADD_EXECUTABLE(test_blacklist test_blacklist.c)
+TARGET_LINK_LIBRARIES(test_blacklist dynlist fixture_gmpc ${DEPS_LIBRARIES} ${LIBMPD_LIBRARIES})
+ADD_TEST(Blacklist gtester -k --verbose test_blacklist)
+SET_TESTS_PROPERTIES(Blacklist PROPERTIES PASS_REGULAR_EXPRESSION "PASS")
+SET_TESTS_PROPERTIES(Blacklist PROPERTIES FAIL_REGULAR_EXPRESSION "FAIL")
+
+#vim:set ts=4 sw=4:
