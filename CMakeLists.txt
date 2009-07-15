@@ -87,7 +87,6 @@ IF(NOT DEFINED debug OR NOT debug)
 	MESSAGE(STATUS "G_ASSERTs are disabled!")
 ELSE()
 	MESSAGE(STATUS "G_ASSERTs are enabled!")
-	SET(CMAKE_VERBOSE_MAKEFILE on)
 ENDIF()
 
 
