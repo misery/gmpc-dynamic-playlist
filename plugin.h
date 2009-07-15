@@ -3,6 +3,9 @@
 
 #include "dbSong.h"
 
+#include <gmpc/plugin.h>
+#include <libmpd/libmpd-internal.h>
+
 #define STATUS_COUNT 4
 typedef enum
 {
