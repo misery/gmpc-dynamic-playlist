@@ -2,15 +2,10 @@
 #include <gmpc/playlist3-messages.h>
 #include <gmpc/gmpc-easy-command.h>
 #include <gmpc/plugin.h>
-#include <libmpd/libmpd-internal.h>
-
-
-/* Plugin variables */
-MpdObj* connection = NULL;
-config_obj* config = NULL;
 
 
 /* Config settings */
+config_obj* config = NULL;
 void cfg_set_single_value_as_int(config_obj *cfg, const char* l_class, const char* l_key, int l_value)
 {
 	g_debug("set int value: %s | %s | %d", l_class, l_key, l_value);
