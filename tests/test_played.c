@@ -26,7 +26,7 @@ static void test_set_limits_assert_song()
 	if(g_test_trap_fork (0, G_TEST_TRAP_SILENCE_STDERR))
 	{
 		set_played_limit_song(-1);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	g_test_trap_assert_failed();
 }
@@ -36,7 +36,7 @@ static void test_set_limits_assert_artist()
 	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
 	{
 		set_played_limit_artist(-1);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	g_test_trap_assert_failed();
 }
