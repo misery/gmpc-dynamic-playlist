@@ -17,7 +17,7 @@ void test_empty_blacklist()
 
 	set_active_blacklist(TRUE);
 	const char* artist = "Metallica";
-	const char* title = "";
+	const char* title = "Bleeding Me";
 	const char* genre = "Metal";
 	const char* album = "Load";
 
