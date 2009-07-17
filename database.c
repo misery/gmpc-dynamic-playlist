@@ -22,6 +22,9 @@
 #include "blacklist.h"
 #include "played.h"
 
+#ifdef TESTMODE
+#define g_rand_int_range(obj, min, max) g_test_rand_int_range(min, max)
+#endif
 extern GRand* m_rand;
 
 dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count)
