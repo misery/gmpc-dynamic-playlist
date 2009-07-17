@@ -1,0 +1,14 @@
+music_directory "DIRECTORY"
+playlist_directory "DIRECTORY/blacklist/empty/playlists"
+db_file "DIRECTORY/blacklist/empty/database"
+pid_file "DIRECTORY/blacklist/empty/pid"
+log_file "DIRECTORY/blacklist/empty/log"
+error_file "DIRECTORY/blacklist/empty/error"
+
+bind_to_address		"localhost"
+port				"1904"
+
+audio_output {
+		type	"null"
+		name	"dummy"
+}

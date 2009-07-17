@@ -1,0 +1,256 @@
+info_begin
+mpd_version: 0.16~git
+fs_charset: UTF-8
+info_end
+directory: Metallica
+mtime: 1247834198
+begin: Metallica
+directory: Load
+mtime: 1247834198
+begin: Metallica/Load
+songList begin
+key: Metallica - 01 - Ain't My Bitch.ogg
+file: Metallica/Load/Metallica - 01 - Ain't My Bitch.ogg
+Time: 304
+Genre: Metal
+Title: Ain't My Bitch
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 90494d10-5a16-4735-b898-50132d216e93
+ArtistSort: Metallica
+Track: 1
+mtime: 1241543555
+key: Metallica - 02 - 2 X 4.ogg
+file: Metallica/Load/Metallica - 02 - 2 X 4.ogg
+Time: 328
+Genre: Metal
+Title: 2 X 4
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 970eaae3-6e2b-4020-88c0-012c3c86f70d
+ArtistSort: Metallica
+Track: 2
+mtime: 1241543556
+key: Metallica - 03 - The House Jack Built.ogg
+file: Metallica/Load/Metallica - 03 - The House Jack Built.ogg
+Time: 398
+Genre: Metal
+Title: The House Jack Built
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: d46fd8e8-11ca-4796-bdd6-5183c831cde3
+ArtistSort: Metallica
+Track: 3
+mtime: 1241543559
+key: Metallica - 04 - Until It Sleeps.ogg
+file: Metallica/Load/Metallica - 04 - Until It Sleeps.ogg
+Time: 268
+Genre: Metal
+Title: Until It Sleeps
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 12887ac8-2f6c-4cc9-9ee0-0869a0119c08
+ArtistSort: Metallica
+Track: 4
+mtime: 1241543561
+key: Metallica - 05 - King Nothing.ogg
+file: Metallica/Load/Metallica - 05 - King Nothing.ogg
+Time: 329
+Genre: Metal
+Title: King Nothing
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: f5c07346-38c9-4c18-8a14-37818e8a4830
+ArtistSort: Metallica
+Track: 5
+mtime: 1241543562
+key: Metallica - 06 - Hero Of The Day.ogg
+file: Metallica/Load/Metallica - 06 - Hero Of The Day.ogg
+Time: 261
+Genre: Metal
+Title: Hero Of The Day
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: c8361f8a-ece3-4ad0-a5a6-4bb6d06083b9
+ArtistSort: Metallica
+Track: 6
+mtime: 1241543563
+key: Metallica - 07 - Bleeding Me.ogg
+file: Metallica/Load/Metallica - 07 - Bleeding Me.ogg
+Time: 497
+Genre: Metal
+Title: Bleeding Me
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 37a4fd0b-5fee-4cb8-8d1c-01f6217aaaa2
+ArtistSort: Metallica
+Track: 7
+mtime: 1241543565
+key: Metallica - 08 - Cure.ogg
+file: Metallica/Load/Metallica - 08 - Cure.ogg
+Time: 294
+Genre: Metal
+Title: Cure
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 5b154c76-99fa-4873-9ed8-2809a975e011
+ArtistSort: Metallica
+Track: 8
+mtime: 1241543566
+key: Metallica - 09 - Poor Twisted Me.ogg
+file: Metallica/Load/Metallica - 09 - Poor Twisted Me.ogg
+Time: 240
+Genre: Metal
+Title: Poor Twisted Me
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 79d45df4-61a3-41d4-a19b-b43a4942536b
+ArtistSort: Metallica
+Track: 9
+mtime: 1241543567
+key: Metallica - 10 - Wasting My Hate.ogg
+file: Metallica/Load/Metallica - 10 - Wasting My Hate.ogg
+Time: 237
+Genre: Metal
+Title: Wasting My Hate
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 778296b9-0136-4e32-b223-481863923475
+ArtistSort: Metallica
+Track: 10
+mtime: 1241543568
+key: Metallica - 11 - Mama Said.ogg
+file: Metallica/Load/Metallica - 11 - Mama Said.ogg
+Time: 319
+Genre: Metal
+Title: Mama Said
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 666da4b6-ab54-4557-a4b5-beb9480ef0e9
+ArtistSort: Metallica
+Track: 11
+mtime: 1241543569
+key: Metallica - 12 - Thorn Within.ogg
+file: Metallica/Load/Metallica - 12 - Thorn Within.ogg
+Time: 351
+Genre: Metal
+Title: Thorn Within
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: a298d743-fdd2-44c0-8067-a4493f129bbd
+ArtistSort: Metallica
+Track: 12
+mtime: 1241543570
+key: Metallica - 13 - Ronnie.ogg
+file: Metallica/Load/Metallica - 13 - Ronnie.ogg
+Time: 317
+Genre: Metal
+Title: Ronnie
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: 84ea7549-e70f-4733-9d61-0a0d0b606986
+ArtistSort: Metallica
+Track: 13
+mtime: 1241543571
+key: Metallica - 14 - The Outlaw Torn.ogg
+file: Metallica/Load/Metallica - 14 - The Outlaw Torn.ogg
+Time: 588
+Genre: Metal
+Title: The Outlaw Torn
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Date: 1996-06-04
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: e1cd6a26-0875-4352-8af0-196972716ac7
+AlbumArtist: Metallica
+Album: Load
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+Artist: Metallica
+MUSICBRAINZ_TRACKID: c41a1d32-ccce-40ae-9e33-0784e11d0cde
+ArtistSort: Metallica
+Track: 14
+mtime: 1241543573
+songList end
+end: Metallica/Load
+songList begin
+songList end
+end: Metallica
+songList begin
+songList end
