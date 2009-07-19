@@ -2,11 +2,437 @@ info_begin
 mpd_version: 0.16~git
 fs_charset: UTF-8
 info_end
+directory: Bela B.
+mtime: 1194945654
+begin: Bela B.
+directory: Bingo
+mtime: 1196773141
+begin: Bela B./Bingo
+songList begin
+key: Bela B. - 01 - B-Vertüre.flac
+file: Bela B./Bingo/Bela B. - 01 - B-Vertüre.flac
+Time: 81
+Title: B-Vertüre
+Artist: Bela B.
+Album: Bingo
+Date: 2006
+Track: 01
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: c5d79930-acab-4319-8627-555603baa458
+mtime: 1194750703
+key: Bela B. - 02 - Gitarre runter.flac
+file: Bela B./Bingo/Bela B. - 02 - Gitarre runter.flac
+Time: 224
+Title: Gitarre runter
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 02
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: f1918e24-4844-4060-9689-a52d5fd52022
+mtime: 1194750731
+key: Bela B. - 03 - Tag mit Schutzumschlag.flac
+file: Bela B./Bingo/Bela B. - 03 - Tag mit Schutzumschlag.flac
+Time: 183
+Title: Tag mit Schutzumschlag
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 03
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: e4f3aa40-2ff1-4a9f-9747-faf4137ae387
+mtime: 1194750752
+key: Bela B. - 04 - Irgendetwas bleibt.flac
+file: Bela B./Bingo/Bela B. - 04 - Irgendetwas bleibt.flac
+Time: 206
+Title: Irgendetwas bleibt
+Artist: Bela B.
+Album: Bingo
+Date: 2006
+Track: 04
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: ff814e30-8346-4947-9491-75e09280f65a
+mtime: 1194750775
+key: Bela B. - 05 - Traumfrau.flac
+file: Bela B./Bingo/Bela B. - 05 - Traumfrau.flac
+Time: 185
+Title: Traumfrau
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 05
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 2ce7a138-b78e-4983-8726-a472cbf6b204
+mtime: 1194750795
+key: Bela B. - 06 - Letzter Tag.flac
+file: Bela B./Bingo/Bela B. - 06 - Letzter Tag.flac
+Time: 245
+Title: Letzter Tag
+Artist: Bela B.
+Album: Bingo
+Date: 2006
+Track: 06
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: fa043cdf-41c9-46e4-8387-c29248061a75
+mtime: 1194750818
+key: Bela B. - 07 - Was ist nur los ... .flac
+file: Bela B./Bingo/Bela B. - 07 - Was ist nur los ... .flac
+Time: 153
+Title: Was ist nur los ...?
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 07
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 5a150d4b-c46d-4b07-9ec8-f2d0ff250229
+mtime: 1194750833
+key: Bela B. - 08 - 1. 2. 3. ... (feat. Charlotte Roche).flac
+file: Bela B./Bingo/Bela B. - 08 - 1. 2. 3. ... (feat. Charlotte Roche).flac
+Time: 181
+Title: 1. 2. 3. ... (feat. Charlotte Roche)
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 08
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 379c04a3-84b2-4da6-9fae-10254116d1f1
+mtime: 1194750850
+key: Bela B. - 09 - Sie hat was vermisst.flac
+file: Bela B./Bingo/Bela B. - 09 - Sie hat was vermisst.flac
+Time: 241
+Title: Sie hat was vermisst
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 09
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: b1245805-ffce-4e9f-891b-de0c450a2879
+mtime: 1194750871
+key: Bela B. - 10 - Der Vampir mit dem Colt.flac
+file: Bela B./Bingo/Bela B. - 10 - Der Vampir mit dem Colt.flac
+Time: 291
+Title: Der Vampir mit dem Colt
+Artist: Bela B.
+Album: Bingo
+Date: 2006
+Track: 10
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: b3f383bc-11e4-4c78-af6a-923710786f27
+mtime: 1194750895
+key: Bela B. - 11 - Versuchs doch mal mit mir.flac
+file: Bela B./Bingo/Bela B. - 11 - Versuchs doch mal mit mir.flac
+Time: 188
+Title: Versuchs doch mal mit mir
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 11
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 4181384f-91ea-4b43-bdc6-9b3e0449c872
+mtime: 1194750910
+key: Bela B. - 12 - Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood).flac
+file: Bela B./Bingo/Bela B. - 12 - Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood).flac
+Time: 191
+Title: Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood)
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 12
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: e0911d38-9c72-44c1-9b17-7a9c09243851
+mtime: 1194750925
+key: Bela B. - 13 - Hab keine Angst (feat. Lula).flac
+file: Bela B./Bingo/Bela B. - 13 - Hab keine Angst (feat. Lula).flac
+Time: 239
+Title: Hab keine Angst (feat. Lula)
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 13
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: ddd9c3dc-0e13-496a-b8c2-c756eb0a0602
+mtime: 1194750943
+key: Bela B. - 14 - ZappingsonG.flac
+file: Bela B./Bingo/Bela B. - 14 - ZappingsonG.flac
+Time: 125
+Title: ZappingsonG
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 14
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 2d74c0b2-3897-4bb9-8505-436b89d8facb
+mtime: 1194750953
+key: Bela B. - 15 - Wiehr thind sssuper.flac
+file: Bela B./Bingo/Bela B. - 15 - Wiehr thind sssuper.flac
+Time: 191
+Title: Wiehr thind sssuper
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 15
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 28ca212f-b976-4337-aa44-b0badb514384
+mtime: 1194750967
+key: Bela B. - 16 - Baby läuft fort.flac
+file: Bela B./Bingo/Bela B. - 16 - Baby läuft fort.flac
+Time: 236
+Title: Baby läuft fort
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 16
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 1f096f63-874a-4d61-b301-9837e7c5c917
+mtime: 1194750983
+key: Bela B. - 17 - Traumfrau Again.flac
+file: Bela B./Bingo/Bela B. - 17 - Traumfrau Again.flac
+Time: 71
+Title: Traumfrau Again
+Artist: Bela B.
+Album: Bingo
+Date: 2006-05-12
+Track: 17
+Genre: Pop
+MUSICBRAINZ_ALBUMID: 7c31c8d9-dbd4-4440-9329-0f20d5027ed7
+MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
+MUSICBRAINZ_TRACKID: 9b11f5ac-0eb9-426c-a9ac-124d8495906a
+mtime: 1194750989
+songList end
+end: Bela B./Bingo
+songList begin
+songList end
+end: Bela B.
 directory: Metallica
-mtime: 1247834198
+mtime: 1248010076
 begin: Metallica
+directory: Death Magnetic
+mtime: 1222716018
+begin: Metallica/Death Magnetic
+songList begin
+key: Metallica - 01 - That Was Just Your Life.mp3
+file: Metallica/Death Magnetic/Metallica - 01 - That Was Just Your Life.mp3
+Time: 429
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: That Was Just Your Life
+Album: Death Magnetic
+Track: 1/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: 6d6efe2b-2905-4061-8fc7-94a8161e5e37
+mtime: 1241489229
+key: Metallica - 02 - The End of The Line.mp3
+file: Metallica/Death Magnetic/Metallica - 02 - The End of The Line.mp3
+Time: 473
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: The End Of The Line
+Album: Death Magnetic
+Track: 2/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: 90bbdd7e-cfa6-47cc-9d50-d2cca87ecac1
+mtime: 1241489230
+key: Metallica - 03 - Broken Beat and Scarred.mp3
+file: Metallica/Death Magnetic/Metallica - 03 - Broken Beat and Scarred.mp3
+Time: 386
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: Broken, Beat & Scarred
+Album: Death Magnetic
+Track: 3/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: 42ddd8f8-42e8-4b57-a9b5-317d77e1184e
+mtime: 1241489231
+key: Metallica - 04 - The Day That Never Comes.mp3
+file: Metallica/Death Magnetic/Metallica - 04 - The Day That Never Comes.mp3
+Time: 476
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: The Day That Never Comes
+Album: Death Magnetic
+Track: 4/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: 8bed69e6-58a4-4399-8c4c-6e02629d9048
+mtime: 1241489232
+key: Metallica - 05 - All Nightmare Long.mp3
+file: Metallica/Death Magnetic/Metallica - 05 - All Nightmare Long.mp3
+Time: 478
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: All Nightmare Long
+Album: Death Magnetic
+Track: 5/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: d57143c2-1b51-47ef-a066-b897fd85d9ae
+mtime: 1241489234
+key: Metallica - 06 - Cyanide.mp3
+file: Metallica/Death Magnetic/Metallica - 06 - Cyanide.mp3
+Time: 400
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: Cyanide
+Album: Death Magnetic
+Track: 6/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: b20ec8a4-4920-49e2-bc08-0da53c3ca2c4
+mtime: 1241489235
+key: Metallica - 07 - The Unforgiven III.mp3
+file: Metallica/Death Magnetic/Metallica - 07 - The Unforgiven III.mp3
+Time: 467
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: The Unforgiven III
+Album: Death Magnetic
+Track: 7/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: e60d9dbc-70b6-4699-b1af-605db3244a07
+mtime: 1241489236
+key: Metallica - 08 - The Judas Kiss.mp3
+file: Metallica/Death Magnetic/Metallica - 08 - The Judas Kiss.mp3
+Time: 481
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: The Judas Kiss
+Album: Death Magnetic
+Track: 8/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: b957775f-9c63-4f8d-9b61-250582f2e71a
+mtime: 1241489236
+key: Metallica - 09 - Suicide and Redemption.mp3
+file: Metallica/Death Magnetic/Metallica - 09 - Suicide and Redemption.mp3
+Time: 598
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: Suicide & Redemption
+Album: Death Magnetic
+Track: 9/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: 6c34183e-613d-490c-af91-67186aab63ee
+mtime: 1241489236
+key: Metallica - 10 - My Apocalypse.mp3
+file: Metallica/Death Magnetic/Metallica - 10 - My Apocalypse.mp3
+Time: 301
+Artist: Metallica
+AlbumArtist: Metallica
+ArtistSort: Metallica
+Title: My Apocalypse
+Album: Death Magnetic
+Track: 10/10
+Date: 2008
+Genre: Thrash Metal
+MUSICBRAINZ_ALBUMARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+MUSICBRAINZ_ARTISTID: 65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab
+AlbumArtistSort: Metallica
+MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
+MUSICBRAINZ_TRACKID: 6c1ac71c-d4fe-49e7-a414-03e5b0d82d69
+mtime: 1241489237
+songList end
+end: Metallica/Death Magnetic
 directory: Load
-mtime: 1247834198
+mtime: 1214483915
 begin: Metallica/Load
 songList begin
 key: Metallica - 01 - Ain't My Bitch.ogg
@@ -252,5 +678,570 @@ end: Metallica/Load
 songList begin
 songList end
 end: Metallica
+directory: The Offspring
+mtime: 1248010241
+begin: The Offspring
+directory: Smash
+mtime: 1214484276
+begin: The Offspring/Smash
+songList begin
+key: The Offspring - 01 - Time To Relax.ogg
+file: The Offspring/Smash/The Offspring - 01 - Time To Relax.ogg
+Time: 25
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Time To Relax
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 1
+MUSICBRAINZ_TRACKID: b3316b69-83b4-41d9-ac20-1ec328091819
+mtime: 1241533671
+key: The Offspring - 02 - Nitro [ Youth Energy ].ogg
+file: The Offspring/Smash/The Offspring - 02 - Nitro [ Youth Energy ].ogg
+Time: 147
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Nitro (Youth Energy)
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 2
+MUSICBRAINZ_TRACKID: f428b88b-2984-4819-bb25-05a6f7b3eda0
+mtime: 1241533671
+key: The Offspring - 03 - Bad Habit.ogg
+file: The Offspring/Smash/The Offspring - 03 - Bad Habit.ogg
+Time: 224
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Bad Habit
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 3
+MUSICBRAINZ_TRACKID: bc76dad5-5b47-4ade-8c84-57e019efa73e
+mtime: 1241533671
+key: The Offspring - 04 - Gotta Get Away.ogg
+file: The Offspring/Smash/The Offspring - 04 - Gotta Get Away.ogg
+Time: 232
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Gotta Get Away
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 4
+MUSICBRAINZ_TRACKID: fc39986a-c26c-4373-9487-095f05f2de3b
+mtime: 1241533671
+key: The Offspring - 05 - Genocide.ogg
+file: The Offspring/Smash/The Offspring - 05 - Genocide.ogg
+Time: 211
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Genocide
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 5
+MUSICBRAINZ_TRACKID: 2f285996-d449-460b-95ef-aaccd150e6d9
+mtime: 1241533671
+key: The Offspring - 06 - Something To Believe In.ogg
+file: The Offspring/Smash/The Offspring - 06 - Something To Believe In.ogg
+Time: 198
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Something To Believe In
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 6
+MUSICBRAINZ_TRACKID: c2e27587-3954-4c42-8f0e-0291e7741acc
+mtime: 1241533671
+key: The Offspring - 07 - Come Out And Play.ogg
+file: The Offspring/Smash/The Offspring - 07 - Come Out And Play.ogg
+Time: 198
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Come Out And Play
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 7
+MUSICBRAINZ_TRACKID: c54a4411-f1c1-4693-ad23-89093534ab9c
+mtime: 1241533671
+key: The Offspring - 08 - Self Esteem.ogg
+file: The Offspring/Smash/The Offspring - 08 - Self Esteem.ogg
+Time: 258
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Self Esteem
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 8
+MUSICBRAINZ_TRACKID: 8f1e8420-bed6-4ae0-85dd-77cfe8ff23d3
+mtime: 1241533671
+key: The Offspring - 09 - It'll Be A Long Time.ogg
+file: The Offspring/Smash/The Offspring - 09 - It'll Be A Long Time.ogg
+Time: 163
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: It'll Be A Long Time
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 9
+MUSICBRAINZ_TRACKID: 49b69ccc-d3cf-47ac-afc1-01231329cedd
+mtime: 1241533671
+key: The Offspring - 10 - Killboy Powerhead.ogg
+file: The Offspring/Smash/The Offspring - 10 - Killboy Powerhead.ogg
+Time: 123
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Killboy Powerhead
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 10
+MUSICBRAINZ_TRACKID: d6052c16-437f-4e02-8b56-94116195131a
+mtime: 1241533671
+key: The Offspring - 11 - What Happened To You .ogg
+file: The Offspring/Smash/The Offspring - 11 - What Happened To You .ogg
+Time: 132
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: What Happened To You?
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 11
+MUSICBRAINZ_TRACKID: 78b812c8-0a37-4af5-a634-e1b6df7bf4d6
+mtime: 1241533672
+key: The Offspring - 12 - So Alone.ogg
+file: The Offspring/Smash/The Offspring - 12 - So Alone.ogg
+Time: 77
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: So Alone
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 12
+MUSICBRAINZ_TRACKID: 0cbd8cf9-dcbb-4097-9925-5582359b9cfb
+mtime: 1241533672
+key: The Offspring - 13 - Not The One.ogg
+file: The Offspring/Smash/The Offspring - 13 - Not The One.ogg
+Time: 175
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Not The One
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 13
+MUSICBRAINZ_TRACKID: 82855ec0-f7a7-4296-819c-953feedf8c24
+mtime: 1241533672
+key: The Offspring - 14 - Smash.ogg
+file: The Offspring/Smash/The Offspring - 14 - Smash.ogg
+Time: 172
+Genre: Punk Rock
+Album: Smash
+AlbumArtistSort: Offspring, The
+MUSICBRAINZ_ARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Artist: The Offspring
+ArtistSort: Offspring, The
+MUSICBRAINZ_ALBUMID: 91587782-e6e5-4f09-a614-47320c149006
+Title: Smash / Come Out And Play (Reprise)
+AlbumArtist: The Offspring
+MUSICBRAINZ_ALBUMARTISTID: 23a03e33-a603-404e-bcbf-2c00159d7067
+Performer: Greg Kriesel (bass)
+Performer: Ron Welty (drums)
+Performer: Dexter Holland (lead vocal)
+Performer: Dexter Holland (guitars)
+Performer: Kevin Wasserman (guitars)
+Date: 1995-08-25
+Track: 14
+MUSICBRAINZ_TRACKID: 24d62483-9e72-4322-9061-6ab1b9203f3f
+mtime: 1241533672
+songList end
+end: The Offspring/Smash
+songList begin
+songList end
+end: The Offspring
+directory: Ugly Kid Joe
+mtime: 1108219813
+begin: Ugly Kid Joe
+directory: America's Least Wanted
+mtime: 1225233269
+begin: Ugly Kid Joe/America's Least Wanted
+songList begin
+key: Ugly Kid Joe - 01 - Neighbor.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 01 - Neighbor.ogg
+Time: 285
+Genre: Rock
+Title: Neighbor
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: dbe632b9-9d97-44b5-b74a-ce5a92366ef9
+ArtistSort: Ugly Kid Joe
+Track: 1
+mtime: 1241533098
+key: Ugly Kid Joe - 02 - Goddamn Devil.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 02 - Goddamn Devil.ogg
+Time: 295
+Genre: Rock
+Title: Goddamn Devil
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 5b0c1fb3-2349-4234-87c2-86ae14b8040b
+ArtistSort: Ugly Kid Joe
+Track: 2
+mtime: 1241533098
+key: Ugly Kid Joe - 03 - Come Tomorrow.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 03 - Come Tomorrow.ogg
+Time: 294
+Genre: Rock
+Title: Come Tomorrow
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: f37b7988-4618-4f38-902e-7bc1f4a1c4e4
+ArtistSort: Ugly Kid Joe
+Track: 3
+mtime: 1241533098
+key: Ugly Kid Joe - 04 - Panhandlin' Prince.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 04 - Panhandlin' Prince.ogg
+Time: 341
+Genre: Rock
+Title: Panhandlin' Prince
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 2ed4c9b0-f230-4867-915b-c1bd854a27e8
+ArtistSort: Ugly Kid Joe
+Track: 4
+mtime: 1241533098
+key: Ugly Kid Joe - 05 - Busy Bee.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 05 - Busy Bee.ogg
+Time: 250
+Genre: Rock
+Title: Busy Bee
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: a00939dd-04cd-4fd9-a184-81c8055607c4
+ArtistSort: Ugly Kid Joe
+Track: 5
+mtime: 1241533099
+key: Ugly Kid Joe - 06 - Don't Go.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 06 - Don't Go.ogg
+Time: 271
+Genre: Rock
+Title: Don't Go
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: ec4a1a24-8103-415a-9914-6aaf9746ac0b
+ArtistSort: Ugly Kid Joe
+Track: 6
+mtime: 1241533099
+key: Ugly Kid Joe - 07 - So Damn Cool.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 07 - So Damn Cool.ogg
+Time: 265
+Genre: Rock
+Title: So Damn Cool
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: a22957cb-489f-49b1-8569-a2a3a958d667
+ArtistSort: Ugly Kid Joe
+Track: 7
+mtime: 1241533099
+key: Ugly Kid Joe - 08 - Same Side.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 08 - Same Side.ogg
+Time: 290
+Genre: Rock
+Title: Same Side
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 54312f43-5c23-456e-9f77-3c726732d336
+ArtistSort: Ugly Kid Joe
+Track: 8
+mtime: 1241533099
+key: Ugly Kid Joe - 09 - Cats In The Cradle.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 09 - Cats In The Cradle.ogg
+Time: 242
+Genre: Rock
+Title: Cats In The Cradle
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 9d440305-b00a-479f-8178-8a7d8b5feb90
+ArtistSort: Ugly Kid Joe
+Track: 9
+mtime: 1241533099
+key: Ugly Kid Joe - 10 - I'll Keep Trying.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 10 - I'll Keep Trying.ogg
+Time: 299
+Genre: Rock
+Title: I'll Keep Tryin'
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 30e32618-24cd-40d5-81c8-ea1b4f32485a
+ArtistSort: Ugly Kid Joe
+Track: 10
+mtime: 1241533099
+key: Ugly Kid Joe - 11 - Everything About You.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 11 - Everything About You.ogg
+Time: 260
+Genre: Rock
+Title: Everything About You
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: d00bcaee-7937-4493-81fb-515d4f9b6dbc
+ArtistSort: Ugly Kid Joe
+Track: 11
+mtime: 1241533099
+key: Ugly Kid Joe - 12 - Madman ('92 Remix).ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 12 - Madman ('92 Remix).ogg
+Time: 216
+Genre: Rock
+Title: Madman ('92 Remix)
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 1a229601-c716-47ba-b2fc-2ebfe8ddca8e
+ArtistSort: Ugly Kid Joe
+Track: 12
+mtime: 1241533099
+key: Ugly Kid Joe - 13 - Mr. Recordman.ogg
+file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 13 - Mr. Recordman.ogg
+Time: 246
+Genre: Rock
+Title: Mr. Recordman
+MUSICBRAINZ_ALBUMARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Date: 1992
+AlbumArtistSort: Ugly Kid Joe
+MUSICBRAINZ_ALBUMID: 193e77a6-e2e2-4546-a038-4df13c747124
+AlbumArtist: Ugly Kid Joe
+Album: America's Least Wanted
+MUSICBRAINZ_ARTISTID: 91f32a6b-fc11-45b6-a243-4dd90eaee781
+Artist: Ugly Kid Joe
+MUSICBRAINZ_TRACKID: 6dd85489-d892-4559-b691-b127015c2bee
+ArtistSort: Ugly Kid Joe
+Track: 13
+mtime: 1241533099
+songList end
+end: Ugly Kid Joe/America's Least Wanted
+songList begin
+key: Ugly Kid Joe - 12 Cents.mp3
+file: Ugly Kid Joe/Ugly Kid Joe - 12 Cents.mp3
+Time: 169
+mtime: 1059757343
+key: Ugly Kid Joe - Candle Song.mp3
+file: Ugly Kid Joe/Ugly Kid Joe - Candle Song.mp3
+Time: 178
+mtime: 1061748391
+key: Ugly Kid Joe - Oompa.mp3
+file: Ugly Kid Joe/Ugly Kid Joe - Oompa.mp3
+Time: 124
+mtime: 1059757344
+songList end
+end: Ugly Kid Joe
 songList begin
 songList end
