@@ -13,14 +13,10 @@ static GError* check_std(gchar* l_out, gchar* l_err)
 
 	if(l_out != NULL && g_pattern_match_simple("*Failed*", l_out))
 		failed = TRUE;
-	if(l_err != NULL && g_pattern_match_simple("*Failed*", l_err))
+	else if(l_err != NULL && g_pattern_match_simple("*Failed*", l_err))
 		failed = TRUE;
 
-	GError* err = NULL;
-	if(failed)
-		err = g_error_new(G_SPAWN_ERROR, 666, "stdout: %s | stderr: %s", l_out, l_err);
-
-	return err;
+	return failed ? g_error_new(G_SPAWN_ERROR, 666, "stdout: %s | stderr: %s", l_out, l_err) : NULL;
 }
 
 static GError* spawn(gchar** l_argv)
@@ -36,10 +32,10 @@ static GError* spawn(gchar** l_argv)
 	if(err == NULL)
 		err = check_std(std_out, std_err);
 
-	if(l_out != NULL)
-		g_free(l_out);
-	if(l_err != NULL)
-		g_free(l_err);
+	if(std_out != NULL)
+		g_free(std_out);
+	if(std_err != NULL)
+		g_free(std_err);
 
 	return err;
 }
