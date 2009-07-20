@@ -7,35 +7,28 @@
 
 MpdObj* connection = NULL;
 
-static void check_and_free_std(gchar* l_out, gchar* l_err, gboolean l_fail)
+static GError* check_and_free_std(gchar* l_out, gchar* l_err)
 {
-	if(l_fail)
-		g_debug("forced fail");
+	gboolean failed = FALSE;
+
+	if(l_out != NULL && g_pattern_match_simple("*Failed*", l_out))
+		failed = TRUE;
+	if(l_err != NULL && g_pattern_match_simple("*Failed*", l_err))
+		failed = TRUE;
+
+	GError* err = NULL;
+	if(failed)
+		err = g_error_new(G_SPAWN_ERROR, 666, "stdout: %s | stderr: %s", l_out, l_err);
 
 	if(l_out != NULL)
-	{
-		if(l_fail || g_pattern_match_simple("*Failed*", l_out))
-		{
-			g_debug("stdout: %s", l_out);
-			l_fail = TRUE;
-		}
 		g_free(l_out);
-	}
-
 	if(l_err != NULL)
-	{
-		if(l_fail || g_pattern_match_simple("*Failed*", l_err))
-		{
-			g_debug("stderr: %s", l_err);
-			l_fail = TRUE;
-		}
 		g_free(l_err);
-	}
 
-	g_assert(!l_fail);
+	return err;
 }
 
-static void spawn(gchar** l_argv)
+static GError* spawn(gchar** l_argv)
 {
 	g_assert(l_argv != NULL);
 
@@ -44,12 +37,11 @@ static void spawn(gchar** l_argv)
 	gint result_code = 0;
 	GError* err = NULL;
 
-	if(!g_spawn_sync(NULL, l_argv, NULL, 0, NULL, NULL, &std_out, &std_err, &result_code, &err))
-		g_assert_no_error(err);
-	else if(!WIFEXITED(result_code))
-		check_and_free_std(std_out, std_err, TRUE);
-	else
-		check_and_free_std(std_out, std_err, FALSE);
+	g_spawn_sync(NULL, l_argv, NULL, 0, NULL, NULL, &std_out, &std_err, &result_code, &err);
+	if(err == NULL)
+		err = check_and_free_std(std_out, std_err);
+
+	return err;
 }
 
 void fake_mpd_init(const gchar* l_config)
@@ -63,20 +55,15 @@ void fake_mpd_init(const gchar* l_config)
 	argv[2] = (gchar*) l_config;
 	argv[3] = NULL;
 
-	spawn(argv);
+	g_assert_no_error(spawn(argv));
 
 	connection = mpd_new(HOST, PORT, NULL);
 	g_assert(mpd_connect(connection) == MPD_OK);
 }
 
-void fake_mpd_free(const gchar* l_config)
+void fake_mpd_kill(const gchar* l_config, gboolean l_try)
 {
 	g_assert(l_config != NULL);
-	g_assert(connection != NULL);
-
-	g_assert(mpd_disconnect(connection) == MPD_OK);
-	mpd_free(connection);
-	connection = NULL;
 
 	gchar* argv[4];
 	argv[0] = MPD_BINARY;
@@ -84,7 +71,20 @@ void fake_mpd_free(const gchar* l_config)
 	argv[2] = (gchar*) l_config;
 	argv[3] = NULL;
 
-	spawn(argv);
+	GError* err = spawn(argv);
+	if(!l_try)
+		g_assert_no_error(err);
+}
+
+void fake_mpd_free(const gchar* l_config)
+{
+	g_assert(connection != NULL);
+
+	g_assert(mpd_disconnect(connection) == MPD_OK);
+	mpd_free(connection);
+	connection = NULL;
+
+	fake_mpd_kill(l_config, FALSE);
 }
 
 /* vim:set ts=4 sw=4: */
