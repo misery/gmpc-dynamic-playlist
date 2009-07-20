@@ -2,7 +2,16 @@ syntax: glob
 CMakeFiles
 CMakeCache.txt
 install_manifest.txt
-cmake_install.cmake
 Makefile
-dynlistplugin.so
+core
+Testing
+tests/test_*
+*.cmake
+*.so
+*.gmo
+*.pot
+config
+pid
+log
+error
 
