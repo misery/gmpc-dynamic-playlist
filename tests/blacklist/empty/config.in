@@ -1,8 +1,8 @@
 music_directory "DIRECTORY"
 playlist_directory "DIRECTORY/blacklist/empty/playlists"
 db_file "DIRECTORY/blacklist/empty/database"
-log_file "DIRECTORY/blacklist/empty/log"
-error_file "DIRECTORY/blacklist/empty/error"
+log_file "DIRECTORY/log"
+error_file "DIRECTORY/error"
 pid_file "DIRECTORY/pid"
 
 bind_to_address		"localhost"
