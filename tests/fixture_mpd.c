@@ -7,7 +7,7 @@
 
 MpdObj* connection = NULL;
 
-static GError* check_and_free_std(gchar* l_out, gchar* l_err)
+static GError* check_std(gchar* l_out, gchar* l_err)
 {
 	gboolean failed = FALSE;
 
@@ -19,11 +19,6 @@ static GError* check_and_free_std(gchar* l_out, gchar* l_err)
 	GError* err = NULL;
 	if(failed)
 		err = g_error_new(G_SPAWN_ERROR, 666, "stdout: %s | stderr: %s", l_out, l_err);
-
-	if(l_out != NULL)
-		g_free(l_out);
-	if(l_err != NULL)
-		g_free(l_err);
 
 	return err;
 }
@@ -39,7 +34,12 @@ static GError* spawn(gchar** l_argv)
 
 	g_spawn_sync(NULL, l_argv, NULL, 0, NULL, NULL, &std_out, &std_err, &result_code, &err);
 	if(err == NULL)
-		err = check_and_free_std(std_out, std_err);
+		err = check_std(std_out, std_err);
+
+	if(l_out != NULL)
+		g_free(l_out);
+	if(l_err != NULL)
+		g_free(l_err);
 
 	return err;
 }
