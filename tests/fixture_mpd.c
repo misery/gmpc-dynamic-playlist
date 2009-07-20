@@ -16,7 +16,7 @@ static GError* check_std(gchar* l_out, gchar* l_err)
 	else if(l_err != NULL && g_pattern_match_simple("*Failed*", l_err))
 		failed = TRUE;
 
-	return failed ? g_error_new(G_SPAWN_ERROR, 666, "stdout: %s | stderr: %s", l_out, l_err) : NULL;
+	return failed ? g_error_new(G_SPAWN_ERROR, G_SPAWN_ERROR_FAILED, "stdout: %s | stderr: %s", l_out, l_err) : NULL;
 }
 
 static GError* spawn(gchar** l_argv)
