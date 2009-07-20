@@ -43,4 +43,9 @@ ADD_EXECUTABLE(test_blacklist test_blacklist.c)
 ADD_TEST_DATA(test_blacklist "Blacklist")
 ADD_TEST_CONFIG(test_blacklist "CONFIG_EMPTY" "blacklist/empty/config")
 
+# Database
+ADD_EXECUTABLE(test_database test_database.c)
+ADD_TEST_DATA(test_database "Database")
+ADD_TEST_CONFIG(test_database "CONFIG_BL_ALL" "database/blacklist/all/config")
+
 #vim:set ts=4 sw=4:
