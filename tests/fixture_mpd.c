@@ -49,6 +49,9 @@ void fake_mpd_init(const gchar* l_config)
 	g_assert(l_config != NULL);
 	g_assert(connection == NULL);
 
+	/* try to kill previous mpd */
+	fake_mpd_kill(l_config, TRUE);
+
 	gchar* argv[4];
 	argv[0] = MPD_BINARY;
 	argv[1] = "--no-create-db";
@@ -74,6 +77,8 @@ void fake_mpd_kill(const gchar* l_config, gboolean l_try)
 	GError* err = spawn(argv);
 	if(!l_try)
 		g_assert_no_error(err);
+	else if(err != NULL)
+		g_error_free(err);
 }
 
 void fake_mpd_free(const gchar* l_config)
