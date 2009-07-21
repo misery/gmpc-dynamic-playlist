@@ -1,0 +1,14 @@
+music_directory "DIRECTORY"
+playlist_directory "DIRECTORY/played/playlists"
+db_file "DIRECTORY/played/database"
+log_file "DIRECTORY/log"
+error_file "DIRECTORY/error"
+pid_file "DIRECTORY/pid"
+
+bind_to_address		"localhost"
+port				"1904"
+
+audio_output {
+		type	"null"
+		name	"dummy"
+}
