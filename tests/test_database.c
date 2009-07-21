@@ -40,7 +40,20 @@ void test_database_search_artists_blacklist()
 	fake_mpd_init(CONFIG_BL_ALL);
 
 	set_active_blacklist(TRUE);
-	/* TODO: add test for database_get_artists() */
+	strList* list = NULL;
+	gint count = 0;
+
+	MpdData* data;
+	for(data = mpd_database_get_artists(connection); data != NULL; data = mpd_data_get_next(data))
+	{
+		if(data->tag != NULL && data->tag[0] != '\0')
+			list = database_get_artists(list, data->tag, NULL, &count);
+	}
+
+	g_test_message("count: %d", count);
+	g_assert(list != NULL);
+	g_assert(!exists_strList(list, "Bela B."));
+	/* TODO: finish test! */
 
 	fake_mpd_free(CONFIG_BL_ALL);
 }
