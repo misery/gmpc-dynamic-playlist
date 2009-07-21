@@ -73,6 +73,7 @@ void test_database_search_songs_blacklist_found_all()
 
 	/* 69 unique + 2 doubled (because of EXACT = FALSE)*/
 	g_assert(count == 71);
+	free_dbList(list);
 
 	fake_mpd_free(CONFIG_BL_ALL);
 }
@@ -99,6 +100,7 @@ void test_database_search_artists_blacklist()
 	g_assert(exists_strList(list, "Ugly Kid Joe"));
 	g_assert(exists_strList(list, "The Offspring"));
 	g_assert(count == 3);
+	free_strList(list);
 
 	fake_mpd_free(CONFIG_BL_ALL);
 }
