@@ -60,7 +60,7 @@ void test_database_search_artists_blacklist()
 
 static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, gpointer l_data)
 {
-
+	g_test_message("redirected: %s", l_message);
 }
 
 int main (int argc, char** argv)
