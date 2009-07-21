@@ -60,6 +60,21 @@ void clear_dbList(dbList* l_list, gboolean l_free_list)
 		g_list_free(l_list);
 }
 
+gboolean exists_dbList(const dbList* l_list, const gchar* l_artist, const gchar* l_title)
+{
+	g_assert(l_artist != NULL);
+	g_assert(l_title != NULL);
+
+	for(; l_list != NULL; l_list = g_list_next(l_list))
+	{
+		const dbSong* song = (const dbSong*) l_list->data;
+		if(strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 void clear_dbQueue(dbQueue* l_queue)
 {
 	g_assert(l_queue != NULL && !g_queue_is_empty(l_queue));

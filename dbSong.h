@@ -18,6 +18,7 @@ dbSong* new_dbSong(const gchar* l_artist, const gchar* l_title, const gchar* l_p
 void free_dbSong(dbSong* l_song);
 void free_dbList(dbList* l_list);
 void clear_dbList(dbList* l_list, gboolean l_free_list);
+gboolean exists_dbList(const dbList* l_list, const gchar* l_artist, const gchar* l_title);
 
 void clear_dbQueue(dbQueue* l_queue);
 
