@@ -7,11 +7,13 @@
 
 MpdObj* connection = NULL;
 
-static GError* check_std(gchar* l_out, gchar* l_err)
+static GError* check_std(gchar* l_out, gchar* l_err, gint l_result_code)
 {
 	gboolean failed = FALSE;
 
-	if(l_out != NULL && g_pattern_match_simple("*Failed*", l_out))
+	if(!WIFEXITED(l_result_code))
+		failed = TRUE;
+	else if(l_out != NULL && g_pattern_match_simple("*Failed*", l_out))
 		failed = TRUE;
 	else if(l_err != NULL && g_pattern_match_simple("*Failed*", l_err))
 		failed = TRUE;
@@ -30,7 +32,7 @@ static GError* spawn(gchar** l_argv)
 
 	g_spawn_sync(NULL, l_argv, NULL, 0, NULL, NULL, &std_out, &std_err, &result_code, &err);
 	if(err == NULL)
-		err = check_std(std_out, std_err);
+		err = check_std(std_out, std_err, result_code);
 
 	if(std_out != NULL)
 		g_free(std_out);
