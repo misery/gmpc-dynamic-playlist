@@ -109,6 +109,98 @@ static void test_artist_all()
 	fake_mpd_free(CONFIG);
 }
 
+static void test_artist_some_check()
+{
+	dbSong* song1 = new_dbSong("Metallica", "Frantic", "");
+	dbSong* song2 = new_dbSong("Metallica", "St. Anger", "");
+	dbSong* song3 = new_dbSong("The Offspring", "Self Esteem", "");
+	dbSong* song4 = new_dbSong("Die Ärzte", "Schrei nach Liebe", "");
+	dbSong* song5 = new_dbSong("H-Blockx", "Revolution", "");
+	dbSong* song6 = new_dbSong("Metallica", "Fuel", "");
+
+	g_assert(!is_played_artist(song1->artist));
+	add_played_song(song1);
+	g_assert(is_played_artist(song1->artist));
+	add_played_song(song2);
+	g_assert(is_played_artist(song1->artist));
+	g_assert(is_played_artist(song2->artist));
+	add_played_song(song3);
+	g_assert(is_played_artist(song1->artist));
+	g_assert(is_played_artist(song2->artist));
+	g_assert(is_played_artist(song3->artist));
+	add_played_song(song4);
+	g_assert(is_played_artist("Metallica"));
+	g_assert(is_played_artist("The Offspring"));
+	g_assert(is_played_artist("Die Ärzte"));
+	g_assert(!is_played_artist("H-Blockx"));
+	add_played_song(song5);
+	g_assert(!is_played_artist("Metallica"));
+	g_assert(is_played_artist("The Offspring"));
+	g_assert(is_played_artist("Die Ärzte"));
+	g_assert(is_played_artist("H-Blockx"));
+	add_played_song(song6);
+	g_assert(!is_played_artist("The Offspring"));
+	g_assert(is_played_artist("Die Ärzte"));
+	g_assert(is_played_artist("H-Blockx"));
+	g_assert(is_played_artist("Metallica"));
+
+	free_played_list();
+}
+
+static void test_artist_some_song()
+{
+	fake_mpd_init(CONFIG);
+
+	set_played_limit_song(0);
+	set_played_limit_artist(3);
+	test_artist_some_check();
+
+	fake_mpd_free(CONFIG);
+}
+
+static void test_artist_some_nosong()
+{
+	fake_mpd_init(CONFIG);
+
+	set_played_limit_song(100);
+	set_played_limit_artist(3);
+	test_artist_some_check();
+
+	fake_mpd_free(CONFIG);
+}
+
+static void test_artist_some_assert_less()
+{
+	fake_mpd_init(CONFIG);
+
+	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
+	{
+		set_played_limit_song(g_test_rand_int_range(0, 666));
+		set_played_limit_artist(g_test_rand_int_range(0, 3));
+		test_artist_some_check();
+		exit(EXIT_SUCCESS);
+	}
+	g_test_trap_assert_failed();
+
+	fake_mpd_free(CONFIG);
+}
+
+static void test_artist_some_assert_more()
+{
+	fake_mpd_init(CONFIG);
+
+	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
+	{
+		set_played_limit_song(g_test_rand_int_range(0, 666));
+		set_played_limit_artist(g_test_rand_int_range(4, 666));
+		test_artist_some_check();
+		exit(EXIT_SUCCESS);
+	}
+	g_test_trap_assert_failed();
+
+	fake_mpd_free(CONFIG);
+}
+
 static void test_song_zero()
 {
 	fake_mpd_init(CONFIG);
@@ -181,6 +273,10 @@ int main (int argc, char** argv)
 
 	g_test_add_func("/played/artist/zero", test_artist_zero);
 	g_test_add_func("/played/artist/all", test_artist_all);
+	g_test_add_func("/played/artist/some/song", test_artist_some_song);
+	g_test_add_func("/played/artist/some/nosong", test_artist_some_nosong);
+	g_test_add_func("/played/artist/some/assert/less", test_artist_some_assert_less);
+	g_test_add_func("/played/artist/some/assert/more", test_artist_some_assert_more);
 
 	g_test_add_func("/played/song/zero", test_song_zero);
 	g_test_add_func("/played/song/all", test_song_all);
