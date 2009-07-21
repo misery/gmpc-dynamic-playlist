@@ -103,6 +103,78 @@ void test_database_search_artists_blacklist()
 	fake_mpd_free(CONFIG_BL_ALL);
 }
 
+void test_database_search_artists_parameter()
+{
+	fake_mpd_init(CONFIG_BL_ALL);
+
+	set_active_blacklist(FALSE);
+	strList* list = NULL;
+	gint count = 0;
+
+	list = database_get_artists(list, "Metallica", NULL, &count);
+	g_assert(count == 1);
+	g_assert(exists_strList(list, "Metallica"));
+	free_strList(list);
+	list = NULL;
+	count = 0;
+
+	list = database_get_artists(list, "Metallica", "Metal", &count);
+	g_assert(count == 1);
+	g_assert(exists_strList(list, "Metallica"));
+	free_strList(list);
+	list = NULL;
+	count = 0;
+
+	list = database_get_artists(list, "Metallica", "Thrash Metal", &count);
+	g_assert(count == 1);
+	g_assert(exists_strList(list, "Metallica"));
+	free_strList(list);
+	list = NULL;
+	count = 0;
+
+	list = database_get_artists(list, "Metallica", "Trance", &count);
+	g_assert(count == 0 && list == NULL);
+
+	list = database_get_artists(list, NULL, "Metal", &count);
+	g_assert(count == 1);
+	g_assert(exists_strList(list, "Metallica"));
+	free_strList(list);
+	list = NULL;
+	count = 0;
+
+	list = database_get_artists(list, NULL, "NoGenre", &count);
+	g_assert(count == 0 && list == NULL);
+
+	list = database_get_artists(list, "NoArtist", "NoGenre", &count);
+	g_assert(count == 0 && list == NULL);
+
+	list = database_get_artists(list, "NoArtist", NULL, &count);
+	g_assert(count == 0 && list == NULL);
+
+	list = database_get_artists(list, NULL, NULL, &count);
+	g_assert(count == 4);
+	g_assert(exists_strList(list, "Metallica"));
+	g_assert(exists_strList(list, "The Offspring"));
+	g_assert(exists_strList(list, "Bela B."));
+	g_assert(exists_strList(list, "Ugly Kid Joe"));
+	free_strList(list);
+	list = NULL;
+	count = 0;
+
+	list = database_get_artists(list, NULL, "Rock", &count);
+	g_assert(count == 2);
+	g_assert(exists_strList(list, "The Offspring"));
+	g_assert(exists_strList(list, "Ugly Kid Joe"));
+	free_strList(list);
+	list = NULL;
+	count = 0;
+
+	list = database_get_artists(list, "NoArtist", "Rock", &count);
+	g_assert(count == 0 && list == NULL);
+
+	fake_mpd_free(CONFIG_BL_ALL);
+}
+
 static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, gpointer l_data)
 {
 	g_test_message("redirected: %s", l_message);
@@ -115,6 +187,7 @@ int main (int argc, char** argv)
 	g_test_add_func("/database/search/songs/blacklist/nofound", test_database_search_songs_blacklist_found_zero);
 	g_test_add_func("/database/search/songs/blacklist/found", test_database_search_songs_blacklist_found_all);
 	g_test_add_func("/database/search/artists/blacklist", test_database_search_artists_blacklist);
+	g_test_add_func("/database/search/artists/parameter", test_database_search_artists_parameter);
 
 	/* mute standard debug output from plugin */
 	g_log_set_handler("dynlist", G_LOG_LEVEL_DEBUG, redirect_log, NULL);
