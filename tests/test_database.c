@@ -95,7 +95,10 @@ void test_database_search_artists_blacklist()
 	g_test_message("count: %d", count);
 	g_assert(list != NULL);
 	g_assert(!exists_strList(list, "Bela B."));
-	/* TODO: finish test! */
+	g_assert(exists_strList(list, "Metallica"));
+	g_assert(exists_strList(list, "Ugly Kid Joe"));
+	g_assert(exists_strList(list, "The Offspring"));
+	g_assert(count == 3);
 
 	fake_mpd_free(CONFIG_BL_ALL);
 }
