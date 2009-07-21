@@ -81,6 +81,8 @@ strList* database_get_artists(strList* l_list, const gchar* l_artist, const gcha
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
 	{
 		if(data->tag_type == MPD_TAG_ITEM_ARTIST
+				&& data->tag != NULL
+				&& data->tag[0] != '\0'
 				&& !is_blacklisted_artist(data->tag)
 				&& !is_played_artist(data->tag))
 		{
