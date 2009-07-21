@@ -26,7 +26,7 @@ static void test_set_limits_allowed()
 
 static void test_set_limits_assert_song()
 {
-	if(g_test_trap_fork (0, G_TEST_TRAP_SILENCE_STDERR))
+	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
 	{
 		set_played_limit_song(-1);
 		exit(EXIT_SUCCESS);
