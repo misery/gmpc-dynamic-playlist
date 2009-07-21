@@ -37,6 +37,7 @@ ENDMACRO()
 # Played List
 ADD_EXECUTABLE(test_played test_played.c)
 ADD_TEST_DATA(test_played "Played")
+ADD_TEST_CONFIG(test_played "CONFIG" "played/config")
 
 # Blacklist
 ADD_EXECUTABLE(test_blacklist test_blacklist.c)
