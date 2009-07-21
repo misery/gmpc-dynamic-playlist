@@ -37,6 +37,10 @@ static void flush_played_list(gint l_max)
 void add_played_song(dbSong* l_song)
 {
 	g_assert(l_song != NULL);
+	g_assert(l_song->artist != NULL);
+	g_assert(l_song->title != NULL);
+	g_assert(l_song->artist[0] != '\0');
+	g_assert(l_song->title[0] != '\0');
 
 	g_queue_push_head(&m_list, l_song);
 	flush_played_list( MAX(m_song, m_artist) );
@@ -45,6 +49,9 @@ void add_played_song(dbSong* l_song)
 gboolean is_played_song(const gchar* l_artist, const gchar* l_title)
 {
 	g_assert(l_artist != NULL);
+	g_assert(l_artist[0] != '\0');
+	if(l_title != NULL)
+		g_assert(l_title[0] != '\0');
 
 	if(!g_queue_is_empty(&m_list))
 	{
