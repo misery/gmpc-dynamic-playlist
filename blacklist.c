@@ -80,6 +80,7 @@ gboolean is_blacklisted_single(const GSList* l_list, const gchar* l_value)
 {
 	if(l_value == NULL || !m_blacklist_enabled)
 		return FALSE;
+	g_assert(l_value[0] != '\0');
 
 	check_for_reload();
 	if(l_list != NULL)
@@ -106,6 +107,8 @@ gboolean is_blacklisted_tuple(const GSList* l_list, const gchar* l_artist, const
 {
 	if(l_artist == NULL || l_name == NULL || !m_blacklist_enabled)
 		return FALSE;
+	g_assert(l_artist[0] != '\0');
+	g_assert(l_name[0] != '\0');
 
 	check_for_reload();
 	if(l_list != NULL)
