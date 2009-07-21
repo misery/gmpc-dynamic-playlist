@@ -26,6 +26,7 @@ void free_next_strListItem(strList* l_list);
 void clear_strListItem(strList* l_list);
 void free_strList(strList* l_list);
 void clear_strList(strList* l_list, gboolean l_free_list);
+gboolean exists_strList(const strList* l_list, const gchar* l_value);
 
 #endif
 

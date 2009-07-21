@@ -18,6 +18,7 @@
 */
 
 #include "dbSong.h"
+#include <string.h>
 
 dbSong* new_dbSong(const gchar* l_artist, const gchar* l_title, const gchar* l_path)
 {
@@ -107,6 +108,19 @@ void clear_strList(strList* l_list, gboolean l_free_list)
 
 	if(l_free_list)
 		g_slist_free(l_list);
+}
+
+gboolean exists_strList(const strList* l_list, const gchar* l_value)
+{
+	g_assert(l_value != NULL);
+
+	for(; l_list != NULL; l_list = g_slist_next(l_list))
+	{
+		if(strcasecmp((gchar*) (l_list->data), l_value) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /* vim:set ts=4 sw=4: */
