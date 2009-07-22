@@ -376,7 +376,7 @@ void prune_playlist_easy(gpointer l_data, const gchar* l_param)
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
 	if(curSong == NULL)
 	{
-		playlist3_show_error_message(_("Cannot prune playlist! There is no current song as position"), ERROR_INFO);
+		playlist3_show_error_message(_("Cannot prune playlist! You need to play a song for pruning."), ERROR_INFO);
 		return;
 	}
 
