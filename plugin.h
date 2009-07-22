@@ -42,10 +42,11 @@ static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, M
 static gboolean tryToAdd_genre(const gchar* l_genre);
 static gboolean tryToAdd_random();
 static void tryToAdd_select(const status l_status, mpd_Song* l_song);
-static void findSimilar_easy();
+void findSimilar_easy();
 static void findSimilar(mpd_Song* l_song);
 static gboolean findSimilar_delayed(mpd_Song* l_song);
 static void setDelay(mpd_Song* l_song);
+gboolean enabled_search();
 
 static void prune_playlist(gint l_curPos, gint l_keep);
 static void prune_playlist_easy(gpointer l_data, const gchar* l_param);

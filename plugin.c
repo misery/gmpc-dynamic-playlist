@@ -24,6 +24,7 @@
 #include "database.h"
 #include "blacklist.h"
 #include "played.h"
+#include "icon.h"
 
 #ifdef TESTMODE
 #define g_rand_int_range(obj, min, max) g_test_rand_int_range(min, max)
@@ -345,6 +346,11 @@ void setDelay(mpd_Song* l_song)
 	}
 }
 
+gboolean enabled_search()
+{
+	return m_enabled_search;
+}
+
 void prune_playlist(gint l_curPos, gint l_keep)
 {
 	if(l_keep < 0 || l_curPos < 1)
@@ -452,6 +458,8 @@ void dyn_init()
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), "(on|off|)",  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
 	gmpc_easy_command_add_entry(gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"), (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
+
+	init_icon();
 }
 
 void dyn_destroy()
