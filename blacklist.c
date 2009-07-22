@@ -18,6 +18,7 @@
 */
 
 #include "blacklist.h"
+#include <gmpc/playlist3-messages.h>
 #include <glib/gi18n-lib.h>
 
 #define BLACKLIST_COUNT 4
@@ -159,15 +160,26 @@ gboolean is_blacklisted_song(const gchar* l_artist, const gchar* l_title)
 void create_blacklists()
 {
 	MpdData* lists = mpd_database_playlist_list(connection);
+	gint created = 0;
 	gint8 i;
 	for(i = 0; i < BLACKLIST_COUNT; ++i)
 	{
 		if(lists == NULL || !create_blacklists_search(&lists, _(blacklist[i])))
+		{
 			mpd_database_playlist_clear(connection, _(blacklist[i]));
+			++created;
+		}
 	}
 
 	if(lists != NULL)
 		mpd_data_free(lists);
+
+	if(created > 0)
+	{
+		gchar* tmp = g_strdup_printf(_("Created %d playlist(s) that are used to blacklist artist, album, song or genre!"), created);
+		playlist3_show_error_message(tmp, ERROR_INFO);
+		g_free(tmp);
+	}
 }
 
 gboolean create_blacklists_search(MpdData** l_out_lists, const gchar* l_blacklist)
