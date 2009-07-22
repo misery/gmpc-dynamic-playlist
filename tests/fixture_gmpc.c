@@ -54,4 +54,10 @@ guint gmpc_easy_command_add_entry(GmpcEasyCommand* l_self,
 	return 0;
 }
 
+/* Icon */
+void main_window_add_status_icon(GtkWidget* l_icon)
+{
+
+}
+
 /* vim:set ts=4 sw=4: */
