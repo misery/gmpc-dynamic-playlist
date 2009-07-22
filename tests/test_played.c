@@ -149,30 +149,20 @@ static void test_artist_some_check()
 
 static void test_artist_some_song()
 {
-	fake_mpd_init(CONFIG);
-
 	set_played_limit_song(0);
 	set_played_limit_artist(3);
 	test_artist_some_check();
-
-	fake_mpd_free(CONFIG);
 }
 
 static void test_artist_some_nosong()
 {
-	fake_mpd_init(CONFIG);
-
 	set_played_limit_song(100);
 	set_played_limit_artist(3);
 	test_artist_some_check();
-
-	fake_mpd_free(CONFIG);
 }
 
 static void test_artist_some_assert_less()
 {
-	fake_mpd_init(CONFIG);
-
 	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
 	{
 		set_played_limit_song(g_test_rand_int_range(0, 666));
@@ -181,14 +171,10 @@ static void test_artist_some_assert_less()
 		exit(EXIT_SUCCESS);
 	}
 	g_test_trap_assert_failed();
-
-	fake_mpd_free(CONFIG);
 }
 
 static void test_artist_some_assert_more()
 {
-	fake_mpd_init(CONFIG);
-
 	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
 	{
 		set_played_limit_song(g_test_rand_int_range(0, 666));
@@ -197,8 +183,6 @@ static void test_artist_some_assert_more()
 		exit(EXIT_SUCCESS);
 	}
 	g_test_trap_assert_failed();
-
-	fake_mpd_free(CONFIG);
 }
 
 static void test_song_zero()
