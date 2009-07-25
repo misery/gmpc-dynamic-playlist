@@ -8,12 +8,12 @@
 config_obj* config = NULL;
 void cfg_set_single_value_as_int(config_obj *cfg, const char* l_class, const char* l_key, int l_value)
 {
-	g_debug("set int value: %s | %s | %d", l_class, l_key, l_value);
+	g_test_message("set int value: %s | %s | %d", l_class, l_key, l_value);
 }
 
 int cfg_get_single_value_as_int_with_default(config_obj* l_cfg, const char* l_class, const char* l_key, int l_def)
 {
-	g_debug("get int with default: %s | %s | %d", l_class, l_key, l_def);
+	g_test_message("get int with default: %s | %s | %d", l_class, l_key, l_def);
 	return l_def;
 }
 
@@ -38,7 +38,7 @@ const GList* meta_data_get_text_list(const MetaData* l_data)
 /* Messages */
 void playlist3_show_error_message(const gchar* l_message, ErrorLevel l_level)
 {
-	g_debug("show message: %s | %d", l_message, l_level);
+	g_test_message("show message: %s | %d", l_message, l_level);
 }
 
 
