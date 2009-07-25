@@ -393,6 +393,9 @@ gboolean get_search_active()
 
 void set_search_active(gboolean l_value)
 {
+	if(l_value == m_enabled_search)
+		return;
+
 	m_enabled_search = l_value;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 	reload_menu_list();
