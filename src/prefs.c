@@ -170,6 +170,7 @@ void reload_menu_list()
 {
 	gtk_widget_set_sensitive(m_menu_item, dyn_get_enabled());
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), get_search_active());
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), get_active_blacklist());
 }
 
 /* vim:set ts=4 sw=4: */

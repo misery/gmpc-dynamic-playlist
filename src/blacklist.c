@@ -19,6 +19,7 @@
 
 #include "blacklist.h"
 #include "plugin.h"
+#include "prefs.h"
 #include <gmpc/playlist3-messages.h>
 #include <glib/gi18n-lib.h>
 
@@ -59,6 +60,7 @@ void set_active_blacklist(gboolean l_value)
 
 	m_enabled = l_value;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", m_enabled);
+	reload_menu_list();
 }
 
 gboolean get_active_blacklist()
