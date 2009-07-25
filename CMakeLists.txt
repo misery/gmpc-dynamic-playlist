@@ -10,7 +10,7 @@ IF(NOT PKG_CONFIG_FOUND)
 	MESSAGE(FATAL_ERROR "You need 'pkg-config' to build this plugin!")
 ENDIF()
 
-FILE(GLOB C_FILES RELATIVE ${PROJECT_SOURCE_DIR} "*.c")
+FILE(GLOB C_FILES RELATIVE ${PROJECT_SOURCE_DIR} "src/*.c")
 FILE(GLOB PO_FILES RELATIVE ${PROJECT_SOURCE_DIR} "po/*.po")
 SET(ui_options "dynlist-ui-options.xml")
 
@@ -24,7 +24,7 @@ ELSE()
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${PROJECT_NAME}.pot
 		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header --keyword=_ --keyword=N_ ${C_FILES} -o ${PROJECT_NAME}.pot
-		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header -L Glade ${ui_options} -j -o ${PROJECT_NAME}.pot
+		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header -L Glade src/${ui_options} -j -o ${PROJECT_NAME}.pot
 		)
 
 	IF(PO_FILES)
@@ -57,7 +57,7 @@ IF(NOT DEFINED plugindir)
 ENDIF()
 
 INSTALL(TARGETS dynlist DESTINATION ${plugindir})
-INSTALL(FILES ${ui_options} DESTINATION ${plugindir})
+INSTALL(FILES src/${ui_options} DESTINATION ${plugindir})
 
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 ADD_DEFINITIONS(-D GETTEXT_PACKAGE="\\"${PROJECT_NAME}\\"")
