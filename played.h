@@ -12,6 +12,7 @@ void set_played_limit_artist(gint l_artist);
 gint get_played_limit_song();
 gint get_played_limit_artist();
 
+void init_played_list();
 void free_played_list();
 
 #endif

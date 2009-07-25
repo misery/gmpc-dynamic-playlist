@@ -19,10 +19,11 @@
 
 #include "played.h"
 #include <string.h>
+#include <gmpc/plugin.h>
 
-gint m_song = 0;
-gint m_artist = 0;
-dbQueue m_list = G_QUEUE_INIT;
+static gint m_song = 0;
+static gint m_artist = 0;
+static dbQueue m_list = G_QUEUE_INIT;
 
 static void flush_played_list(gint l_max)
 {
@@ -85,12 +86,14 @@ void set_played_limit_song(gint l_song)
 {
 	g_assert(l_song >= 0);
 	m_song = l_song;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "block", m_song);
 }
 
 void set_played_limit_artist(gint l_artist)
 {
 	g_assert(l_artist >= 0);
 	m_artist = l_artist;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "block_artist", m_artist);
 }
 
 gint get_played_limit_song()
@@ -101,6 +104,12 @@ gint get_played_limit_song()
 gint get_played_limit_artist()
 {
 	return m_artist;
+}
+
+void init_played_list()
+{
+	m_song = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block", 100);
+	m_artist = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block_artist", 0);
 }
 
 void free_played_list()

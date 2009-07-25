@@ -18,6 +18,7 @@
 */
 
 #include "blacklist.h"
+#include "plugin.h"
 #include <gmpc/playlist3-messages.h>
 #include <glib/gi18n-lib.h>
 
@@ -44,31 +45,32 @@ typedef struct
 	GQuark name; /* Album or Title */
 } tuple;
 
-gboolean m_blacklist_enabled = FALSE;
-gboolean m_reload_blacklist = FALSE;
-GSList* m_blacklist_genre = NULL;
-GSList* m_blacklist_artist = NULL;
-GSList* m_blacklist_album = NULL;
-GSList* m_blacklist_song = NULL;
+static gboolean m_enabled = FALSE;
+static gboolean m_reload = FALSE;
+static GSList* m_genre = NULL;
+static GSList* m_artist = NULL;
+static GSList* m_album = NULL;
+static GSList* m_song = NULL;
 
 void set_active_blacklist(gboolean l_value)
 {
-	if(!m_blacklist_enabled && l_value)
+	if(!m_enabled && l_value)
 		reload_blacklists();
 
-	m_blacklist_enabled = l_value;
+	m_enabled = l_value;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", m_enabled);
 }
 
 gboolean get_active_blacklist()
 {
-	return m_blacklist_enabled;
+	return m_enabled;
 }
 
 gboolean is_blacklisted(const mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
 
-	if(!m_blacklist_enabled)
+	if(!m_enabled)
 		return FALSE;
 
 	return is_blacklisted_genre(l_song->genre)
@@ -79,7 +81,7 @@ gboolean is_blacklisted(const mpd_Song* l_song)
 
 gboolean is_blacklisted_single(const GSList* l_list, const gchar* l_value)
 {
-	if(l_value == NULL || !m_blacklist_enabled)
+	if(l_value == NULL || !m_enabled)
 		return FALSE;
 	g_assert(l_value[0] != '\0');
 
@@ -106,7 +108,7 @@ gboolean is_blacklisted_single(const GSList* l_list, const gchar* l_value)
 
 gboolean is_blacklisted_tuple(const GSList* l_list, const gchar* l_artist, const gchar* l_name)
 {
-	if(l_artist == NULL || l_name == NULL || !m_blacklist_enabled)
+	if(l_artist == NULL || l_name == NULL || !m_enabled)
 		return FALSE;
 	g_assert(l_artist[0] != '\0');
 	g_assert(l_name[0] != '\0');
@@ -139,22 +141,22 @@ gboolean is_blacklisted_tuple(const GSList* l_list, const gchar* l_artist, const
 
 gboolean is_blacklisted_genre(const gchar* l_genre)
 {
-	return is_blacklisted_single(m_blacklist_genre, l_genre);
+	return is_blacklisted_single(m_genre, l_genre);
 }
 
 gboolean is_blacklisted_artist(const gchar* l_artist)
 {
-	return is_blacklisted_single(m_blacklist_artist, l_artist);
+	return is_blacklisted_single(m_artist, l_artist);
 }
 
 gboolean is_blacklisted_album(const gchar* l_artist, const gchar* l_album)
 {
-	return is_blacklisted_tuple(m_blacklist_album, l_artist, l_album);
+	return is_blacklisted_tuple(m_album, l_artist, l_album);
 }
 
 gboolean is_blacklisted_song(const gchar* l_artist, const gchar* l_title)
 {
-	return is_blacklisted_tuple(m_blacklist_song, l_artist, l_title);
+	return is_blacklisted_tuple(m_song, l_artist, l_title);
 }
 
 void create_blacklists()
@@ -203,17 +205,17 @@ gboolean create_blacklists_search(MpdData** l_out_lists, const gchar* l_blacklis
 
 void check_for_reload()
 {
-	if(m_reload_blacklist)
+	if(m_reload)
 	{
 		load_blacklists();
 		create_blacklists();
-		m_reload_blacklist = FALSE;
+		m_reload = FALSE;
 	}
 }
 
 void reload_blacklists()
 {
-	m_reload_blacklist = TRUE;
+	m_reload = TRUE;
 }
 
 void load_blacklists()
@@ -227,7 +229,7 @@ void load_blacklists()
 
 void load_blacklist_genre()
 {
-	g_assert(m_blacklist_genre == NULL);
+	g_assert(m_genre == NULL);
 
 	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[GENRE]));
 	for(; data != NULL; data = mpd_data_get_next(data))
@@ -238,14 +240,14 @@ void load_blacklist_genre()
 		if(value != 0)
 		{
 			g_debug("Add genre to blacklist: %s", data->song->genre);
-			m_blacklist_genre = g_slist_prepend(m_blacklist_genre, GUINT_TO_POINTER(value));
+			m_genre = g_slist_prepend(m_genre, GUINT_TO_POINTER(value));
 		}
 	}
 }
 
 void load_blacklist_artist()
 {
-	g_assert(m_blacklist_artist == NULL);
+	g_assert(m_artist == NULL);
 
 	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[ARTIST]));
 	for(; data != NULL; data = mpd_data_get_next(data))
@@ -256,14 +258,14 @@ void load_blacklist_artist()
 		if(value != 0)
 		{
 			g_debug("Add artist to blacklist: %s", data->song->artist);
-			m_blacklist_artist = g_slist_prepend(m_blacklist_artist, GUINT_TO_POINTER(value));
+			m_artist = g_slist_prepend(m_artist, GUINT_TO_POINTER(value));
 		}
 	}
 }
 
 void load_blacklist_album()
 {
-	g_assert(m_blacklist_album == NULL);
+	g_assert(m_album == NULL);
 
 	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[ALBUM]));
 	for(; data != NULL; data = mpd_data_get_next(data))
@@ -281,7 +283,7 @@ void load_blacklist_album()
 				tmp->artist = artist;
 				tmp->name = album;
 				g_debug("Add album to blacklist: %s::%s", artistChar, data->song->album);
-				m_blacklist_album = g_slist_prepend(m_blacklist_album, tmp);
+				m_album = g_slist_prepend(m_album, tmp);
 			}
 		}
 	}
@@ -289,7 +291,7 @@ void load_blacklist_album()
 
 void load_blacklist_song()
 {
-	g_assert(m_blacklist_song == NULL);
+	g_assert(m_song == NULL);
 
 	MpdData* data = mpd_database_get_playlist_content(connection, _(blacklist[SONG]));
 	for(; data != NULL; data = mpd_data_get_next(data))
@@ -306,27 +308,34 @@ void load_blacklist_song()
 				tmp->artist = artist;
 				tmp->name = title;
 				g_debug("Add song to blacklist: %s::%s", data->song->artist, data->song->title);
-				m_blacklist_song = g_slist_prepend(m_blacklist_song, tmp);
+				m_song = g_slist_prepend(m_song, tmp);
 			}
 		}
 	}
 }
 
+void init_blacklists()
+{
+	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "blacklist", FALSE);
+	if(dyn_get_enabled())
+		reload_blacklists();
+}
+
 void free_blacklists()
 {
-	g_slist_free(m_blacklist_genre);
-	m_blacklist_genre = NULL;
+	g_slist_free(m_genre);
+	m_genre = NULL;
 
-	g_slist_free(m_blacklist_artist);
-	m_blacklist_artist = NULL;
+	g_slist_free(m_artist);
+	m_artist = NULL;
 
-	free_blacklists_tuple(m_blacklist_album);
-	g_slist_free(m_blacklist_album);
-	m_blacklist_album = NULL;
+	free_blacklists_tuple(m_album);
+	g_slist_free(m_album);
+	m_album = NULL;
 
-	free_blacklists_tuple(m_blacklist_song);
-	g_slist_free(m_blacklist_song);
-	m_blacklist_song = NULL;
+	free_blacklists_tuple(m_song);
+	g_slist_free(m_song);
+	m_song = NULL;
 }
 
 void free_blacklists_tuple(GSList* l_list)

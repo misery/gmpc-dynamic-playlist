@@ -2,7 +2,7 @@
 #define _DYN_LIST_PLUGIN_BLACKLIST
 
 #include <gmpc/plugin.h>
-#include <libmpd/libmpd-internal.h>
+#include <libmpd/libmpd.h>
 
 void set_active_blacklist(gboolean l_value);
 gboolean get_active_blacklist();
@@ -27,6 +27,7 @@ void load_blacklist_artist();
 void load_blacklist_album();
 void load_blacklist_song();
 
+void init_blacklists();
 void free_blacklists();
 void free_blacklists_tuple(GSList* l_list);
 

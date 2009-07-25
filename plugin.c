@@ -24,367 +24,16 @@
 #include "database.h"
 #include "blacklist.h"
 #include "played.h"
+#include "search.h"
 #include "icon.h"
+#include "prune.h"
+#include "prefs.h"
 
-#ifdef TESTMODE
-#define g_rand_int_range(obj, min, max) g_test_rand_int_range(min, max)
-#endif
-#define BUFFER_SECONDS 5
 extern GmpcEasyCommand* gmpc_easy_command;
 
-guint m_delay_source = 0;
-guint8 m_delay_timeout = 0;
-gint m_keep = -1;
-gint m_similar_songs_max = 0;
-gint m_similar_artists_max = 0;
-gint m_similar_genre_max = 0;
-gint m_similar_artist_same = TRUE;
-gint m_similar_genre_same = TRUE;
-gboolean m_similar_songs = FALSE;
-gboolean m_similar_artists = FALSE;
-gboolean m_similar_genre = FALSE;
-gboolean m_same_genre = FALSE;
-gboolean m_enabled = TRUE;
-gboolean m_enabled_search = FALSE;
+static gboolean m_enabled = TRUE;
 GRand* m_rand = NULL;
-gboolean m_is_searching = FALSE;
 
-/* Menu */
-GtkWidget* m_menu_item = NULL;
-GtkWidget* m_menu = NULL;
-GtkWidget* m_menu_search = NULL;
-GtkWidget* m_menu_blacklist = NULL;
-
-
-static status getNextStatus(status l_status)
-{
-	status ret = NotFound;
-
-	gint available[STATUS_COUNT-1];
-	gint count = 0;
-	gint i;
-	for(i = 1; i < STATUS_COUNT; ++i) /* index 0 is Found/NotFound */
-	{
-		if( !(1 << i & l_status) )
-			available[count++] = i;
-	}
-
-	if(count > 0)
-	{
-		ret = Found;
-		ret |= 1 << available[ g_rand_int_range(m_rand, 0, count) ];
-	}
-
-	return ret;
-}
-
-static void tryToAdd_select(const status l_status, mpd_Song* l_song)
-{
-	g_assert(l_song != NULL);
-	g_assert(m_is_searching);
-
-	if(l_status & Found)
-	{
-		m_is_searching = FALSE;
-		return;
-	}
-
-	status next = getNextStatus(l_status);
-	if(next & Found)
-	{
-		if(next & Song)
-		{
-			g_debug("Try similar song... %s - %s", l_song->artist, l_song->title);
-			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, GINT_TO_POINTER(l_status));
-		}
-		else if(next & Artist)
-		{
-			g_debug("Try similar artist... %s", l_song->artist);
-			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, GINT_TO_POINTER(l_status));
-		}
-		else if(next & Genre)
-		{
-			g_debug("Try similar genre... %s", l_song->genre);
-			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, GINT_TO_POINTER(l_status));
-		}
-		else
-			g_assert_not_reached();
-	}
-	else
-	{
-		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
-			g_debug("Added same genre song");
-		else if(tryToAdd_random())
-			g_debug("Added random song");
-		else
-		{
-			playlist3_show_error_message(_("Dynamic search cannot find a new song"), ERROR_INFO);
-			g_debug("Cannot find a new song");
-		}
-		m_is_searching = FALSE;
-	}
-}
-
-void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
-{
-	if(l_result == META_DATA_FETCHING)
-		return;
-
-	status l_status = GPOINTER_TO_INT(l_last_status);
-	g_assert(!(l_status & Artist));
-	l_status |= Artist;
-	if(l_result == META_DATA_AVAILABLE)
-	{
-		g_assert(l_data != NULL && l_data->type == META_ARTIST_SIMILAR);
-
-		gint count = 0;
-		strList* artistList = NULL;
-		gint maxIter = 0;
-		const GList* iter;
-		for(iter = meta_data_get_text_list(l_data); iter != NULL && maxIter < m_similar_artists_max; iter = g_list_next(iter), ++maxIter)
-		{
-			const gchar* artist = (const gchar*) iter->data;
-			artistList = database_get_artists(artistList, artist, NULL, &count);
-		}
-
-		if(count > 0)
-		{
-			// add one artist to artistList (mostly because 'same artist' is also 'similar')
-			if(l_song->artist != NULL && m_similar_artist_same && get_played_limit_artist() == 0)
-				artistList = database_get_artists(artistList, l_song->artist, NULL, &count);
-			if(database_tryToAdd_artists(&artistList, count))
-				l_status |= Found;
-		}
-
-		if(artistList != NULL)
-			free_strList(artistList);
-	}
-
-	tryToAdd_select(l_status, l_song);
-}
-
-void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
-{
-	if(l_result == META_DATA_FETCHING)
-		return;
-
-	status l_status = GPOINTER_TO_INT(l_last_status);
-	g_assert(!(l_status & Song));
-	l_status |= Song;
-	if(l_result == META_DATA_AVAILABLE)
-	{
-		g_assert(l_data != NULL && l_data->type == META_SONG_SIMILAR);
-
-		gint count = 0;
-		dbList* songList = NULL;
-		gint maxIter = 0;
-		const GList* iter;
-		for(iter = meta_data_get_text_list(l_data); iter != NULL && maxIter < m_similar_songs_max; iter = g_list_next(iter), ++maxIter)
-		{
-			gchar** song = g_strsplit(iter->data, "::", 2);
-			if(song[0] != NULL && song[1] != NULL)
-				songList = database_get_songs(songList, song[0], song[1], &count);
-			g_strfreev(song);
-		}
-
-		if(count > 0)
-		{
-			g_assert(songList != NULL);
-
-			gint random = g_rand_int_range(m_rand, 0, count);
-			gint i = 0;
-			dbList* songListIter;
-			for(songListIter = songList; i < random; ++i)
-				songListIter = g_list_next(songListIter);
-
-			dbSong* song = (dbSong*) songListIter->data;
-			mpd_playlist_add(connection, song->path);
-			add_played_song(song);
-			g_debug("Added via song | artist: %s | title: %s", song->artist, song->title);
-
-			// Remove added dbSong* from dbList so it won't be freed
-			songList = g_list_delete_link(songList, songListIter);
-			if(songList != NULL)
-				free_dbList(songList);
-			l_status |= Found;
-		}
-	}
-
-	tryToAdd_select(l_status, l_song);
-}
-
-void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
-{
-	if(l_result == META_DATA_FETCHING)
-		return;
-
-	status l_status = (status) l_last_status;
-	g_assert(!(l_status & Genre));
-	l_status |= Genre;
-	if(l_result == META_DATA_AVAILABLE)
-	{
-		g_assert(l_data != NULL && l_data->type == META_GENRE_SIMILAR);
-
-		gint count = 0;
-		strList* artistList = NULL;
-		gint maxIter = 0;
-		const GList* iter;
-		for(iter = meta_data_get_text_list(l_data); iter != NULL && maxIter < m_similar_genre_max; iter = g_list_next(iter), ++maxIter)
-		{
-			const gchar* genre = (const gchar*) iter->data;
-			artistList = database_get_artists(artistList, NULL, genre, &count);
-		}
-
-		// add one genre to artistList (mostly because 'same genre' is also 'similar')
-		if(m_similar_genre_same)
-			artistList = database_get_artists(artistList, NULL, l_song->genre, &count);
-
-		if(count > 0 && database_tryToAdd_artists(&artistList, count))
-				l_status |= Found;
-
-		if(artistList != NULL)
-			free_strList(artistList);
-	}
-
-	tryToAdd_select(l_status, l_song);
-}
-
-gboolean tryToAdd_genre(const gchar* l_genre)
-{
-	gboolean ret = FALSE;
-	gint count = 0;
-	strList* artistList = database_get_artists(NULL, NULL, l_genre, &count);
-	if(count > 0)
-		ret = database_tryToAdd_artists(&artistList, count);
-
-	if(artistList != NULL)
-		free_strList(artistList);
-
-	return ret;
-}
-
-gboolean tryToAdd_random()
-{
-	return tryToAdd_genre(NULL);
-}
-
-void findSimilar_easy()
-{
-	if(!m_enabled)
-	{
-		playlist3_show_error_message(_("Dynamic playlist is disabled"), ERROR_INFO);
-		return;
-	}
-
-	if(m_is_searching)
-	{
-		playlist3_show_error_message(_("Dynamic search is already busy"), ERROR_INFO);
-		return;
-	}
-
-	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
-	if(curSong == NULL)
-	{
-		playlist3_show_error_message(_("You need to play a song that will be used"), ERROR_INFO);
-		return;
-	}
-
-	findSimilar(curSong);
-}
-
-void findSimilar(mpd_Song* l_song)
-{
-	g_assert(l_song != NULL);
-	g_assert(!m_is_searching);
-
-	m_is_searching = TRUE;
-	status start = NotFound;
-	if(!m_similar_songs || l_song->artist == NULL || l_song->title == NULL)
-		start |= Song;
-
-	if(!m_similar_artists || l_song->artist == NULL)
-		start |= Artist;
-
-	if(!m_similar_genre || l_song->genre == NULL)
-		start |= Genre;
-
-	g_debug("Search | song: %d | artist: %d | genre: %d | artist: %s | title: %s | genre: %s",
-			!(start & Song), !(start & Artist), !(start & Genre),
-			l_song->artist, l_song->title, l_song->genre);
-
-	tryToAdd_select(start, l_song);
-}
-
-gboolean findSimilar_delayed(mpd_Song* l_song)
-{
-	findSimilar(l_song);
-	m_delay_source = 0;
-	return FALSE;
-}
-
-void setDelay(mpd_Song* l_song)
-{
-	if(m_delay_source != 0)
-		g_source_remove(m_delay_source);
-
-	if(l_song != NULL)
-	{
-		gint timeout;
-		if(l_song->time == MPD_SONG_NO_TIME || l_song->time > m_delay_timeout + BUFFER_SECONDS)
-			timeout = m_delay_timeout;
-		else
-			timeout = l_song->time - BUFFER_SECONDS;
-
-		m_delay_source = g_timeout_add_seconds(timeout,
-							(GSourceFunc) findSimilar_delayed, l_song);
-
-		/*
-		m_delay_source = g_timeout_add_seconds_full(G_PRIORITY_DEFAULT,
-				m_delay_timeout, (GSourceFunc) findSimilar_delayed,
-				mpd_songDup(l_song), (GDestroyNotify) mpd_freeSong);
-		*/
-	}
-}
-
-gboolean enabled_search()
-{
-	return m_enabled_search;
-}
-
-void prune_playlist(gint l_curPos, gint l_keep)
-{
-	if(l_keep < 0 || l_curPos < 1)
-		return;
-
-	gint del;
-	for(del = 0; del < l_curPos - l_keep; ++del)
-		mpd_playlist_queue_delete_pos(connection, 0);
-
-	mpd_playlist_queue_commit(connection);
-}
-
-void prune_playlist_easy(gpointer l_data, const gchar* l_param)
-{
-	g_assert(l_param != NULL);
-
-	if(!m_enabled)
-	{
-		playlist3_show_error_message(_("Dynamic playlist is disabled"), ERROR_INFO);
-		return;
-	}
-
-	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
-	if(curSong == NULL)
-	{
-		playlist3_show_error_message(_("Cannot prune playlist! You need to play a song for pruning."), ERROR_INFO);
-		return;
-	}
-
-	if(l_param[0] == '\0')
-		prune_playlist(curSong->pos, m_keep);
-	else
-		prune_playlist(curSong->pos, atoi(l_param));
-}
 
 void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata)
 {
@@ -398,29 +47,21 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 		if(curSong != NULL)
 		{
 			const gint curPos = curSong->pos;
-			if(m_enabled_search)
+			if(get_search_active())
 			{
 				const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
-				if(remains < 1 && !m_is_searching)
-				{
-					if(m_delay_timeout > 0)
-						setDelay(curSong);
-					else
-						findSimilar(curSong);
-				}
-				else if(m_delay_timeout > 0)
-					setDelay(NULL);
+				search(curSong, remains);
 			}
 
-			prune_playlist(curPos, m_keep);
+			prune_playlist(curPos);
 		}
 	}
 
 	if(l_what & MPD_CST_STORED_PLAYLIST)
 		reload_blacklists();
 
-	if(m_delay_timeout > 0 && l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
-		setDelay(NULL);
+	if(l_what & MPD_CST_STATE && is_search_delayed() && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
+		reset_search_delay();
 }
 
 void dyn_init()
@@ -434,32 +75,25 @@ void dyn_init()
 	bindtextdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
 	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 
-	m_delay_timeout = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "delayTimeout", 0);
-	m_keep = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "keep", -1);
-	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxSongs", 20);
-	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxArtists", 30);
-	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxGenres", 20);
-	m_similar_songs = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_songs", FALSE);
-	m_similar_artists = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_artists", FALSE);
-	m_similar_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre", FALSE);
-	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_artist_same", TRUE);
-	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre_same", TRUE);
-	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "same_genre", FALSE);
-	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
+	m_rand = g_rand_new();
 	m_enabled = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "enable", TRUE);
 
-	set_played_limit_song(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block", 100));
-	set_played_limit_artist(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "block_artist", 0));
-	set_active_blacklist(cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "blacklist", TRUE));
-	m_rand = g_rand_new();
-	if(m_enabled)
-		reload_blacklists();
-
-	gmpc_easy_command_add_entry(gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"), (GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, _("dynamic"), "(on|off|)",  _("Dynamic search (on|off)"), (GmpcEasyCommandCallback*) dyn_enable_easy, NULL);
-	gmpc_easy_command_add_entry(gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"), (GmpcEasyCommandCallback*) findSimilar_easy, NULL);
-
 	init_icon();
+	init_prune();
+	init_search();
+	init_blacklists();
+	init_played_list();
+
+	/* GmpcEasyCommand */
+	gmpc_easy_command_add_entry(
+			gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"),
+			(GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
+	gmpc_easy_command_add_entry(
+			gmpc_easy_command, _("dynamic"), "(on|off|)",  _("Dynamic search (on|off)"),
+			(GmpcEasyCommandCallback*) set_search_active_easy, NULL);
+	gmpc_easy_command_add_entry(
+			gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"),
+			(GmpcEasyCommandCallback*) search_easy, NULL);
 }
 
 void dyn_destroy()
@@ -469,283 +103,30 @@ void dyn_destroy()
 	g_rand_free(m_rand);
 }
 
-void dyn_enable_easy(gpointer l_data, const gchar* l_param)
-{
-	if(g_str_has_prefix(l_param, _("on")))
-		pref_similar_set(similar_search, TRUE);
-	else if(g_str_has_prefix(l_param, _("off")))
-		pref_similar_set(similar_search, FALSE);
-	else
-		pref_similar_set(similar_search, !m_enabled_search);
-}
-
-gint dyn_get_enabled()
+gboolean dyn_get_enabled()
 {
 	return m_enabled;
 }
 
-void dyn_set_enabled(gint l_enabled)
+void dyn_set_enabled(gboolean l_enabled)
 {
-	g_assert(m_menu_item != NULL);
+	if(m_enabled == l_enabled)
+		return;
 
 	if(!m_enabled && l_enabled)
 		reload_blacklists();
 
 	if(!l_enabled)
-		setDelay(NULL);
+		reset_search_delay();
 
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
-	gtk_widget_set_sensitive(m_menu_item, m_enabled);
-}
-
-void dyn_tool_menu_integration_activate(GtkCheckMenuItem* l_menu_item, option l_type)
-{
-	if(l_type == similar_search)
-	{
-		m_enabled_search = gtk_check_menu_item_get_active(l_menu_item);
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
-		if(!m_enabled_search)
-			setDelay(NULL);
-	}
-	else if(l_type == blacklist)
-	{
-		gboolean active = gtk_check_menu_item_get_active(l_menu_item);
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", active);
-		set_active_blacklist(active);
-	}
-	else
-		g_assert_not_reached();
-
-}
-
-int dyn_tool_menu_integration(GtkMenu* l_menu)
-{
-	m_menu_item = gtk_image_menu_item_new_with_label(_("Dynamic Playlist"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(m_menu_item), gtk_image_new_from_stock(GTK_STOCK_INDEX, GTK_ICON_SIZE_MENU));
-	m_menu = gtk_menu_new();
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(m_menu_item), m_menu);
-	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
-	gtk_widget_set_sensitive(m_menu_item, m_enabled);
-
-	m_menu_search = gtk_check_menu_item_new_with_label(_("Dynamic search"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
-	g_signal_connect(G_OBJECT(m_menu_search), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), GINT_TO_POINTER(similar_search));
-	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_search);
-
-	m_menu_blacklist = gtk_check_menu_item_new_with_label(_("Use blacklists"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), get_active_blacklist());
-	g_signal_connect(G_OBJECT(m_menu_blacklist), "activate", G_CALLBACK(dyn_tool_menu_integration_activate), GINT_TO_POINTER(blacklist));
-	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_blacklist);
-
-	GtkWidget* menu_add_song = gtk_image_menu_item_new_with_label(_("Add similar song"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menu_add_song), gtk_image_new_from_stock(GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
-	g_signal_connect(G_OBJECT(menu_add_song), "activate", G_CALLBACK(findSimilar_easy), NULL);
-	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), menu_add_song);
-	return 1;
+	reload_menu_list();
 }
 
 const gchar* dyn_get_translation_domain()
 {
 	return GETTEXT_PACKAGE;
-}
-
-void pref_destroy(GtkWidget* l_con)
-{
-	GtkWidget* child = gtk_bin_get_child(GTK_BIN(l_con));
-	if(child)
-		gtk_container_remove(GTK_CONTAINER(l_con), child);
-}
-
-void pref_similar(GtkWidget* l_con, gpointer l_data)
-{
-	option type = (option) GPOINTER_TO_INT(l_data);
-	gint value = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(l_con));
-	pref_similar_set(type, value);
-}
-
-void pref_similar_set(option l_type, gint l_value)
-{
-	if(l_type == similar_artist)
-	{
-		m_similar_artists = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_artists", m_similar_artists);
-	}
-	else if(l_type == similar_artist_same)
-	{
-		m_similar_artist_same = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_artist_same", m_similar_artist_same);
-	}
-	else if(l_type == similar_song)
-	{
-		m_similar_songs = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_songs", m_similar_songs);
-	}
-	else if(l_type == similar_genre)
-	{
-		m_similar_genre = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_genre", m_similar_genre);
-	}
-	else if(l_type == similar_genre_same)
-	{
-		m_similar_genre_same = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_genre_same", m_similar_genre_same);
-	}
-	else if(l_type == same_genre)
-	{
-		m_same_genre = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "same_genre", m_same_genre);
-	}
-	else if(l_type == similar_search)
-	{
-		m_enabled_search = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), m_enabled_search);
-		if(!m_enabled_search)
-			setDelay(NULL);
-	}
-	else if(l_type == blacklist)
-	{
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", l_value);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), l_value);
-	}
-	else
-		g_assert_not_reached();
-}
-
-void pref_spins(GtkSpinButton* l_widget, gpointer l_data)
-{
-	option type = (option) GPOINTER_TO_INT(l_data);
-	gint value = gtk_spin_button_get_value_as_int(l_widget);
-	pref_spins_set(type, value);
-}
-
-void pref_spins_set(option l_type, gint l_value)
-{
-	if(l_type == keep)
-	{
-		m_keep = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "keep", m_keep);
-	}
-	else if(l_type == block_song)
-	{
-		set_played_limit_song(l_value);
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "block", l_value);
-	}
-	else if(l_type == block_artist)
-	{
-		set_played_limit_artist(l_value);
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "block_artist", l_value);
-	}
-	else if(l_type == similar_song_max)
-	{
-		m_similar_songs_max = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxSongs", m_similar_songs_max);
-	}
-	else if(l_type == similar_artist_max)
-	{
-		m_similar_artists_max = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxArtists", m_similar_artists_max);
-	}
-	else if(l_type == similar_genre_max)
-	{
-		m_similar_genre_max = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "maxGenres", m_similar_genre_max);
-	}
-	else if(l_type == delay)
-	{
-		m_delay_timeout = l_value;
-		cfg_set_single_value_as_int(config, "dynamic-playlist", "delayTimeout", m_delay_timeout);
-	}
-	else
-		g_assert_not_reached();
-}
-
-void pref_construct(GtkWidget* l_con)
-{
-	GtkBuilder* builder = gtk_builder_new();
-	gtk_builder_set_translation_domain(builder, dyn_get_translation_domain());
-	GError* err = NULL;
-
-	if(gtk_builder_add_from_file(builder, UI_OPTIONS, &err))
-	{
-		GtkWidget* notebook = GTK_WIDGET(gtk_builder_get_object(builder, "ui-options"));
-		pref_construct_signals_and_values(builder);
-		gtk_container_add(GTK_CONTAINER(l_con), notebook);
-	}
-	else
-	{
-		g_warning("Cannot construct option page: %s", err->message);
-		g_error_free(err);
-	}
-}
-
-void pref_construct_signals_and_values(GtkBuilder* l_builder)
-{
-	GtkToggleButton* check;
-	GtkSpinButton* spin;
-
-	/* Local */
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "dynamic_search"));
-	gtk_toggle_button_set_active(check, m_enabled_search);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_search));
-
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "same_genre"));
-	gtk_toggle_button_set_active(check, m_same_genre);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(same_genre));
-
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "use_blacklists"));
-	gtk_toggle_button_set_active(check, get_active_blacklist());
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(blacklist));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_delay"));
-	gtk_spin_button_set_value(spin, m_delay_timeout);
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(delay));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_keep"));
-	gtk_spin_button_set_value(spin, m_keep);
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(keep));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_block_song"));
-	gtk_spin_button_set_value(spin, get_played_limit_song());
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block_song));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_block_artist"));
-	gtk_spin_button_set_value(spin, get_played_limit_artist());
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(block_artist));
-
-	/* Metadata */
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "song_toggle"));
-	gtk_toggle_button_set_active(check, m_similar_songs);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_song));
-
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "artist_toggle"));
-	gtk_toggle_button_set_active(check, m_similar_artists);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist));
-
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "artist_same_toggle"));
-	gtk_toggle_button_set_active(check, m_similar_artist_same);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_artist_same));
-
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "genre_toggle"));
-	gtk_toggle_button_set_active(check, m_similar_genre);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_genre));
-
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "genre_same_toggle"));
-	gtk_toggle_button_set_active(check, m_similar_genre_same);
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_similar), GINT_TO_POINTER(similar_genre_same));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_song"));
-	gtk_spin_button_set_value(spin, m_similar_songs_max);
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_song_max));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_artist"));
-	gtk_spin_button_set_value(spin, m_similar_artists_max);
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_artist_max));
-
-	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_genre"));
-	gtk_spin_button_set_value(spin, m_similar_genre_max);
-	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spins), GINT_TO_POINTER(similar_genre_max));
 }
 
 gmpcPrefPlugin dyn_pref =

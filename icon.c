@@ -18,16 +18,16 @@
 */
 
 #include "icon.h"
-#include "plugin.h"
+#include "search.h"
 
 GtkWidget* m_box = NULL;
 
 gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_data)
 {
 	if(l_event->button == 1) // left mouse button
-		pref_similar_set(similar_search, !enabled_search());
+		set_search_active(!get_search_active());
 	else if(l_event->button == 2) // middle mouse button
-		findSimilar_easy();
+		search_easy();
 	else if(l_event->button == 3) // right mouse button
 		g_debug("todo: open popup menu");
 	else
