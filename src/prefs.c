@@ -146,15 +146,12 @@ int dyn_tool_menu_integration(GtkMenu* l_menu)
 	m_menu = gtk_menu_new();
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(m_menu_item), m_menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(l_menu), m_menu_item);
-	gtk_widget_set_sensitive(m_menu_item, dyn_get_enabled());
 
 	m_menu_search = gtk_check_menu_item_new_with_label(_("Dynamic search"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_search), get_search_active());
 	g_signal_connect(G_OBJECT(m_menu_search), "activate", G_CALLBACK(pref_toggle_menu), set_search_active);
 	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_search);
 
 	m_menu_blacklist = gtk_check_menu_item_new_with_label(_("Use blacklists"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(m_menu_blacklist), get_active_blacklist());
 	g_signal_connect(G_OBJECT(m_menu_blacklist), "activate", G_CALLBACK(pref_toggle_menu), set_active_blacklist);
 	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), m_menu_blacklist);
 
@@ -163,6 +160,7 @@ int dyn_tool_menu_integration(GtkMenu* l_menu)
 	g_signal_connect(G_OBJECT(menu_add_song), "activate", G_CALLBACK(search_easy), NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(m_menu), menu_add_song);
 
+	reload_menu_list();
 	return 1;
 }
 
