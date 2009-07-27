@@ -41,6 +41,7 @@ gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_d
 
 void reload_icon()
 {
+	g_assert(m_box != NULL);
 	g_assert(m_image != NULL);
 	gtk_widget_set_sensitive(m_image, get_search_active());
 	gtk_widget_set_sensitive(m_box, dyn_get_enabled());
