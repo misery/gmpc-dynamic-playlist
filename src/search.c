@@ -23,6 +23,7 @@
 #include "database.h"
 #include "plugin.h"
 #include "prefs.h"
+#include "icon.h"
 #include <glib/gi18n-lib.h>
 
 #ifdef TESTMODE
@@ -399,6 +400,7 @@ void set_search_active(gboolean l_value)
 	m_enabled_search = l_value;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 	reload_menu_list();
+	reload_icon();
 	if(!m_enabled_search)
 		reset_search_delay();
 }

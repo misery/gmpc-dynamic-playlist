@@ -2,6 +2,7 @@
 #define _DYN_LIST_PLUGIN_ICON
 
 void init_icon();
+void reload_icon();
 
 #endif
 

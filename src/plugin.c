@@ -122,6 +122,7 @@ void dyn_set_enabled(gboolean l_enabled)
 	m_enabled = l_enabled;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "enable", m_enabled);
 	reload_menu_list();
+	reload_icon();
 }
 
 const gchar* dyn_get_translation_domain()

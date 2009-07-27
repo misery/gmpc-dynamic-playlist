@@ -19,8 +19,11 @@
 
 #include "icon.h"
 #include "search.h"
+#include "plugin.h"
+#include <glib/gi18n-lib.h>
 
 GtkWidget* m_box = NULL;
+GtkWidget* m_image = NULL;
 
 gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_data)
 {
@@ -36,13 +39,25 @@ gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_d
 	return TRUE;
 }
 
+void reload_icon()
+{
+	g_assert(m_image != NULL);
+	gtk_widget_set_sensitive(m_image, get_search_active());
+	gtk_widget_set_sensitive(m_box, dyn_get_enabled());
+}
+
 gboolean icon_integration(gpointer l_data)
 {
 	g_assert(m_box == NULL);
+	g_assert(m_image == NULL);
 
 	m_box = gtk_event_box_new();
-	gtk_container_add(GTK_CONTAINER(m_box), gtk_image_new_from_stock(GTK_STOCK_INDEX, GTK_ICON_SIZE_MENU));
+	m_image = gtk_image_new_from_stock(GTK_STOCK_INDEX, GTK_ICON_SIZE_MENU);
+	gtk_container_add(GTK_CONTAINER(m_box), m_image);
+	gtk_widget_set_tooltip_text(m_box, _("Dynamic Playlist"));
 	g_signal_connect(G_OBJECT(m_box), "button-release-event", G_CALLBACK(icon_clicked), NULL);
+
+	reload_icon();
 	gtk_widget_show_all(m_box);
 	main_window_add_status_icon(m_box);
 
