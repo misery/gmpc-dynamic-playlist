@@ -22,8 +22,8 @@
 #include "plugin.h"
 #include <glib/gi18n-lib.h>
 
-GtkWidget* m_box = NULL;
-GtkWidget* m_image = NULL;
+static GtkWidget* m_box = NULL;
+static GtkWidget* m_image = NULL;
 
 gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_data)
 {
