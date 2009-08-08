@@ -10,6 +10,7 @@ tests/test_*
 *.so
 *.gmo
 *.pot
+*.merged.po
 *.orig
 *.swp
 config
