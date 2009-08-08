@@ -1,6 +1,7 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0)
 
 PROJECT(gmpc-dynamic-playlist C)
+SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 SET(VERSION_MAJOR 0)
 SET(VERSION_MINOR 9)
 SET(VERSION_PATCH 6)
@@ -10,9 +11,9 @@ IF(NOT PKG_CONFIG_FOUND)
 	MESSAGE(FATAL_ERROR "You need 'pkg-config' to build this plugin!")
 ENDIF()
 
-FILE(GLOB C_FILES RELATIVE ${PROJECT_SOURCE_DIR} "src/*.c")
-FILE(GLOB PO_FILES RELATIVE ${PROJECT_SOURCE_DIR} "po/*.po")
-SET(ui_options "dynlist-ui-options.xml")
+FILE(GLOB C_FILES RELATIVE ${PROJECT_BINARY_DIR} "src/*.c")
+FILE(GLOB PO_FILES RELATIVE ${PROJECT_BINARY_DIR} "po/*.po")
+FILE(GLOB UI_FILES RELATIVE ${PROJECT_BINARY_DIR} "src/*.xml")
 
 ADD_LIBRARY(dynlist SHARED ${C_FILES})
 
@@ -21,17 +22,16 @@ FIND_PROGRAM(GETTEXT_XGETTEXT_EXE xgettext)
 IF(NOT GETTEXT_FOUND OR NOT GETTEXT_XGETTEXT_EXE)
 	MESSAGE(STATUS "Translations won't be build... gettext isn't available!")
 ELSE()
+	SET(POT_FILE "${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pot")
 	ADD_CUSTOM_COMMAND(
-		OUTPUT ${PROJECT_NAME}.pot
-		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header --keyword=_ --keyword=N_ ${C_FILES} -o ${PROJECT_NAME}.pot
-		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header -L Glade src/${ui_options} -j -o ${PROJECT_NAME}.pot
+		OUTPUT ${POT_FILE}
+		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header --keyword=_ --keyword=N_ ${C_FILES} -o ${POT_FILE}
+		COMMAND ${GETTEXT_XGETTEXT_EXE} --omit-header -L Glade ${UI_FILES} -j -o ${POT_FILE}
 		)
 
 	IF(PO_FILES)
 		MESSAGE(STATUS "Translations will be build!")
-		#GETTEXT_CREATE_TRANSLATIONS(${PROJECT_NAME}.pot ALL ${PO_FILES})
-		GETTEXT_CREATE_TRANSLATIONS(${PROJECT_NAME}.pot ${PO_FILES})
-		ADD_DEPENDENCIES(dynlist translations)
+		GETTEXT_CREATE_TRANSLATIONS(${POT_FILE} ALL ${PO_FILES})
 	ELSE()
 		MESSAGE(STATUS "Translations not found!")
 	ENDIF()
@@ -57,7 +57,7 @@ IF(NOT DEFINED plugindir)
 ENDIF()
 
 INSTALL(TARGETS dynlist DESTINATION ${plugindir})
-INSTALL(FILES src/${ui_options} DESTINATION ${plugindir})
+INSTALL(FILES ${UI_FILES} DESTINATION ${plugindir})
 
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 ADD_DEFINITIONS(-D GETTEXT_PACKAGE="\\"${PROJECT_NAME}\\"")
@@ -97,5 +97,8 @@ ELSE()
 	MESSAGE(STATUS "G_ASSERTs are enabled!")
 ENDIF()
 
+IF("${PROJECT_BINARY_DIR}" STREQUAL "${PROJECT_SOURCE_DIR}")
+	MESSAGE(STATUS "Warning: in tree build is not recommended!")
+ENDIF()
 
 #vim:set ts=4 sw=4:
