@@ -1,5 +1,7 @@
 syntax: glob
 CMakeFiles
+_CPack_Packages
+CPack*
 CMakeCache.txt
 install_manifest.txt
 Makefile
@@ -17,4 +19,4 @@ config
 pid
 log
 error
-
+gmpc-dynamic-playlist-*.tar.gz
