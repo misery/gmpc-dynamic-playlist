@@ -7,160 +7,171 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-13 11:59+0200\n"
-"PO-Revision-Date: 2009-07-13 11:32+0000\n"
-"Last-Translator: André Klitzing <aklitzing@online.de>\n"
+"POT-Creation-Date: 2009-07-28 14:02+0200\n"
+"PO-Revision-Date: 2009-08-08 20:27+0000\n"
+"Last-Translator: mazdac <mazdac@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-13 11:44+0000\n"
+"X-Launchpad-Export-Date: 2009-08-09 12:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: blacklist.c:36
-msgid "!Blacklist Genre"
-msgstr ""
-
-#: blacklist.c:37
-msgid "!Blacklist Artist"
-msgstr ""
-
-#: blacklist.c:38
-msgid "!Blacklist Album"
-msgstr ""
-
-#: blacklist.c:39
-msgid "!Blacklist Song"
-msgstr ""
-
-#: plugin.c:325
+#: src/search.c:252
 msgid "Dynamic search cannot find a new song"
 msgstr "Dynamiczne wyszukiwanie nie zwróciło nowych utworów"
 
-#: plugin.c:479 plugin.c:571
+#: src/search.c:332 src/prune.c:67
 msgid "Dynamic playlist is disabled"
 msgstr "Dynamiczna playlista jest nieaktywna"
 
-#: plugin.c:485
+#: src/search.c:338
 msgid "Dynamic search is already busy"
 msgstr "Dynamiczne wyszukiwanie w toku"
 
-#: plugin.c:492
+#: src/search.c:345
 msgid "You need to play a song that will be used"
 msgstr "Musisz odtworzyć utwory, które zostaną użyte"
 
-#: plugin.c:578
-msgid "Cannot prune playlist! There is no current song as position"
-msgstr "Nie można skrócić listy odtwarzania! Nie ma utwory jako pozycji"
-
-#: plugin.c:656
-msgid "prune"
-msgstr "skrócona"
-
-#: plugin.c:656
-msgid "Prune playlist"
-msgstr "Skróć listę odtwarzania"
-
-#: plugin.c:657
-msgid "dynamic"
-msgstr "dynamiczna"
-
-#: plugin.c:657
-msgid "Dynamic search (on|off)"
-msgstr "Dynamiczne wyszukiwanie (wł|wył)"
-
-#: plugin.c:658
-msgid "similar"
-msgstr "podobna"
-
-#: plugin.c:658
-msgid "Search for similar song/artist/genre"
-msgstr "Wyszukaj podobne utwory/wykonawców/gatunki"
-
-#: plugin.c:672
+#: src/search.c:412
 msgid "on"
 msgstr "wł"
 
-#: plugin.c:674
+#: src/search.c:414
 msgid "off"
 msgstr "wył"
 
-#: plugin.c:722 plugin.c:958
+#: src/blacklist.c:37
+msgid "!Blacklist Genre"
+msgstr "!Zablokuj gatunek"
+
+#: src/blacklist.c:38
+msgid "!Blacklist Artist"
+msgstr "!Zablokuj wykonawcę"
+
+#: src/blacklist.c:39
+msgid "!Blacklist Album"
+msgstr "!Zablokuj album"
+
+#: src/blacklist.c:40
+msgid "!Blacklist Song"
+msgstr "!Zablokuj utwór"
+
+#: src/blacklist.c:186
+#, c-format
+msgid ""
+"Created %d playlist(s) that are used to blacklist artist, album, song or "
+"genre!"
+msgstr ""
+"Utworzono %d list odtwarzania używanych do zablokowania wybranych gatunków, "
+"utwórów, albumów i gatunków."
+
+#: src/prune.c:74
+msgid "Cannot prune playlist! You need to play a song for pruning."
+msgstr ""
+"Nie można wyciąć listy odtwarzania! Aby przyciąć program musi odtwarzać "
+"utwór."
+
+#: src/prefs.c:144 src/plugin.c:142 src/icon.c:58
 msgid "Dynamic Playlist"
 msgstr "Dynamiczna lista odtwarzania"
 
-#: plugin.c:729
+#: src/prefs.c:150
 msgid "Dynamic search"
 msgstr "Dynamiczne wyszukiwanie"
 
-#: plugin.c:734 dynlist-ui-options.xml:43
+#: src/prefs.c:154 src/dynlist-ui-options.xml:43
 msgid "Use blacklists"
 msgstr "Użyj czarnejlisty"
 
-#: plugin.c:739
+#: src/prefs.c:158
 msgid "Add similar song"
 msgstr "Dodaj podobny utwór"
 
-#: dynlist-ui-options.xml:17
+#: src/plugin.c:89
+msgid "prune"
+msgstr "skrócona"
+
+#: src/plugin.c:89
+msgid "Prune playlist"
+msgstr "Skróć listę odtwarzania"
+
+#: src/plugin.c:92
+msgid "dynamic"
+msgstr "dynamiczna"
+
+#: src/plugin.c:92
+msgid "Dynamic search (on|off)"
+msgstr "Dynamiczne wyszukiwanie (wł|wył)"
+
+#: src/plugin.c:95
+msgid "similar"
+msgstr "podobna"
+
+#: src/plugin.c:95
+msgid "Search for similar song/artist/genre"
+msgstr "Wyszukaj podobne utwory/wykonawców/gatunki"
+
+#: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
 msgstr "Włącz dynamiczne wyszukiwanie"
 
-#: dynlist-ui-options.xml:30
+#: src/dynlist-ui-options.xml:30
 msgid "Search songs in same genre"
 msgstr "Wyszukaj utwory w tym samym gatunku"
 
-#: dynlist-ui-options.xml:67
+#: src/dynlist-ui-options.xml:67
 msgid "Delay dynamic search for x seconds:"
-msgstr ""
+msgstr "Opóźnij dynamiczne wyszukiwanie o x sekund:"
 
-#: dynlist-ui-options.xml:77
+#: src/dynlist-ui-options.xml:77
 msgid "Keep x songs after current:"
 msgstr "Odtwarzaj x utworów po bieżącym:"
 
-#: dynlist-ui-options.xml:87
+#: src/dynlist-ui-options.xml:87
 msgid "Block played song for at least x songs:"
 msgstr "Zablokuj odtwarzany utwór dla conajmniej x utworów:"
 
-#: dynlist-ui-options.xml:97
+#: src/dynlist-ui-options.xml:97
 msgid "Block played artist for at least x songs:"
 msgstr "Zablokuj odtwarzanego wykonawcę dla conajmniej x utworów:"
 
-#: dynlist-ui-options.xml:171
+#: src/dynlist-ui-options.xml:171
 msgid "Local"
-msgstr ""
+msgstr "Lokalne"
 
-#: dynlist-ui-options.xml:185
+#: src/dynlist-ui-options.xml:185
 msgid "Search songs in 'similar songs'"
 msgstr "Wyszukaj utwory w 'podobnych utworach'"
 
-#: dynlist-ui-options.xml:198
+#: src/dynlist-ui-options.xml:198
 msgid "Search songs in 'similar artists'"
 msgstr "Wyszukaj utwory w 'podobnych wykonawcach'"
 
-#: dynlist-ui-options.xml:211
+#: src/dynlist-ui-options.xml:211
 msgid "Same artist is also 'similar'"
 msgstr "Ten sam artysta jest również 'podobny'"
 
-#: dynlist-ui-options.xml:224
+#: src/dynlist-ui-options.xml:224
 msgid "Search songs in 'similar genre'"
 msgstr "Wyszukaj utwory w 'podobnych gatunkach'"
 
-#: dynlist-ui-options.xml:237
+#: src/dynlist-ui-options.xml:237
 msgid "Same genre is also 'similar'"
 msgstr "Ten sam gatunek jest również 'podobny'"
 
-#: dynlist-ui-options.xml:261
+#: src/dynlist-ui-options.xml:261
 msgid "Search max. songs in database:"
 msgstr "Maksimum zwracanych wyników wyszukiwania utworów:"
 
-#: dynlist-ui-options.xml:271
+#: src/dynlist-ui-options.xml:271
 msgid "Search max. artists in database:"
 msgstr "Maksimum zwracanych wyników wyszukiwania wykonawców:"
 
-#: dynlist-ui-options.xml:281
+#: src/dynlist-ui-options.xml:281
 msgid "Search max. genre in database:"
 msgstr "Maksimum zwracanych wyników wyszukiwania gatunków:"
 
-#: dynlist-ui-options.xml:349
+#: src/dynlist-ui-options.xml:349
 msgid "Metadata"
-msgstr ""
+msgstr "Metadane"
