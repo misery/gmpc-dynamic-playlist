@@ -1,0 +1,173 @@
+# Italian translation for gmpc
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the gmpc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gmpc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-07-28 14:02+0200\n"
+"PO-Revision-Date: 2009-08-11 19:47+0000\n"
+"Last-Translator: André Klitzing <aklitzing@online.de>\n"
+"Language-Team: Italian <it@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-08-11 21:04+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: src/search.c:252
+msgid "Dynamic search cannot find a new song"
+msgstr ""
+
+#: src/search.c:332 src/prune.c:67
+msgid "Dynamic playlist is disabled"
+msgstr "Playlist dinamica disabilitata"
+
+#: src/search.c:338
+msgid "Dynamic search is already busy"
+msgstr ""
+
+#: src/search.c:345
+msgid "You need to play a song that will be used"
+msgstr ""
+
+#: src/search.c:412
+msgid "on"
+msgstr ""
+
+#: src/search.c:414
+msgid "off"
+msgstr ""
+
+#: src/blacklist.c:37
+msgid "!Blacklist Genre"
+msgstr "!Blacklist Genere"
+
+#: src/blacklist.c:38
+msgid "!Blacklist Artist"
+msgstr "!Blacklist Artisti"
+
+#: src/blacklist.c:39
+msgid "!Blacklist Album"
+msgstr "!Blacklist Album"
+
+#: src/blacklist.c:40
+msgid "!Blacklist Song"
+msgstr "!Blacklist Canzone"
+
+#: src/blacklist.c:186
+#, c-format
+msgid ""
+"Created %d playlist(s) that are used to blacklist artist, album, song or "
+"genre!"
+msgstr ""
+
+#: src/prune.c:74
+msgid "Cannot prune playlist! You need to play a song for pruning."
+msgstr ""
+
+#: src/prefs.c:144 src/plugin.c:142 src/icon.c:58
+msgid "Dynamic Playlist"
+msgstr ""
+
+#: src/prefs.c:150
+msgid "Dynamic search"
+msgstr "Ricerca dinamica"
+
+#: src/prefs.c:154 src/dynlist-ui-options.xml:43
+msgid "Use blacklists"
+msgstr "Usa blacklists"
+
+#: src/prefs.c:158
+msgid "Add similar song"
+msgstr "Aggiungi canzone simile"
+
+#: src/plugin.c:89
+msgid "prune"
+msgstr ""
+
+#: src/plugin.c:89
+msgid "Prune playlist"
+msgstr ""
+
+#: src/plugin.c:92
+msgid "dynamic"
+msgstr ""
+
+#: src/plugin.c:92
+msgid "Dynamic search (on|off)"
+msgstr ""
+
+#: src/plugin.c:95
+msgid "similar"
+msgstr "Simili"
+
+#: src/plugin.c:95
+msgid "Search for similar song/artist/genre"
+msgstr "Cerca per canzone o artista o genere simile"
+
+#: src/dynlist-ui-options.xml:17
+msgid "Enable dynamic search"
+msgstr "Abilita ricerca dinamica"
+
+#: src/dynlist-ui-options.xml:30
+msgid "Search songs in same genre"
+msgstr "Cerca canzoni nelle stesso genere"
+
+#: src/dynlist-ui-options.xml:67
+msgid "Delay dynamic search for x seconds:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:77
+msgid "Keep x songs after current:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:87
+msgid "Block played song for at least x songs:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:97
+msgid "Block played artist for at least x songs:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:171
+msgid "Local"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:185
+msgid "Search songs in 'similar songs'"
+msgstr "Cerca canzoni in 'canzoni simili'"
+
+#: src/dynlist-ui-options.xml:198
+msgid "Search songs in 'similar artists'"
+msgstr "Cerca canzoni in 'artisti simili'"
+
+#: src/dynlist-ui-options.xml:211
+msgid "Same artist is also 'similar'"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:224
+msgid "Search songs in 'similar genre'"
+msgstr "Cerca canzoni in 'generi simili'"
+
+#: src/dynlist-ui-options.xml:237
+msgid "Same genre is also 'similar'"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:261
+msgid "Search max. songs in database:"
+msgstr "Numero massimo di canzoni da cercare nel database:"
+
+#: src/dynlist-ui-options.xml:271
+msgid "Search max. artists in database:"
+msgstr "Numero massimo di artisti da cercare nel database:"
+
+#: src/dynlist-ui-options.xml:281
+msgid "Search max. genre in database:"
+msgstr "Numero massimo di generi da cercare nel database:"
+
+#: src/dynlist-ui-options.xml:349
+msgid "Metadata"
+msgstr ""
