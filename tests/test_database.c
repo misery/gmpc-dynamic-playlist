@@ -1,7 +1,8 @@
 #include <glib.h>
-#include "database.h"
-#include "blacklist.h"
 #include "fixture_mpd.h"
+#include "fixture_gmpc.h"
+#include "../src/database.h"
+#include "../src/blacklist.h"
 
 
 gint test_database_search_songs_blacklist(dbList** l_list)
@@ -31,6 +32,7 @@ gint test_database_search_songs_blacklist(dbList** l_list)
 void test_database_search_songs_blacklist_found_zero()
 {
 	fake_mpd_init(CONFIG_BL_ALL);
+	fake_gmpc_init();
 
 	set_active_blacklist(TRUE);
 	dbList* list = NULL;
@@ -42,12 +44,14 @@ void test_database_search_songs_blacklist_found_zero()
 	g_assert(list == NULL);
 	g_assert(count == 0);
 
+	fake_gmpc_free();
 	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 void test_database_search_songs_blacklist_found_all()
 {
 	fake_mpd_init(CONFIG_BL_ALL);
+	fake_gmpc_init();
 
 	set_active_blacklist(FALSE);
 	dbList* list = NULL;
@@ -75,12 +79,14 @@ void test_database_search_songs_blacklist_found_all()
 	g_assert(count == 71);
 	free_dbList(list);
 
+	fake_gmpc_free();
 	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 void test_database_search_artists_blacklist()
 {
 	fake_mpd_init(CONFIG_BL_ALL);
+	fake_gmpc_init();
 
 	set_active_blacklist(TRUE);
 	strList* list = NULL;
@@ -102,12 +108,14 @@ void test_database_search_artists_blacklist()
 	g_assert(count == 3);
 	free_strList(list);
 
+	fake_gmpc_free();
 	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 void test_database_search_artists_parameter()
 {
 	fake_mpd_init(CONFIG_BL_ALL);
+	fake_gmpc_init();
 
 	set_active_blacklist(FALSE);
 	strList* list = NULL;
@@ -174,6 +182,7 @@ void test_database_search_artists_parameter()
 	list = database_get_artists(list, "NoArtist", "Rock", &count);
 	g_assert(count == 0 && list == NULL);
 
+	fake_gmpc_free();
 	fake_mpd_free(CONFIG_BL_ALL);
 }
 
@@ -184,7 +193,7 @@ static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gc
 
 int main (int argc, char** argv)
 {
-	g_test_init(&argc, &argv, NULL);
+	gtk_test_init(&argc, &argv, NULL);
 
 	g_test_add_func("/database/search/songs/blacklist/nofound", test_database_search_songs_blacklist_found_zero);
 	g_test_add_func("/database/search/songs/blacklist/found", test_database_search_songs_blacklist_found_all);

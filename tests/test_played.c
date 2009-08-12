@@ -1,9 +1,9 @@
 #include <glib.h>
 #include <stdlib.h>
-#include "played.h"
-#include "database.h"
 #include "fixture_mpd.h"
 #include <gmpc/plugin.h>
+#include "../src/played.h"
+#include "../src/database.h"
 
 static void test_set_limits_allowed()
 {

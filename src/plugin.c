@@ -101,6 +101,7 @@ void dyn_destroy()
 	free_played_list();
 	free_blacklists();
 	g_rand_free(m_rand);
+	m_rand = NULL;
 }
 
 gboolean dyn_get_enabled()

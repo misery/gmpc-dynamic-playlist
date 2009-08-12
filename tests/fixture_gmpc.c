@@ -2,6 +2,24 @@
 #include <gmpc/playlist3-messages.h>
 #include <gmpc/gmpc-easy-command.h>
 #include <gmpc/plugin.h>
+#include "fixture_gmpc.h"
+#include "../src/plugin.h"
+#include "../src/prefs.h"
+
+/* init */
+GtkMenu* m_menu = NULL;
+void fake_gmpc_init()
+{
+	dyn_init();
+	m_menu = GTK_MENU(gtk_menu_new());
+	dyn_tool_menu_integration(m_menu);
+}
+
+void fake_gmpc_free()
+{
+	gtk_widget_destroy(GTK_WIDGET(m_menu));
+	dyn_destroy();
+}
 
 
 /* Config settings */
