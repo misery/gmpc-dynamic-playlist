@@ -16,12 +16,14 @@ ADD_LIBRARY(fixture SHARED fixture_gmpc.c fixture_mpd.c)
 TARGET_LINK_LIBRARIES(fixture ${LIBMPD_LIBRARIES})
 
 MACRO(ADD_TEST_CONFIG target def file)
+	SET(outfile "${PROJECT_BINARY_DIR}/tests/${file}")
 	FILE(READ ${file}.in config_in)
-	STRING(REPLACE "DIRECTORY" "${PROJECT_SOURCE_DIR}/tests" config ${config_in})
-	FILE(WRITE ${file} ${config})
+	STRING(REPLACE "DIR_SRC" "${PROJECT_SOURCE_DIR}/tests" config ${config_in})
+	STRING(REPLACE "DIR_BIN" "${PROJECT_BINARY_DIR}/tests" config ${config})
+	FILE(WRITE ${outfile} ${config})
 
 	GET_TARGET_PROPERTY(prev ${target} COMPILE_DEFINITIONS)
-	SET_TARGET_PROPERTIES(${target} PROPERTIES COMPILE_DEFINITIONS "${def}=\"${file}\";${prev}")
+	SET_TARGET_PROPERTIES(${target} PROPERTIES COMPILE_DEFINITIONS "${def}=\"${outfile}\";${prev}")
 ENDMACRO()
 
 MACRO(ADD_TEST_DATA target test_name)
