@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-07-28 14:02+0200\n"
-"PO-Revision-Date: 2009-08-25 17:41+0000\n"
-"Last-Translator: Paco Molinero <paco@byasl.com>\n"
+"PO-Revision-Date: 2009-08-31 06:38+0000\n"
+"Last-Translator: André Klitzing <aklitzing@online.de>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-27 18:36+0000\n"
+"X-Launchpad-Export-Date: 2009-09-01 09:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/search.c:252
@@ -23,7 +23,7 @@ msgstr "La búsqueda dinámica no puedo encontrar una nueva canción"
 
 #: src/search.c:332 src/prune.c:67
 msgid "Dynamic playlist is disabled"
-msgstr ""
+msgstr "La Lista de Reproducción Dinámica esta deshabilitada"
 
 #: src/search.c:338
 msgid "Dynamic search is already busy"
@@ -43,19 +43,19 @@ msgstr "apagado"
 
 #: src/blacklist.c:37
 msgid "!Blacklist Genre"
-msgstr ""
+msgstr "!Lista negra Género"
 
 #: src/blacklist.c:38
 msgid "!Blacklist Artist"
-msgstr ""
+msgstr "!Lista negra Artista"
 
 #: src/blacklist.c:39
 msgid "!Blacklist Album"
-msgstr ""
+msgstr "!Lista negra Álbum"
 
 #: src/blacklist.c:40
 msgid "!Blacklist Song"
-msgstr ""
+msgstr "!Lista negra Canción"
 
 #: src/blacklist.c:186
 #, c-format
@@ -69,6 +69,8 @@ msgstr ""
 #: src/prune.c:74
 msgid "Cannot prune playlist! You need to play a song for pruning."
 msgstr ""
+"No se puede detener la lista de reproducción! Necesita reproducir una "
+"canción para detenerla."
 
 #: src/prefs.c:144 src/plugin.c:142 src/icon.c:58
 msgid "Dynamic Playlist"
@@ -96,11 +98,11 @@ msgstr "Cortar lista de reproducción"
 
 #: src/plugin.c:92
 msgid "dynamic"
-msgstr "dynamico"
+msgstr "dinámica"
 
 #: src/plugin.c:92
 msgid "Dynamic search (on|off)"
-msgstr "Búsqueda dinámica (Prendida|Apagada)"
+msgstr "Búsqueda dinámica (Habilitada|Deshabilitada)"
 
 #: src/plugin.c:95
 msgid "similar"
@@ -108,7 +110,7 @@ msgstr "Similar"
 
 #: src/plugin.c:95
 msgid "Search for similar song/artist/genre"
-msgstr "Buscar una Cancion/Artista/Genero similar"
+msgstr "Buscar una Canción/Artista/Género similar"
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
@@ -120,19 +122,19 @@ msgstr "Buscar canciones en le mismo género"
 
 #: src/dynlist-ui-options.xml:67
 msgid "Delay dynamic search for x seconds:"
-msgstr ""
+msgstr "Demorar búsquedas dinámicas por x segundos:"
 
 #: src/dynlist-ui-options.xml:77
 msgid "Keep x songs after current:"
-msgstr ""
+msgstr "Colocar x canción después de la actual:"
 
 #: src/dynlist-ui-options.xml:87
 msgid "Block played song for at least x songs:"
-msgstr ""
+msgstr "Bloquear canción reproducida por lo menos x canciones:"
 
 #: src/dynlist-ui-options.xml:97
 msgid "Block played artist for at least x songs:"
-msgstr ""
+msgstr "Bloquear Artista reproducido por al menos x canciones:"
 
 #: src/dynlist-ui-options.xml:171
 msgid "Local"
@@ -140,7 +142,7 @@ msgstr "Local"
 
 #: src/dynlist-ui-options.xml:185
 msgid "Search songs in 'similar songs'"
-msgstr ""
+msgstr "Buscar canciones en 'Canciones similares'"
 
 #: src/dynlist-ui-options.xml:198
 msgid "Search songs in 'similar artists'"
@@ -160,15 +162,15 @@ msgstr "El mismo género tambén es «similar»"
 
 #: src/dynlist-ui-options.xml:261
 msgid "Search max. songs in database:"
-msgstr ""
+msgstr "Buscar max. de canciones en la base de datos:"
 
 #: src/dynlist-ui-options.xml:271
 msgid "Search max. artists in database:"
-msgstr ""
+msgstr "Buscar max. de artistas en la base de datos:"
 
 #: src/dynlist-ui-options.xml:281
 msgid "Search max. genre in database:"
-msgstr ""
+msgstr "Buscar max. de géneros en la base de datos:"
 
 #: src/dynlist-ui-options.xml:349
 msgid "Metadata"
