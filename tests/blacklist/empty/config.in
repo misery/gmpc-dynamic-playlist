@@ -2,7 +2,6 @@ music_directory "DIR_SRC"
 playlist_directory "DIR_SRC/blacklist/empty/playlists"
 db_file "DIR_SRC/blacklist/empty/database"
 log_file "DIR_BIN/log"
-error_file "DIR_BIN/error"
 pid_file "DIR_BIN/pid"
 
 bind_to_address		"localhost"
