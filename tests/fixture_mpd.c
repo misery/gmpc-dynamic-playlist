@@ -50,11 +50,10 @@ void fake_mpd_init(const gchar* l_config)
 	/* try to kill previous mpd */
 	fake_mpd_kill(l_config, TRUE);
 
-	gchar* argv[4];
+	gchar* argv[3];
 	argv[0] = MPD_BINARY;
-	argv[1] = "--no-create-db";
-	argv[2] = (gchar*) l_config;
-	argv[3] = NULL;
+	argv[1] = (gchar*) l_config;
+	argv[2] = NULL;
 
 	g_assert_no_error(spawn(argv));
 
