@@ -47,12 +47,27 @@ void add_played_song(dbSong* l_song)
 	flush_played_list( MAX(m_song, m_artist) );
 }
 
+static gboolean is_played_song_current(const gchar* l_artist, const gchar* l_title)
+{
+	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
+	if(curSong != NULL && strcasecmp(curSong->artist, l_artist) == 0)
+	{
+		if(m_artist > 0 || (l_title != NULL && strcasecmp(curSong->title, l_title) == 0))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 gboolean is_played_song(const gchar* l_artist, const gchar* l_title)
 {
 	g_assert(l_artist != NULL);
 	g_assert(l_artist[0] != '\0');
 	if(l_title != NULL)
 		g_assert(l_title[0] != '\0');
+
+	if(is_played_song_current(l_artist, l_title))
+		return TRUE;
 
 	if(!g_queue_is_empty(&m_list))
 	{
