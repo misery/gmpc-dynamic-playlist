@@ -76,12 +76,16 @@ gboolean is_played_song(const gchar* l_artist, const gchar* l_title)
 		for(i = 0; iter != NULL; iter = g_list_next(iter), ++i)
 		{
 			dbSong* song = (dbSong*) iter->data;
-			if(i < m_artist && strcasecmp(song->artist, l_artist) == 0)
+			if(strcasecmp(song->artist, l_artist) != 0)
+				continue;
+
+			if(i < m_artist)
 			{
 				g_debug("Artist blocked: %s", l_artist);
 				return TRUE;
 			}
-			if(i < m_song && l_title != NULL && strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
+
+			if(i < m_song && l_title != NULL && strcasecmp(song->title, l_title) == 0)
 			{
 				g_debug("Song blocked: %s::%s", l_artist, l_title);
 				return TRUE;
