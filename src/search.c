@@ -34,6 +34,7 @@ extern GRand* m_rand;
 
 static void tryToAdd_select(const status l_status, mpd_Song* l_song);
 
+static guint8 m_queue_songs = 1;
 static guint m_delay_source = 0;
 static guint8 m_delay_timeout = 0;
 static gint m_similar_songs_max = 0;
@@ -50,6 +51,7 @@ static gboolean m_is_searching = FALSE;
 
 void init_search()
 {
+	m_queue_songs = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "queue_songs", 1);
 	m_delay_timeout = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "delayTimeout", 0);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxSongs", 20);
 	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxArtists", 30);
@@ -209,6 +211,11 @@ static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, M
 	tryToAdd_select(l_status, l_song);
 }
 
+static void check_after_search()
+{
+	g_idle_add((GSourceFunc) dyn_check_search, (gpointer) TRUE);
+}
+
 void tryToAdd_select(const status l_status, mpd_Song* l_song)
 {
 	g_assert(l_song != NULL);
@@ -217,6 +224,7 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	if(l_status & Found)
 	{
 		m_is_searching = FALSE;
+		check_after_search();
 		return;
 	}
 
@@ -253,6 +261,7 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 			g_debug("Cannot find a new song");
 		}
 		m_is_searching = FALSE;
+		check_after_search();
 	}
 }
 
@@ -309,14 +318,14 @@ void reset_search_delay()
 		g_source_remove(m_delay_source);
 }
 
-void search(mpd_Song* l_song, gint l_remains)
+void search(mpd_Song* l_song, gint l_remains, gboolean l_force_no_delay)
 {
 	g_assert(l_song != NULL);
 	g_assert(l_remains >= 0);
 
-	if(l_remains < 1 && !m_is_searching)
+	if(l_remains < m_queue_songs && !m_is_searching)
 	{
-		if(m_delay_timeout > 0)
+		if(m_delay_timeout > 0 && !l_force_no_delay)
 			set_search_delay(l_song);
 		else
 			search_start(l_song);
@@ -426,6 +435,17 @@ void set_search_same_genre(gboolean l_value)
 gboolean get_search_same_genre()
 {
 	return m_same_genre;
+}
+
+gint get_queue_songs()
+{
+	return m_queue_songs;
+}
+
+void set_queue_songs(gint l_value)
+{
+	m_queue_songs = l_value;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "queue_songs", m_queue_songs);
 }
 
 gint get_delay_time()

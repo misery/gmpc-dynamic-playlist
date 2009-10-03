@@ -17,7 +17,7 @@ typedef enum
 
 gboolean tryToAdd_genre(const gchar* l_genre);
 gboolean tryToAdd_random();
-void search(mpd_Song* l_song, gint l_remains);
+void search(mpd_Song* l_song, gint l_remains, gboolean l_force_no_delay);
 void search_easy();
 void search_start(mpd_Song* l_song);
 void reset_search_delay();
@@ -30,6 +30,9 @@ gboolean will_search_delay();
 void set_search_active(gboolean l_value);
 void set_search_active_easy(gpointer l_data, const gchar* l_param);
 gboolean get_search_active();
+
+gint get_queue_songs();
+void set_queue_songs(gint l_value);
 
 void set_search_same_genre(gboolean l_value);
 gboolean get_search_same_genre();

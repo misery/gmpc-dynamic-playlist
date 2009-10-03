@@ -74,6 +74,10 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	gtk_toggle_button_set_active(check, get_active_blacklist());
 	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_active_blacklist);
 
+	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_queue"));
+	gtk_spin_button_set_value(spin, get_queue_songs());
+	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spin), set_queue_songs);
+
 	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_delay"));
 	gtk_spin_button_set_value(spin, get_delay_time());
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spin), set_delay_time);

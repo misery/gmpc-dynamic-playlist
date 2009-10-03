@@ -43,18 +43,7 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 	if(l_what & MPD_CST_PLAYLIST || l_what & MPD_CST_SONGPOS ||
 			(l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_PLAY))
 	{
-		mpd_Song* curSong = mpd_playlist_get_current_song(connection);
-		if(curSong != NULL)
-		{
-			const gint curPos = curSong->pos;
-			if(get_search_active())
-			{
-				const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
-				search(curSong, remains);
-			}
-
-			prune_playlist(curPos);
-		}
+		dyn_check_search(FALSE);
 	}
 
 	if(l_what & MPD_CST_STORED_PLAYLIST)
@@ -62,6 +51,24 @@ void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata
 
 	if(l_what & MPD_CST_STATE && is_search_delayed() && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
 		reset_search_delay();
+}
+
+gboolean dyn_check_search(gboolean l_force_no_delay)
+{
+	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
+	if(curSong != NULL)
+	{
+		const gint curPos = curSong->pos;
+		if(get_search_active())
+		{
+			const gint remains = mpd_playlist_get_playlist_length(connection) - curPos - 1;
+			search(curSong, remains, l_force_no_delay);
+		}
+
+		prune_playlist(curPos);
+	}
+
+	return FALSE; // g_idle or g_timeout should not recall
 }
 
 void dyn_init()
