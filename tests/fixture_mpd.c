@@ -55,6 +55,7 @@ void fake_mpd_init(const gchar* l_config)
 	argv[1] = (gchar*) l_config;
 	argv[2] = NULL;
 
+	g_usleep(0.05 * G_USEC_PER_SEC);
 	g_assert_no_error(spawn(argv));
 
 	connection = mpd_new(HOST, PORT, NULL);
