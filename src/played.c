@@ -50,9 +50,9 @@ void add_played_song(dbSong* l_song)
 static gboolean is_played_song_current(const gchar* l_artist, const gchar* l_title)
 {
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
-	if(curSong != NULL && strcasecmp(curSong->artist, l_artist) == 0)
+	if(curSong != NULL && curSong->artist != NULL && strcasecmp(curSong->artist, l_artist) == 0)
 	{
-		if(m_artist > 0 || (l_title != NULL && strcasecmp(curSong->title, l_title) == 0))
+		if(m_artist > 0 || (l_title != NULL && curSong->title != NULL && strcasecmp(curSong->title, l_title) == 0))
 			return TRUE;
 	}
 
