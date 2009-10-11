@@ -3,6 +3,7 @@
 
 #include "dbSong.h"
 
+dbList* database_get_songs_genre(dbList* l_list, const gchar* l_genre, gint* l_out_count);
 dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count);
 strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count);
 gboolean database_tryToAdd_artist(const gchar* l_artist);

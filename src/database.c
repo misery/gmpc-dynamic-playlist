@@ -47,6 +47,19 @@ static dbList* database_get_songs_fill_list(dbList* l_list, gint* l_out_count)
 	return l_list;
 }
 
+dbList* database_get_songs_genre(dbList* l_list, const gchar* l_genre, gint* l_out_count)
+{
+	g_assert(l_genre != NULL);
+
+	if(is_blacklisted_genre(l_genre))
+		return l_list;
+
+	mpd_database_search_start(connection, TRUE);
+	mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_GENRE, l_genre);
+
+	return database_get_songs_fill_list(l_list, l_out_count);
+}
+
 dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count)
 {
 	g_assert(l_artist != NULL && l_title != NULL);
