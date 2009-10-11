@@ -211,9 +211,9 @@ static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, M
 	tryToAdd_select(l_status, l_song);
 }
 
-static void check_after_search()
+static void check_for_search(gboolean l_force_no_delay)
 {
-	g_idle_add((GSourceFunc) dyn_check_search, (gpointer) TRUE);
+	g_idle_add((GSourceFunc) dyn_check_search, (gpointer) l_force_no_delay);
 }
 
 void tryToAdd_select(const status l_status, mpd_Song* l_song)
@@ -224,7 +224,7 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	if(l_status & Found)
 	{
 		m_is_searching = FALSE;
-		check_after_search();
+		check_for_search(TRUE);
 		return;
 	}
 
@@ -261,7 +261,7 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 			g_debug("Cannot find a new song");
 		}
 		m_is_searching = FALSE;
-		check_after_search();
+		check_for_search(TRUE);
 	}
 }
 
@@ -410,7 +410,9 @@ void set_search_active(gboolean l_value)
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "similar_search", m_enabled_search);
 	reload_menu_list();
 	reload_icon();
-	if(!m_enabled_search)
+	if(m_enabled_search)
+		check_for_search(FALSE);
+	else
 		reset_search_delay();
 }
 
