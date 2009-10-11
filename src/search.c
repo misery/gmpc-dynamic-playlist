@@ -125,6 +125,26 @@ static void tryToAdd_artists(mpd_Song* l_song, MetaDataResult l_result, MetaData
 	tryToAdd_select(l_status, l_song);
 }
 
+static dbList* add_random_song(gint l_count, dbList* l_list)
+{
+	g_assert(l_count > 0);
+	g_assert(l_list != NULL);
+
+	gint random = g_rand_int_range(m_rand, 0, l_count);
+	gint i = 0;
+	dbList* listIter;
+	for(listIter = l_list; i < random; ++i)
+		listIter = g_list_next(listIter);
+
+	dbSong* song = (dbSong*) listIter->data;
+	mpd_playlist_add(connection, song->path);
+	add_played_song(song);
+	g_debug("Added via song | artist: %s | title: %s", song->artist, song->title);
+
+	// Remove added dbSong* from dbList so it won't be freed
+	return g_list_delete_link(l_list, listIter);
+}
+
 static void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* l_data, gpointer l_last_status)
 {
 	if(l_result == META_DATA_FETCHING)
@@ -151,21 +171,7 @@ static void tryToAdd_songs(mpd_Song* l_song, MetaDataResult l_result, MetaData* 
 
 		if(count > 0)
 		{
-			g_assert(songList != NULL);
-
-			gint random = g_rand_int_range(m_rand, 0, count);
-			gint i = 0;
-			dbList* songListIter;
-			for(songListIter = songList; i < random; ++i)
-				songListIter = g_list_next(songListIter);
-
-			dbSong* song = (dbSong*) songListIter->data;
-			mpd_playlist_add(connection, song->path);
-			add_played_song(song);
-			g_debug("Added via song | artist: %s | title: %s", song->artist, song->title);
-
-			// Remove added dbSong* from dbList so it won't be freed
-			songList = g_list_delete_link(songList, songListIter);
+			songList = add_random_song(count, songList);
 			if(songList != NULL)
 				free_dbList(songList);
 			l_status |= Found;
