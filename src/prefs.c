@@ -60,19 +60,24 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 {
 	GtkToggleButton* check;
 	GtkSpinButton* spin;
+	GtkComboBox* combo;
 
 	/* Local */
 	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "dynamic_search"));
 	gtk_toggle_button_set_active(check, get_search_active());
 	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_search_active);
 
-	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "same_genre"));
-	gtk_toggle_button_set_active(check, get_search_same_genre());
-	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_search_same_genre);
-
 	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "use_blacklists"));
 	gtk_toggle_button_set_active(check, get_active_blacklist());
 	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_active_blacklist);
+
+	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "search_genre"));
+	gtk_toggle_button_set_active(check, get_local_search_genre());
+	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_local_search_genre);
+
+	combo = GTK_COMBO_BOX(gtk_builder_get_object(l_builder, "search_genre_style"));
+	gtk_combo_box_set_active(combo, get_local_search_genre_style());
+	g_signal_connect(G_OBJECT(combo), "changed", G_CALLBACK(pref_combo), set_local_search_genre_style);
 
 	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_queue"));
 	gtk_spin_button_set_value(spin, get_queue_songs());
@@ -126,6 +131,18 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_genre"));
 	gtk_spin_button_set_value(spin, get_search_genre_max());
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spin), set_search_genre_max);
+}
+
+void pref_combo(GtkComboBox* l_combo, combo l_func)
+{
+	GtkTreeIter iter;
+	GtkListStore* store = GTK_LIST_STORE(gtk_combo_box_get_model(l_combo));
+	if(gtk_combo_box_get_active_iter(l_combo, &iter))
+	{
+		gint value;
+		gtk_tree_model_get(GTK_TREE_MODEL(store), &iter, 0, &value, -1);
+		l_func(value);
+	}
 }
 
 void pref_toggle(GtkToggleButton* l_button, toggle l_func)

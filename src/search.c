@@ -45,7 +45,8 @@ static gint m_similar_genre_same = TRUE;
 static gboolean m_similar_songs = FALSE;
 static gboolean m_similar_artists = FALSE;
 static gboolean m_similar_genre = FALSE;
-static gboolean m_same_genre = FALSE;
+static gboolean m_search_genre = FALSE;
+static genreSearch m_search_genre_style = ArtistOfGenre;
 static gboolean m_enabled_search = FALSE;
 static gboolean m_is_searching = FALSE;
 
@@ -61,7 +62,8 @@ void init_search()
 	m_similar_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre", FALSE);
 	m_similar_artist_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_artist_same", TRUE);
 	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre_same", TRUE);
-	m_same_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "same_genre", FALSE);
+	m_search_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "search_genre", FALSE);
+	m_search_genre_style = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "search_genre_style", ArtistOfGenre);
 	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
 }
 
@@ -257,7 +259,7 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	}
 	else
 	{
-		if(m_same_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
+		if(m_search_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
 			g_debug("Added same genre song");
 		else if(tryToAdd_random())
 			g_debug("Added random song");
@@ -271,7 +273,26 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	}
 }
 
-gboolean tryToAdd_genre(const gchar* l_genre)
+static gboolean tryToAdd_genre_songs(const gchar* l_genre)
+{
+	g_assert(l_genre != NULL);
+
+	gint count = 0;
+	dbList* songList = database_get_songs_genre(NULL, l_genre, &count);
+	if(count > 0)
+	{
+		songList = add_random_song(count, songList);
+
+		if(songList != NULL)
+			free_dbList(songList);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+static gboolean tryToAdd_genre_artists(const gchar* l_genre)
 {
 	gboolean ret = FALSE;
 	gint count = 0;
@@ -285,9 +306,19 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 	return ret;
 }
 
+gboolean tryToAdd_genre(const gchar* l_genre)
+{
+	if(m_search_genre_style == ArtistOfGenre)
+		return tryToAdd_genre_artists(l_genre);
+	else if(m_search_genre_style == SameGenre)
+		return tryToAdd_genre_songs(l_genre);
+	else
+		g_assert_not_reached();
+}
+
 gboolean tryToAdd_random()
 {
-	return tryToAdd_genre(NULL);
+	return tryToAdd_genre_artists(NULL);
 }
 
 static gboolean search_delayed(mpd_Song* l_song)
@@ -434,15 +465,26 @@ void set_search_active_easy(gpointer l_data, const gchar* l_param)
 		set_search_active(!m_enabled_search);
 }
 
-void set_search_same_genre(gboolean l_value)
+void set_local_search_genre(gboolean l_value)
 {
-	m_same_genre = l_value;
-	cfg_set_single_value_as_int(config, "dynamic-playlist", "same_genre", m_same_genre);
+	m_search_genre = l_value;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "search_genre", m_search_genre);
 }
 
-gboolean get_search_same_genre()
+gboolean get_local_search_genre()
 {
-	return m_same_genre;
+	return m_search_genre;
+}
+
+void set_local_search_genre_style(genreSearch l_value)
+{
+	m_search_genre_style = l_value;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "search_genre_style", m_search_genre_style);
+}
+
+genreSearch get_local_search_genre_style()
+{
+	return m_search_genre_style;
 }
 
 gint get_queue_songs()

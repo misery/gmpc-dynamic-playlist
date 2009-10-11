@@ -4,12 +4,14 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
 
+typedef void (*combo)(gint l_value);
 typedef void (*toggle)(gboolean l_value);
 typedef void (*spin)(gint l_value);
 
 void pref_destroy(GtkWidget* l_con);
 void pref_construct(GtkWidget* l_con);
 void pref_construct_signals_and_values(GtkBuilder* l_builder);
+void pref_combo(GtkComboBox* l_combo, combo l_func);
 void pref_toggle(GtkToggleButton* l_button, toggle l_func);
 void pref_toggle_menu(GtkCheckMenuItem* l_item, toggle l_func);
 void pref_spin(GtkSpinButton* l_button, spin l_func);

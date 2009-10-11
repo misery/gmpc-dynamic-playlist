@@ -26,8 +26,8 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="same_genre">
-            <property name="label" translatable="yes">Search songs in same genre</property>
+          <object class="GtkCheckButton" id="use_blacklists">
+            <property name="label" translatable="yes">Use blacklists</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
@@ -39,8 +39,8 @@
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="use_blacklists">
-            <property name="label" translatable="yes">Use blacklists</property>
+          <object class="GtkCheckButton" id="search_genre">
+            <property name="label" translatable="yes">Search songs with genre</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
@@ -49,6 +49,22 @@
           <packing>
             <property name="expand">False</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBox" id="search_genre_style">
+            <property name="visible">True</property>
+            <property name="model">search_genre_store</property>
+            <child>
+              <object class="GtkCellRendererText" id="search_genre_renderer"/>
+              <attributes>
+                <attribute name="text">1</attribute>
+              </attributes>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -180,7 +196,7 @@
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
       </object>
@@ -416,5 +432,23 @@
     <property name="lower">1</property>
     <property name="upper">250</property>
     <property name="step_increment">1</property>
+  </object>
+  <object class="GtkListStore" id="search_genre_store">
+    <columns>
+      <!-- column-name style -->
+      <column type="gint"/>
+      <!-- column-name text -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">0</col>
+        <col id="1" translatable="yes">Artists of genre</col>
+      </row>
+      <row>
+        <col id="0">1</col>
+        <col id="1" translatable="yes">Songs of same genre</col>
+      </row>
+    </data>
   </object>
 </interface>

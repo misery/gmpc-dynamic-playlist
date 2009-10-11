@@ -14,6 +14,11 @@ typedef enum
 	Genre = 1 << 3
 } status;
 
+typedef enum
+{
+	ArtistOfGenre = 0,
+	SameGenre = 1
+} genreSearch;
 
 gboolean tryToAdd_genre(const gchar* l_genre);
 gboolean tryToAdd_random();
@@ -34,8 +39,11 @@ gboolean get_search_active();
 gint get_queue_songs();
 void set_queue_songs(gint l_value);
 
-void set_search_same_genre(gboolean l_value);
-gboolean get_search_same_genre();
+void set_local_search_genre(gboolean l_value);
+gboolean get_local_search_genre();
+
+void set_local_search_genre_style(genreSearch l_value);
+genreSearch get_local_search_genre_style();
 
 gint get_delay_time();
 void set_delay_time(gint l_value);
