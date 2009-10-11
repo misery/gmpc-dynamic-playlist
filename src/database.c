@@ -27,20 +27,9 @@
 #endif
 extern GRand* m_rand;
 
-dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count)
+static dbList* database_get_songs_fill_list(dbList* l_list, gint* l_out_count)
 {
-	g_assert(l_artist != NULL && l_title != NULL && l_out_count != NULL && l_out_count >= 0);
-
-	if(is_blacklisted_artist(l_artist) || is_blacklisted_song(l_artist, l_title))
-		return l_list;
-
-	mpd_database_search_start(connection, FALSE);
-	gchar** artist_split = g_strsplit(l_artist, " ", -1);
-	gint i;
-	for(i = 0; artist_split != NULL && artist_split[i] != NULL; ++i)
-		mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_ARTIST, artist_split[i]);
-	g_strfreev(artist_split);
-	mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_TITLE, l_title);
+	g_assert(l_out_count != NULL && l_out_count >= 0);
 
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
@@ -56,6 +45,24 @@ dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l
 	}
 
 	return l_list;
+}
+
+dbList* database_get_songs(dbList* l_list, const gchar* l_artist, const gchar* l_title, gint* l_out_count)
+{
+	g_assert(l_artist != NULL && l_title != NULL);
+
+	if(is_blacklisted_artist(l_artist) || is_blacklisted_song(l_artist, l_title))
+		return l_list;
+
+	mpd_database_search_start(connection, FALSE);
+	gchar** artist_split = g_strsplit(l_artist, " ", -1);
+	gint i;
+	for(i = 0; artist_split != NULL && artist_split[i] != NULL; ++i)
+		mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_ARTIST, artist_split[i]);
+	g_strfreev(artist_split);
+	mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_TITLE, l_title);
+
+	return database_get_songs_fill_list(l_list, l_out_count);
 }
 
 strList* database_get_artists(strList* l_list, const gchar* l_artist, const gchar* l_genre, gint* l_out_count)
