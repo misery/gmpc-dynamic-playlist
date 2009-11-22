@@ -17,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+#include <gmpc/gmpc-extras.h>
 #include <gmpc/playlist3-messages.h>
-#include <gmpc/gmpc-easy-command.h>
 #include <glib/gi18n-lib.h>
 #include "plugin.h"
 #include "database.h"

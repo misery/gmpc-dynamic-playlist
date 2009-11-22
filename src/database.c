@@ -21,6 +21,7 @@
 #include "database.h"
 #include "blacklist.h"
 #include "played.h"
+#include <libmpd/libmpd-internal.h>
 
 #ifdef TESTMODE
 #define g_rand_int_range(obj, min, max) g_test_rand_int_range(min, max)
