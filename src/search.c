@@ -47,6 +47,7 @@ static gboolean m_similar_artists = FALSE;
 static gboolean m_similar_genre = FALSE;
 static gboolean m_search_genre = FALSE;
 static searchStyle m_search_genre_style = ArtistOf;
+static gboolean m_search_comment = FALSE;
 static gboolean m_enabled_search = FALSE;
 static gboolean m_is_searching = FALSE;
 
@@ -64,6 +65,7 @@ void init_search()
 	m_similar_genre_same = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_genre_same", TRUE);
 	m_search_genre = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "search_genre", FALSE);
 	m_search_genre_style = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "search_genre_style", ArtistOf);
+	m_search_comment = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "search_comment", FALSE);
 	m_enabled_search = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "similar_search", FALSE);
 }
 
@@ -261,6 +263,8 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	{
 		if(m_search_genre && !m_similar_genre && l_song->genre != NULL && !is_blacklisted_genre(l_song->genre) && tryToAdd_genre(l_song->genre))
 			g_debug("Added same genre song");
+		else if(m_search_comment && l_song->comment != NULL && tryToAdd_comment(l_song->comment))
+			g_debug("Added same comment song");
 		else if(tryToAdd_random())
 			g_debug("Added random song");
 		else
@@ -321,6 +325,15 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 
 	g_assert_not_reached();
 	return FALSE;
+}
+
+gboolean tryToAdd_comment(const gchar* l_comment)
+{
+	g_assert(l_comment != NULL);
+
+	gint count = 0;
+	dbList* songList = database_get_songs_comment(NULL, l_comment, &count);
+	return tryToAdd_random_song(songList, count);
 }
 
 gboolean tryToAdd_random()
@@ -492,6 +505,17 @@ void set_local_search_genre_style(searchStyle l_value)
 searchStyle get_local_search_genre_style()
 {
 	return m_search_genre_style;
+}
+
+void set_local_search_comment(gboolean l_value)
+{
+	m_search_comment = l_value;
+	cfg_set_single_value_as_int(config, "dynamic-playlist", "search_comment", m_search_comment);
+}
+
+gboolean get_local_search_comment()
+{
+	return m_search_comment;
 }
 
 gint get_queue_songs()

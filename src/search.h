@@ -21,6 +21,7 @@ typedef enum
 } searchStyle;
 
 gboolean tryToAdd_genre(const gchar* l_genre);
+gboolean tryToAdd_comment(const gchar* l_comment);
 gboolean tryToAdd_random();
 void search(mpd_Song* l_song, gint l_remains, gboolean l_force_no_delay);
 void search_easy();
@@ -44,6 +45,9 @@ gboolean get_local_search_genre();
 
 void set_local_search_genre_style(searchStyle l_value);
 searchStyle get_local_search_genre_style();
+
+void set_local_search_comment(gboolean l_value);
+gboolean get_local_search_comment();
 
 gint get_delay_time();
 void set_delay_time(gint l_value);

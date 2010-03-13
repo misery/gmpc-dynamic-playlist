@@ -62,7 +62,7 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	GtkSpinButton* spin;
 	GtkComboBox* combo;
 
-	/* Local */
+	/* Local ----------------------------------------------------------------------------------- */
 	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "dynamic_search"));
 	gtk_toggle_button_set_active(check, get_search_active());
 	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_search_active);
@@ -78,6 +78,10 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	combo = GTK_COMBO_BOX(gtk_builder_get_object(l_builder, "search_genre_style"));
 	gtk_combo_box_set_active(combo, get_local_search_genre_style());
 	g_signal_connect(G_OBJECT(combo), "changed", G_CALLBACK(pref_combo), set_local_search_genre_style);
+
+	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "search_comment"));
+	gtk_toggle_button_set_active(check, get_local_search_comment());
+	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_local_search_comment);
 
 	spin = GTK_SPIN_BUTTON(gtk_builder_get_object(l_builder, "spin_queue"));
 	gtk_spin_button_set_value(spin, get_queue_songs());
@@ -99,7 +103,8 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	gtk_spin_button_set_value(spin, get_played_limit_artist());
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spin), set_played_limit_artist);
 
-	/* Metadata */
+
+	/* Metadata -------------------------------------------------------------------------------- */
 	check = GTK_TOGGLE_BUTTON(gtk_builder_get_object(l_builder, "song_toggle"));
 	gtk_toggle_button_set_active(check, get_search_song());
 	g_signal_connect(G_OBJECT(check), "toggled", G_CALLBACK(pref_toggle), set_search_song);
