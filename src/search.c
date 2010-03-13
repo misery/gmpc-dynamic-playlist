@@ -273,23 +273,29 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 	}
 }
 
+static gboolean tryToAdd_random_song(dbList* l_songList, gint l_count)
+{
+	if(l_count > 0)
+	{
+		g_assert(l_songList != NULL);
+		l_songList = add_random_song(l_count, l_songList);
+
+		if(l_songList != NULL)
+			free_dbList(l_songList);
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 static gboolean tryToAdd_genre_songs(const gchar* l_genre)
 {
 	g_assert(l_genre != NULL);
 
 	gint count = 0;
 	dbList* songList = database_get_songs_genre(NULL, l_genre, &count);
-	if(count > 0)
-	{
-		songList = add_random_song(count, songList);
-
-		if(songList != NULL)
-			free_dbList(songList);
-
-		return TRUE;
-	}
-
-	return FALSE;
+	return tryToAdd_random_song(songList, count);
 }
 
 static gboolean tryToAdd_genre_artists(const gchar* l_genre)
