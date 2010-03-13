@@ -23,9 +23,6 @@
 #include "played.h"
 #include <libmpd/libmpd-internal.h>
 
-#ifdef TESTMODE
-#define g_rand_int_range(obj, min, max) g_test_rand_int_range(min, max)
-#endif
 extern GRand* m_rand;
 
 static dbList* database_get_songs_fill_list(dbList* l_list, gint* l_out_count)

@@ -26,9 +26,6 @@
 #include "icon.h"
 #include <glib/gi18n-lib.h>
 
-#ifdef TESTMODE
-#define g_rand_int_range(obj, min, max) g_test_rand_int_range(min, max)
-#endif
 #define BUFFER_SECONDS 5
 extern GRand* m_rand;
 
