@@ -312,8 +312,9 @@ gboolean tryToAdd_genre(const gchar* l_genre)
 		return tryToAdd_genre_artists(l_genre);
 	else if(m_search_genre_style == Same)
 		return tryToAdd_genre_songs(l_genre);
-	else
-		g_assert_not_reached();
+
+	g_assert_not_reached();
+	return FALSE;
 }
 
 gboolean tryToAdd_random()
