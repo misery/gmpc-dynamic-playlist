@@ -48,6 +48,16 @@ static dbList* database_get_songs_fill_list(dbList* l_list, gint* l_out_count)
 	return l_list;
 }
 
+dbList* database_get_songs_comment(dbList* l_list, const gchar* l_comment, gint* l_out_count)
+{
+	g_assert(l_comment != NULL);
+
+	mpd_database_search_start(connection, TRUE);
+	mpd_database_search_add_constraint(connection, MPD_TAG_ITEM_COMMENT, l_comment);
+
+	return database_get_songs_fill_list(l_list, l_out_count);
+}
+
 dbList* database_get_songs_genre(dbList* l_list, const gchar* l_genre, gint* l_out_count)
 {
 	g_assert(l_genre != NULL);
@@ -146,6 +156,8 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 		g_assert(prev != NULL);
 
 		gint random = g_rand_int_range(m_rand, 0, count);
+		g_debug("Artist selected: %s", l_artist);
+		g_debug("Song selected: %d, count: %d", random, count);
 		gint i = 0;
 		for(data = mpd_data_get_first(prev); i < random; ++i)
 			data = mpd_data_get_next_real(data, FALSE);
@@ -172,6 +184,7 @@ gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count)
 	do
 	{
 		gint random = g_rand_int_range(m_rand, 0, l_count);
+		g_debug("Artist selected: %d, count: %d", random, l_count);
 		gint i = 0;
 		strList* prev = NULL;
 		strList* iter;
