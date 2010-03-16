@@ -93,10 +93,20 @@
                   <object class="GtkLabel" id="label_queue">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Keep x songs in queue:</property>
+                    <property name="label" translatable="yes">Provide at least x songs to be played:</property>
                   </object>
                   <packing>
                     <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_keep">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Keep x last played songs:</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -104,16 +114,6 @@
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Delay dynamic search for x seconds:</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_keep">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Keep x songs after current:</property>
                   </object>
                   <packing>
                     <property name="position">2</property>
@@ -161,20 +161,20 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinButton" id="spin_delay">
+                  <object class="GtkSpinButton" id="spin_keep">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">adjust_delay</property>
+                    <property name="adjustment">adjust_keep</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinButton" id="spin_keep">
+                  <object class="GtkSpinButton" id="spin_delay">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">adjust_keep</property>
+                    <property name="adjustment">adjust_delay</property>
                   </object>
                   <packing>
                     <property name="position">2</property>
