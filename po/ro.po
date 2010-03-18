@@ -7,57 +7,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-28 14:02+0200\n"
-"PO-Revision-Date: 2009-08-17 16:57+0000\n"
-"Last-Translator: André Klitzing <aklitzing@online.de>\n"
+"POT-Creation-Date: 2010-03-16 23:09+0100\n"
+"PO-Revision-Date: 2009-10-24 21:32+0000\n"
+"Last-Translator: Licaon <Unknown>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-17 18:08+0000\n"
+"X-Launchpad-Export-Date: 2010-03-17 18:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/search.c:252
-msgid "Dynamic search cannot find a new song"
-msgstr "Căutarea dinamică nu poate găsii o melodie nouă"
-
-#: src/search.c:332 src/prune.c:67
-msgid "Dynamic playlist is disabled"
-msgstr "Lista dinamică de redare este dezactivată"
-
-#: src/search.c:338
-msgid "Dynamic search is already busy"
-msgstr "Căutarea dinamică rulează deja"
-
-#: src/search.c:345
-msgid "You need to play a song that will be used"
-msgstr "O melodie redată va fi folosită"
-
-#: src/search.c:412
-msgid "on"
-msgstr "activat"
-
-#: src/search.c:414
-msgid "off"
-msgstr "dezactivat"
-
-#: src/blacklist.c:37
+#: src/blacklist.c:38
 msgid "!Blacklist Genre"
 msgstr "!Pune gen pe lista neagră"
 
-#: src/blacklist.c:38
+#: src/blacklist.c:39
 msgid "!Blacklist Artist"
 msgstr "!Pune artistul pe lista neagră"
 
-#: src/blacklist.c:39
+#: src/blacklist.c:40
 msgid "!Blacklist Album"
 msgstr "!Pune albumul pe lista neagră"
 
-#: src/blacklist.c:40
+#: src/blacklist.c:41
 msgid "!Blacklist Song"
 msgstr "!Pune melodia pe lista neagră"
 
-#: src/blacklist.c:186
+#: src/blacklist.c:187
 #, c-format
 msgid ""
 "Created %d playlist(s) that are used to blacklist artist, album, song or "
@@ -66,111 +42,147 @@ msgstr ""
 "Liste negre de redare %d folosite pentru a elimina artişti, albume, melodii "
 "sau genuri!"
 
+#: src/prune.c:67
+#: src/search.c:395
+msgid "Dynamic playlist is disabled"
+msgstr "Lista dinamică de redare este dezactivată"
+
 #: src/prune.c:74
 msgid "Cannot prune playlist! You need to play a song for pruning."
 msgstr ""
 "Nu se poate distruge lista de redare! Trebuie redată întâi o melodie."
 
-#: src/prefs.c:144 src/plugin.c:142 src/icon.c:58
+#: src/search.c:269
+msgid "Dynamic search cannot find a new song"
+msgstr "Căutarea dinamică nu poate găsii o melodie nouă"
+
+#: src/search.c:401
+msgid "Dynamic search is already busy"
+msgstr "Căutarea dinamică rulează deja"
+
+#: src/search.c:408
+msgid "You need to play a song that will be used"
+msgstr "O melodie redată va fi folosită"
+
+#: src/search.c:477
+msgid "on"
+msgstr "activat"
+
+#: src/search.c:479
+msgid "off"
+msgstr "dezactivat"
+
+#: src/icon.c:58
+#: src/plugin.c:150
+#: src/prefs.c:170
 msgid "Dynamic Playlist"
 msgstr "Listă de redare dinamică"
 
-#: src/prefs.c:150
-msgid "Dynamic search"
-msgstr "Căutare dinamică"
-
-#: src/prefs.c:154 src/dynlist-ui-options.xml:43
-msgid "Use blacklists"
-msgstr "Foloseşte liste negre"
-
-#: src/prefs.c:158
-msgid "Add similar song"
-msgstr "Adaugă melodie similară"
-
-#: src/plugin.c:89
+#: src/plugin.c:96
 msgid "prune"
 msgstr "distruge"
 
-#: src/plugin.c:89
+#: src/plugin.c:96
 msgid "Prune playlist"
 msgstr "Distruge lista de redare"
 
-#: src/plugin.c:92
+#: src/plugin.c:99
 msgid "dynamic"
 msgstr "dinamic"
 
-#: src/plugin.c:92
+#: src/plugin.c:99
 msgid "Dynamic search (on|off)"
 msgstr "Căutare dinamică (activă|inactivă)"
 
-#: src/plugin.c:95
+#: src/plugin.c:102
 msgid "similar"
 msgstr "similar"
 
-#: src/plugin.c:95
+#: src/plugin.c:102
 msgid "Search for similar song/artist/genre"
 msgstr "Caută melodie/artist/gen similari"
+
+#: src/prefs.c:176
+msgid "Dynamic search"
+msgstr "Căutare dinamică"
+
+#: src/prefs.c:180
+#: src/dynlist-ui-options.xml:30
+msgid "Use blacklists"
+msgstr "Foloseşte liste negre"
+
+#: src/prefs.c:184
+msgid "Add similar song"
+msgstr "Adaugă melodie similară"
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
 msgstr "Activează căutarea dinamică"
 
-#: src/dynlist-ui-options.xml:30
-msgid "Search songs in same genre"
-msgstr "Caută melodie de acelaşi gen"
+#: src/dynlist-ui-options.xml:43
+msgid "Search songs with comment tag"
+msgstr ""
 
-#: src/dynlist-ui-options.xml:67
+#: src/dynlist-ui-options.xml:56
+msgid "Search songs with genre tag"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:96
+msgid "Provide at least x songs to be played:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:106
+msgid "Keep x last played songs:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
 msgstr "Întârzie căutarea dinamică pentru x secunde:"
 
-#: src/dynlist-ui-options.xml:77
-msgid "Keep x songs after current:"
-msgstr "Ţine x melodii după cea curentă:"
-
-#: src/dynlist-ui-options.xml:87
+#: src/dynlist-ui-options.xml:126
 msgid "Block played song for at least x songs:"
 msgstr "Blochează melodia redată pentru încă x melodii:"
 
-#: src/dynlist-ui-options.xml:97
+#: src/dynlist-ui-options.xml:136
 msgid "Block played artist for at least x songs:"
 msgstr "Blochează artistul redat pentru încă x melodii:"
 
-#: src/dynlist-ui-options.xml:171
+#: src/dynlist-ui-options.xml:220
 msgid "Local"
 msgstr "Local"
 
-#: src/dynlist-ui-options.xml:185
+#: src/dynlist-ui-options.xml:234
 msgid "Search songs in 'similar songs'"
 msgstr "Caută melodii în 'melodii similare'"
 
-#: src/dynlist-ui-options.xml:198
+#: src/dynlist-ui-options.xml:247
 msgid "Search songs in 'similar artists'"
 msgstr "Caută melodii în 'artişti similari'"
 
-#: src/dynlist-ui-options.xml:211
+#: src/dynlist-ui-options.xml:260
 msgid "Same artist is also 'similar'"
 msgstr "Acelaşi artist este şi 'similar'"
 
-#: src/dynlist-ui-options.xml:224
+#: src/dynlist-ui-options.xml:273
 msgid "Search songs in 'similar genre'"
 msgstr "Caută melodii în 'genuri similare'"
 
-#: src/dynlist-ui-options.xml:237
+#: src/dynlist-ui-options.xml:286
 msgid "Same genre is also 'similar'"
 msgstr "Acelaşi gen este şi 'similar'"
 
-#: src/dynlist-ui-options.xml:261
+#: src/dynlist-ui-options.xml:310
 msgid "Search max. songs in database:"
 msgstr "Numărul maxim de melodii căutate în baza de date:"
 
-#: src/dynlist-ui-options.xml:271
+#: src/dynlist-ui-options.xml:320
 msgid "Search max. artists in database:"
 msgstr "Numărul maxim de artişti căutaţi în baza de date:"
 
-#: src/dynlist-ui-options.xml:281
+#: src/dynlist-ui-options.xml:330
 msgid "Search max. genre in database:"
 msgstr "Numărul maxim de genuri căutate în baza de date:"
 
-#: src/dynlist-ui-options.xml:349
+#: src/dynlist-ui-options.xml:398
 msgid "Metadata"
 msgstr "Metadate"

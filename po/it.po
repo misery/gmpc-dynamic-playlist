@@ -7,167 +7,179 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-28 14:02+0200\n"
-"PO-Revision-Date: 2009-08-11 19:47+0000\n"
-"Last-Translator: André Klitzing <aklitzing@online.de>\n"
+"POT-Creation-Date: 2010-03-16 23:09+0100\n"
+"PO-Revision-Date: 2009-12-20 17:06+0000\n"
+"Last-Translator: Giuseppe Terrasi <giuseppeterrasi.liste@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-11 21:04+0000\n"
+"X-Launchpad-Export-Date: 2010-03-17 18:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: src/search.c:252
-msgid "Dynamic search cannot find a new song"
-msgstr ""
-
-#: src/search.c:332 src/prune.c:67
-msgid "Dynamic playlist is disabled"
-msgstr "Playlist dinamica disabilitata"
-
-#: src/search.c:338
-msgid "Dynamic search is already busy"
-msgstr ""
-
-#: src/search.c:345
-msgid "You need to play a song that will be used"
-msgstr ""
-
-#: src/search.c:412
-msgid "on"
-msgstr ""
-
-#: src/search.c:414
-msgid "off"
-msgstr ""
-
-#: src/blacklist.c:37
+#: src/blacklist.c:38
 msgid "!Blacklist Genre"
 msgstr "!Blacklist Genere"
 
-#: src/blacklist.c:38
+#: src/blacklist.c:39
 msgid "!Blacklist Artist"
 msgstr "!Blacklist Artisti"
 
-#: src/blacklist.c:39
+#: src/blacklist.c:40
 msgid "!Blacklist Album"
 msgstr "!Blacklist Album"
 
-#: src/blacklist.c:40
+#: src/blacklist.c:41
 msgid "!Blacklist Song"
 msgstr "!Blacklist Canzone"
 
-#: src/blacklist.c:186
+#: src/blacklist.c:187
 #, c-format
 msgid ""
 "Created %d playlist(s) that are used to blacklist artist, album, song or "
 "genre!"
 msgstr ""
 
+#: src/prune.c:67
+#: src/search.c:395
+msgid "Dynamic playlist is disabled"
+msgstr "Playlist dinamica disabilitata"
+
 #: src/prune.c:74
 msgid "Cannot prune playlist! You need to play a song for pruning."
 msgstr ""
 
-#: src/prefs.c:144 src/plugin.c:142 src/icon.c:58
-msgid "Dynamic Playlist"
+#: src/search.c:269
+msgid "Dynamic search cannot find a new song"
+msgstr "La ricerca dinamica non ha trovato nessun nuovo brano"
+
+#: src/search.c:401
+msgid "Dynamic search is already busy"
+msgstr "La ricerca dinamica non è al momento disponibile"
+
+#: src/search.c:408
+msgid "You need to play a song that will be used"
 msgstr ""
 
-#: src/prefs.c:150
-msgid "Dynamic search"
-msgstr "Ricerca dinamica"
+#: src/search.c:477
+msgid "on"
+msgstr "Acceso"
 
-#: src/prefs.c:154 src/dynlist-ui-options.xml:43
-msgid "Use blacklists"
-msgstr "Usa blacklists"
+#: src/search.c:479
+msgid "off"
+msgstr "Spento"
 
-#: src/prefs.c:158
-msgid "Add similar song"
-msgstr "Aggiungi canzone simile"
+#: src/icon.c:58
+#: src/plugin.c:150
+#: src/prefs.c:170
+msgid "Dynamic Playlist"
+msgstr "Playlist Dinamica"
 
-#: src/plugin.c:89
+#: src/plugin.c:96
 msgid "prune"
 msgstr ""
 
-#: src/plugin.c:89
+#: src/plugin.c:96
 msgid "Prune playlist"
 msgstr ""
 
-#: src/plugin.c:92
+#: src/plugin.c:99
 msgid "dynamic"
 msgstr ""
 
-#: src/plugin.c:92
+#: src/plugin.c:99
 msgid "Dynamic search (on|off)"
-msgstr ""
+msgstr "Ricerca dinamica (attivata|disattivata)"
 
-#: src/plugin.c:95
+#: src/plugin.c:102
 msgid "similar"
 msgstr "Simili"
 
-#: src/plugin.c:95
+#: src/plugin.c:102
 msgid "Search for similar song/artist/genre"
 msgstr "Cerca per canzone o artista o genere simile"
+
+#: src/prefs.c:176
+msgid "Dynamic search"
+msgstr "Ricerca dinamica"
+
+#: src/prefs.c:180
+#: src/dynlist-ui-options.xml:30
+msgid "Use blacklists"
+msgstr "Usa blacklists"
+
+#: src/prefs.c:184
+msgid "Add similar song"
+msgstr "Aggiungi canzone simile"
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
 msgstr "Abilita ricerca dinamica"
 
-#: src/dynlist-ui-options.xml:30
-msgid "Search songs in same genre"
-msgstr "Cerca canzoni nelle stesso genere"
+#: src/dynlist-ui-options.xml:43
+msgid "Search songs with comment tag"
+msgstr ""
 
-#: src/dynlist-ui-options.xml:67
+#: src/dynlist-ui-options.xml:56
+msgid "Search songs with genre tag"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:96
+msgid "Provide at least x songs to be played:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:106
+msgid "Keep x last played songs:"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
 msgstr ""
 
-#: src/dynlist-ui-options.xml:77
-msgid "Keep x songs after current:"
-msgstr ""
-
-#: src/dynlist-ui-options.xml:87
+#: src/dynlist-ui-options.xml:126
 msgid "Block played song for at least x songs:"
 msgstr ""
 
-#: src/dynlist-ui-options.xml:97
+#: src/dynlist-ui-options.xml:136
 msgid "Block played artist for at least x songs:"
 msgstr ""
 
-#: src/dynlist-ui-options.xml:171
+#: src/dynlist-ui-options.xml:220
 msgid "Local"
-msgstr ""
+msgstr "Locale"
 
-#: src/dynlist-ui-options.xml:185
+#: src/dynlist-ui-options.xml:234
 msgid "Search songs in 'similar songs'"
 msgstr "Cerca canzoni in 'canzoni simili'"
 
-#: src/dynlist-ui-options.xml:198
+#: src/dynlist-ui-options.xml:247
 msgid "Search songs in 'similar artists'"
 msgstr "Cerca canzoni in 'artisti simili'"
 
-#: src/dynlist-ui-options.xml:211
+#: src/dynlist-ui-options.xml:260
 msgid "Same artist is also 'similar'"
 msgstr ""
 
-#: src/dynlist-ui-options.xml:224
+#: src/dynlist-ui-options.xml:273
 msgid "Search songs in 'similar genre'"
 msgstr "Cerca canzoni in 'generi simili'"
 
-#: src/dynlist-ui-options.xml:237
+#: src/dynlist-ui-options.xml:286
 msgid "Same genre is also 'similar'"
 msgstr ""
 
-#: src/dynlist-ui-options.xml:261
+#: src/dynlist-ui-options.xml:310
 msgid "Search max. songs in database:"
 msgstr "Numero massimo di canzoni da cercare nel database:"
 
-#: src/dynlist-ui-options.xml:271
+#: src/dynlist-ui-options.xml:320
 msgid "Search max. artists in database:"
 msgstr "Numero massimo di artisti da cercare nel database:"
 
-#: src/dynlist-ui-options.xml:281
+#: src/dynlist-ui-options.xml:330
 msgid "Search max. genre in database:"
 msgstr "Numero massimo di generi da cercare nel database:"
 
-#: src/dynlist-ui-options.xml:349
+#: src/dynlist-ui-options.xml:398
 msgid "Metadata"
 msgstr ""

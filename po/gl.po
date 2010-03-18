@@ -1,16 +1,16 @@
-# gmpc-dynamic-playlist (plugin of gmpc)
-# Copyright (C) 2009 A. Klitzing
-# This file is distributed under the same license as the gmpc-dynamic-playlist package.
-# A. Klitzing <andre@incubo.de>, 2009.
+# Galician translation for gmpc
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the gmpc package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gmpc-dynamic-playlist 0.9.3\n"
-"Report-Msgid-Bugs-To: andre@incubo.de\n"
+"Project-Id-Version: gmpc\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-16 23:09+0100\n"
-"PO-Revision-Date: 2009-10-26 17:41+0000\n"
-"Last-Translator: Wieland Hoffmann <Unknown>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2010-01-08 15:14+0000\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
+"Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,19 +19,19 @@ msgstr ""
 
 #: src/blacklist.c:38
 msgid "!Blacklist Genre"
-msgstr "!Blacklist Genre"
+msgstr "!Lista negra de xénero"
 
 #: src/blacklist.c:39
 msgid "!Blacklist Artist"
-msgstr "!Blacklist Künstler"
+msgstr "!Lista negra de artista"
 
 #: src/blacklist.c:40
 msgid "!Blacklist Album"
-msgstr "!Blacklist Album"
+msgstr "!Lista negra de álbum"
 
 #: src/blacklist.c:41
 msgid "!Blacklist Song"
-msgstr "!Blacklist Lied"
+msgstr "!Lista negra de canción"
 
 #: src/blacklist.c:187
 #, c-format
@@ -39,86 +39,86 @@ msgid ""
 "Created %d playlist(s) that are used to blacklist artist, album, song or "
 "genre!"
 msgstr ""
-"%d Wiedergabeliste(n) erstellt, welche als Blacklist für Interpreten, Alben, "
-"Lieder oder Genre benutzt werden!"
+"¡Creada(s) %d lista(s) de reprodución usadas para engadir á lista negra dun "
+"artista, álbum, canción ou xénero!"
 
 #: src/prune.c:67
 #: src/search.c:395
 msgid "Dynamic playlist is disabled"
-msgstr "Die dynamische Wiedergabeliste ist deaktiviert"
+msgstr "A lista de reprodución dinámica esta desactivada"
 
 #: src/prune.c:74
 msgid "Cannot prune playlist! You need to play a song for pruning."
 msgstr ""
-"Wiedergabeliste kann nicht gesäubert werden! Sie müssen für die Position der "
-"Säuberung ein Lied spielen."
+"Non se pode deter a lista de reprodución! Necesita reproducir unha canción "
+"para detela."
 
 #: src/search.c:269
 msgid "Dynamic search cannot find a new song"
-msgstr "Die dynamische Suche konnte kein neues Lied finden"
+msgstr "A busca dinámica non puido atopar unha nova canción"
 
 #: src/search.c:401
 msgid "Dynamic search is already busy"
-msgstr "Die dynamische Suche ist noch beschäftigt"
+msgstr "A busca dinámica xa esta en uso"
 
 #: src/search.c:408
 msgid "You need to play a song that will be used"
-msgstr "Sie müssen ein Lied spielen, welches zur Suche benutzt wird"
+msgstr "Necesita reproducir unha canción para poder ser usada"
 
 #: src/search.c:477
 msgid "on"
-msgstr "ein"
+msgstr "activada"
 
 #: src/search.c:479
 msgid "off"
-msgstr "aus"
+msgstr "desactivada"
 
 #: src/icon.c:58
 #: src/plugin.c:150
 #: src/prefs.c:170
 msgid "Dynamic Playlist"
-msgstr "Dynamische Wiedergabeliste"
+msgstr "Lista de reprodución dinámica"
 
 #: src/plugin.c:96
 msgid "prune"
-msgstr "Säubern"
+msgstr "Cortar"
 
 #: src/plugin.c:96
 msgid "Prune playlist"
-msgstr "Wiedergabeliste säubern"
+msgstr "Cortar a lista de reprodución"
 
 #: src/plugin.c:99
 msgid "dynamic"
-msgstr "dynamisch"
+msgstr "dinámica"
 
 #: src/plugin.c:99
 msgid "Dynamic search (on|off)"
-msgstr "Dynamische Suche (on|off)"
+msgstr "Busca dinámica (activada|desactivada)"
 
 #: src/plugin.c:102
 msgid "similar"
-msgstr "Ähnlich"
+msgstr "semellante"
 
 #: src/plugin.c:102
 msgid "Search for similar song/artist/genre"
-msgstr "Suche nach ähnlichem Lied/Interpreten/Genre"
+msgstr "Buscar unha canción/artista/xénero semellante"
 
 #: src/prefs.c:176
 msgid "Dynamic search"
-msgstr "Dynamische Suche"
+msgstr "Busca dinámica"
 
 #: src/prefs.c:180
 #: src/dynlist-ui-options.xml:30
 msgid "Use blacklists"
-msgstr "Benutze Blacklists"
+msgstr "Usar listas negras"
 
 #: src/prefs.c:184
 msgid "Add similar song"
-msgstr "Ähnliches Lied hinzufügen"
+msgstr "Engadir canción semellante"
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
-msgstr "Aktiviere dynamische Suche"
+msgstr "Activar a busca dinámica"
 
 #: src/dynlist-ui-options.xml:43
 msgid "Search songs with comment tag"
@@ -138,52 +138,52 @@ msgstr ""
 
 #: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
-msgstr "Verzögere dynamische Suche um x Sekunden:"
+msgstr "Demorar as buscas dinámicas por x segundos:"
 
 #: src/dynlist-ui-options.xml:126
 msgid "Block played song for at least x songs:"
-msgstr "Blockiere gespieltes Lied für mindestens x Lieder:"
+msgstr "Bloquear a canción reproducida polo menos x cancóns:"
 
 #: src/dynlist-ui-options.xml:136
 msgid "Block played artist for at least x songs:"
-msgstr "Blockiere gespielten Interpreten für mindestens x Lieder:"
+msgstr "Bloquear ao artista reproducido polo menos x cancións:"
 
 #: src/dynlist-ui-options.xml:220
 msgid "Local"
-msgstr "Lokal"
+msgstr "Local"
 
 #: src/dynlist-ui-options.xml:234
 msgid "Search songs in 'similar songs'"
-msgstr "Suche Lieder in 'ähnliche Lieder'"
+msgstr "Buscar cancións en «cancións semellantes»"
 
 #: src/dynlist-ui-options.xml:247
 msgid "Search songs in 'similar artists'"
-msgstr "Suche Lieder in 'ähnliche Interpreten'"
+msgstr "Buscar cancións en «artistas semellantes»"
 
 #: src/dynlist-ui-options.xml:260
 msgid "Same artist is also 'similar'"
-msgstr "Derselbe Interpret ist ebenfalls 'ähnlich'"
+msgstr "O mesmo artista tamén é «semellante»"
 
 #: src/dynlist-ui-options.xml:273
 msgid "Search songs in 'similar genre'"
-msgstr "Suche Lieder in 'ähnliches Genre'"
+msgstr "Buscar cancións en «xéneros semellantes»"
 
 #: src/dynlist-ui-options.xml:286
 msgid "Same genre is also 'similar'"
-msgstr "Dasselbe Genre ist ebenfalls 'ähnlich'"
+msgstr "O mesmo xénero tamn é «semellante»"
 
 #: src/dynlist-ui-options.xml:310
 msgid "Search max. songs in database:"
-msgstr "Suche max. Lieder in der Datenbank:"
+msgstr "Buscar max. de cancións na base de datos:"
 
 #: src/dynlist-ui-options.xml:320
 msgid "Search max. artists in database:"
-msgstr "Suche max. Interpreten in der Datenbank:"
+msgstr "Buscar max. de artistas na base de datos:"
 
 #: src/dynlist-ui-options.xml:330
 msgid "Search max. genre in database:"
-msgstr "Suche max. Genre in der Datenbank:"
+msgstr "Buscar max. de xéneros na base de datos:"
 
 #: src/dynlist-ui-options.xml:398
 msgid "Metadata"
-msgstr "Metadaten"
+msgstr "Metadatos"
