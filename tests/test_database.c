@@ -14,7 +14,7 @@ gint test_database_search_songs_blacklist(dbList** l_list)
 	MpdData* data;
 	for(data = mpd_database_get_complete(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->song->artist != NULL && data->song->artist != NULL)
+		if(data->song->artist != NULL && data->song->title != NULL)
 			*l_list = database_get_songs(*l_list, data->song->artist, data->song->title, &count);
 	}
 
@@ -66,7 +66,7 @@ void test_database_search_songs_blacklist_found_all()
 	MpdData* data;
 	for(data = mpd_database_get_complete(connection); data != NULL; data = mpd_data_get_next(data))
 	{
-		if(data->song->artist != NULL && data->song->artist != NULL)
+		if(data->song->artist != NULL && data->song->title != NULL)
 			g_assert(exists_dbList(list, data->song->artist, data->song->title));
 	}
 
