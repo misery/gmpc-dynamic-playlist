@@ -1,16 +1,32 @@
 info_begin
+format: 1
 mpd_version: 0.16~git
 fs_charset: UTF-8
+tag: Artist
+tag: ArtistSort
+tag: Album
+tag: AlbumArtist
+tag: AlbumArtistSort
+tag: Title
+tag: Track
+tag: Name
+tag: Genre
+tag: Date
+tag: Composer
+tag: Performer
+tag: Disc
+tag: MUSICBRAINZ_ARTISTID
+tag: MUSICBRAINZ_ALBUMID
+tag: MUSICBRAINZ_ALBUMARTISTID
+tag: MUSICBRAINZ_TRACKID
 info_end
 directory: Bela B.
-mtime: 1194945654
+mtime: 1273334646
 begin: Bela B.
 directory: Bingo
-mtime: 1196773141
+mtime: 1259442934
 begin: Bela B./Bingo
-songList begin
-key: Bela B. - 01 - B-Vertüre.flac
-file: Bela B./Bingo/Bela B. - 01 - B-Vertüre.flac
+song_begin: Bela B. - 01 - B-Vertüre.flac
 Time: 81
 Title: B-Vertüre
 Artist: Bela B.
@@ -23,9 +39,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: c5d79930-acab-4319-8627-555603baa458
 mtime: 1194750703
-key: Bela B. - 02 - Gitarre runter.flac
-file: Bela B./Bingo/Bela B. - 02 - Gitarre runter.flac
-Time: 224
+song_end
+song_begin: Bela B. - 02 - Gitarre runter.flac
+Time: 225
 Title: Gitarre runter
 Artist: Bela B.
 Album: Bingo
@@ -37,9 +53,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: f1918e24-4844-4060-9689-a52d5fd52022
 mtime: 1194750731
-key: Bela B. - 03 - Tag mit Schutzumschlag.flac
-file: Bela B./Bingo/Bela B. - 03 - Tag mit Schutzumschlag.flac
-Time: 183
+song_end
+song_begin: Bela B. - 03 - Tag mit Schutzumschlag.flac
+Time: 184
 Title: Tag mit Schutzumschlag
 Artist: Bela B.
 Album: Bingo
@@ -51,8 +67,8 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: e4f3aa40-2ff1-4a9f-9747-faf4137ae387
 mtime: 1194750752
-key: Bela B. - 04 - Irgendetwas bleibt.flac
-file: Bela B./Bingo/Bela B. - 04 - Irgendetwas bleibt.flac
+song_end
+song_begin: Bela B. - 04 - Irgendetwas bleibt.flac
 Time: 206
 Title: Irgendetwas bleibt
 Artist: Bela B.
@@ -65,8 +81,8 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: ff814e30-8346-4947-9491-75e09280f65a
 mtime: 1194750775
-key: Bela B. - 05 - Traumfrau.flac
-file: Bela B./Bingo/Bela B. - 05 - Traumfrau.flac
+song_end
+song_begin: Bela B. - 05 - Traumfrau.flac
 Time: 185
 Title: Traumfrau
 Artist: Bela B.
@@ -79,9 +95,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 2ce7a138-b78e-4983-8726-a472cbf6b204
 mtime: 1194750795
-key: Bela B. - 06 - Letzter Tag.flac
-file: Bela B./Bingo/Bela B. - 06 - Letzter Tag.flac
-Time: 245
+song_end
+song_begin: Bela B. - 06 - Letzter Tag.flac
+Time: 246
 Title: Letzter Tag
 Artist: Bela B.
 Album: Bingo
@@ -93,9 +109,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: fa043cdf-41c9-46e4-8387-c29248061a75
 mtime: 1194750818
-key: Bela B. - 07 - Was ist nur los ... .flac
-file: Bela B./Bingo/Bela B. - 07 - Was ist nur los ... .flac
-Time: 153
+song_end
+song_begin: Bela B. - 07 - Was ist nur los ... .flac
+Time: 154
 Title: Was ist nur los ...?
 Artist: Bela B.
 Album: Bingo
@@ -107,8 +123,8 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 5a150d4b-c46d-4b07-9ec8-f2d0ff250229
 mtime: 1194750833
-key: Bela B. - 08 - 1. 2. 3. ... (feat. Charlotte Roche).flac
-file: Bela B./Bingo/Bela B. - 08 - 1. 2. 3. ... (feat. Charlotte Roche).flac
+song_end
+song_begin: Bela B. - 08 - 1. 2. 3. ... (feat. Charlotte Roche).flac
 Time: 181
 Title: 1. 2. 3. ... (feat. Charlotte Roche)
 Artist: Bela B.
@@ -121,9 +137,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 379c04a3-84b2-4da6-9fae-10254116d1f1
 mtime: 1194750850
-key: Bela B. - 09 - Sie hat was vermisst.flac
-file: Bela B./Bingo/Bela B. - 09 - Sie hat was vermisst.flac
-Time: 241
+song_end
+song_begin: Bela B. - 09 - Sie hat was vermisst.flac
+Time: 242
 Title: Sie hat was vermisst
 Artist: Bela B.
 Album: Bingo
@@ -135,8 +151,8 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: b1245805-ffce-4e9f-891b-de0c450a2879
 mtime: 1194750871
-key: Bela B. - 10 - Der Vampir mit dem Colt.flac
-file: Bela B./Bingo/Bela B. - 10 - Der Vampir mit dem Colt.flac
+song_end
+song_begin: Bela B. - 10 - Der Vampir mit dem Colt.flac
 Time: 291
 Title: Der Vampir mit dem Colt
 Artist: Bela B.
@@ -149,9 +165,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: b3f383bc-11e4-4c78-af6a-923710786f27
 mtime: 1194750895
-key: Bela B. - 11 - Versuchs doch mal mit mir.flac
-file: Bela B./Bingo/Bela B. - 11 - Versuchs doch mal mit mir.flac
-Time: 188
+song_end
+song_begin: Bela B. - 11 - Versuchs doch mal mit mir.flac
+Time: 189
 Title: Versuchs doch mal mit mir
 Artist: Bela B.
 Album: Bingo
@@ -163,9 +179,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 4181384f-91ea-4b43-bdc6-9b3e0449c872
 mtime: 1194750910
-key: Bela B. - 12 - Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood).flac
-file: Bela B./Bingo/Bela B. - 12 - Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood).flac
-Time: 191
+song_end
+song_begin: Bela B. - 12 - Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood).flac
+Time: 192
 Title: Lee Hazlewood & das erste Lied des Tages (feat. Lee Hazlewood)
 Artist: Bela B.
 Album: Bingo
@@ -177,8 +193,8 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: e0911d38-9c72-44c1-9b17-7a9c09243851
 mtime: 1194750925
-key: Bela B. - 13 - Hab keine Angst (feat. Lula).flac
-file: Bela B./Bingo/Bela B. - 13 - Hab keine Angst (feat. Lula).flac
+song_end
+song_begin: Bela B. - 13 - Hab keine Angst (feat. Lula).flac
 Time: 239
 Title: Hab keine Angst (feat. Lula)
 Artist: Bela B.
@@ -191,8 +207,8 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: ddd9c3dc-0e13-496a-b8c2-c756eb0a0602
 mtime: 1194750943
-key: Bela B. - 14 - ZappingsonG.flac
-file: Bela B./Bingo/Bela B. - 14 - ZappingsonG.flac
+song_end
+song_begin: Bela B. - 14 - ZappingsonG.flac
 Time: 125
 Title: ZappingsonG
 Artist: Bela B.
@@ -205,9 +221,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 2d74c0b2-3897-4bb9-8505-436b89d8facb
 mtime: 1194750953
-key: Bela B. - 15 - Wiehr thind sssuper.flac
-file: Bela B./Bingo/Bela B. - 15 - Wiehr thind sssuper.flac
-Time: 191
+song_end
+song_begin: Bela B. - 15 - Wiehr thind sssuper.flac
+Time: 192
 Title: Wiehr thind sssuper
 Artist: Bela B.
 Album: Bingo
@@ -219,9 +235,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 28ca212f-b976-4337-aa44-b0badb514384
 mtime: 1194750967
-key: Bela B. - 16 - Baby läuft fort.flac
-file: Bela B./Bingo/Bela B. - 16 - Baby läuft fort.flac
-Time: 236
+song_end
+song_begin: Bela B. - 16 - Baby läuft fort.flac
+Time: 237
 Title: Baby läuft fort
 Artist: Bela B.
 Album: Bingo
@@ -233,9 +249,9 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 1f096f63-874a-4d61-b301-9837e7c5c917
 mtime: 1194750983
-key: Bela B. - 17 - Traumfrau Again.flac
-file: Bela B./Bingo/Bela B. - 17 - Traumfrau Again.flac
-Time: 71
+song_end
+song_begin: Bela B. - 17 - Traumfrau Again.flac
+Time: 72
 Title: Traumfrau Again
 Artist: Bela B.
 Album: Bingo
@@ -247,20 +263,16 @@ MUSICBRAINZ_ALBUMARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_ARTISTID: 85773020-07a1-46a4-8436-cc7ae8bf698f
 MUSICBRAINZ_TRACKID: 9b11f5ac-0eb9-426c-a9ac-124d8495906a
 mtime: 1194750989
-songList end
+song_end
 end: Bela B./Bingo
-songList begin
-songList end
 end: Bela B.
 directory: Metallica
-mtime: 1248010076
+mtime: 1273333534
 begin: Metallica
 directory: Death Magnetic
-mtime: 1222716018
+mtime: 1267395076
 begin: Metallica/Death Magnetic
-songList begin
-key: Metallica - 01 - That Was Just Your Life.mp3
-file: Metallica/Death Magnetic/Metallica - 01 - That Was Just Your Life.mp3
+song_begin: Metallica - 01 - That Was Just Your Life.mp3
 Time: 429
 Artist: Metallica
 AlbumArtist: Metallica
@@ -276,8 +288,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: 6d6efe2b-2905-4061-8fc7-94a8161e5e37
 mtime: 1241489229
-key: Metallica - 02 - The End of The Line.mp3
-file: Metallica/Death Magnetic/Metallica - 02 - The End of The Line.mp3
+song_end
+song_begin: Metallica - 02 - The End of The Line.mp3
 Time: 473
 Artist: Metallica
 AlbumArtist: Metallica
@@ -293,8 +305,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: 90bbdd7e-cfa6-47cc-9d50-d2cca87ecac1
 mtime: 1241489230
-key: Metallica - 03 - Broken Beat and Scarred.mp3
-file: Metallica/Death Magnetic/Metallica - 03 - Broken Beat and Scarred.mp3
+song_end
+song_begin: Metallica - 03 - Broken Beat and Scarred.mp3
 Time: 386
 Artist: Metallica
 AlbumArtist: Metallica
@@ -310,8 +322,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: 42ddd8f8-42e8-4b57-a9b5-317d77e1184e
 mtime: 1241489231
-key: Metallica - 04 - The Day That Never Comes.mp3
-file: Metallica/Death Magnetic/Metallica - 04 - The Day That Never Comes.mp3
+song_end
+song_begin: Metallica - 04 - The Day That Never Comes.mp3
 Time: 476
 Artist: Metallica
 AlbumArtist: Metallica
@@ -327,8 +339,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: 8bed69e6-58a4-4399-8c4c-6e02629d9048
 mtime: 1241489232
-key: Metallica - 05 - All Nightmare Long.mp3
-file: Metallica/Death Magnetic/Metallica - 05 - All Nightmare Long.mp3
+song_end
+song_begin: Metallica - 05 - All Nightmare Long.mp3
 Time: 478
 Artist: Metallica
 AlbumArtist: Metallica
@@ -344,8 +356,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: d57143c2-1b51-47ef-a066-b897fd85d9ae
 mtime: 1241489234
-key: Metallica - 06 - Cyanide.mp3
-file: Metallica/Death Magnetic/Metallica - 06 - Cyanide.mp3
+song_end
+song_begin: Metallica - 06 - Cyanide.mp3
 Time: 400
 Artist: Metallica
 AlbumArtist: Metallica
@@ -361,8 +373,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: b20ec8a4-4920-49e2-bc08-0da53c3ca2c4
 mtime: 1241489235
-key: Metallica - 07 - The Unforgiven III.mp3
-file: Metallica/Death Magnetic/Metallica - 07 - The Unforgiven III.mp3
+song_end
+song_begin: Metallica - 07 - The Unforgiven III.mp3
 Time: 467
 Artist: Metallica
 AlbumArtist: Metallica
@@ -378,8 +390,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: e60d9dbc-70b6-4699-b1af-605db3244a07
 mtime: 1241489236
-key: Metallica - 08 - The Judas Kiss.mp3
-file: Metallica/Death Magnetic/Metallica - 08 - The Judas Kiss.mp3
+song_end
+song_begin: Metallica - 08 - The Judas Kiss.mp3
 Time: 481
 Artist: Metallica
 AlbumArtist: Metallica
@@ -395,8 +407,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: b957775f-9c63-4f8d-9b61-250582f2e71a
 mtime: 1241489236
-key: Metallica - 09 - Suicide and Redemption.mp3
-file: Metallica/Death Magnetic/Metallica - 09 - Suicide and Redemption.mp3
+song_end
+song_begin: Metallica - 09 - Suicide and Redemption.mp3
 Time: 598
 Artist: Metallica
 AlbumArtist: Metallica
@@ -412,8 +424,8 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: 6c34183e-613d-490c-af91-67186aab63ee
 mtime: 1241489236
-key: Metallica - 10 - My Apocalypse.mp3
-file: Metallica/Death Magnetic/Metallica - 10 - My Apocalypse.mp3
+song_end
+song_begin: Metallica - 10 - My Apocalypse.mp3
 Time: 301
 Artist: Metallica
 AlbumArtist: Metallica
@@ -429,14 +441,12 @@ AlbumArtistSort: Metallica
 MUSICBRAINZ_ALBUMID: 940d6fba-3603-4ac2-8f5d-ea0a11e51765
 MUSICBRAINZ_TRACKID: 6c1ac71c-d4fe-49e7-a414-03e5b0d82d69
 mtime: 1241489237
-songList end
+song_end
 end: Metallica/Death Magnetic
 directory: Load
-mtime: 1214483915
+mtime: 1259443736
 begin: Metallica/Load
-songList begin
-key: Metallica - 01 - Ain't My Bitch.ogg
-file: Metallica/Load/Metallica - 01 - Ain't My Bitch.ogg
+song_begin: Metallica - 01 - Ain't My Bitch.ogg
 Time: 304
 Genre: Metal
 Title: Ain't My Bitch
@@ -452,8 +462,8 @@ MUSICBRAINZ_TRACKID: 90494d10-5a16-4735-b898-50132d216e93
 ArtistSort: Metallica
 Track: 1
 mtime: 1241543555
-key: Metallica - 02 - 2 X 4.ogg
-file: Metallica/Load/Metallica - 02 - 2 X 4.ogg
+song_end
+song_begin: Metallica - 02 - 2 X 4.ogg
 Time: 328
 Genre: Metal
 Title: 2 X 4
@@ -469,8 +479,8 @@ MUSICBRAINZ_TRACKID: 970eaae3-6e2b-4020-88c0-012c3c86f70d
 ArtistSort: Metallica
 Track: 2
 mtime: 1241543556
-key: Metallica - 03 - The House Jack Built.ogg
-file: Metallica/Load/Metallica - 03 - The House Jack Built.ogg
+song_end
+song_begin: Metallica - 03 - The House Jack Built.ogg
 Time: 398
 Genre: Metal
 Title: The House Jack Built
@@ -486,8 +496,8 @@ MUSICBRAINZ_TRACKID: d46fd8e8-11ca-4796-bdd6-5183c831cde3
 ArtistSort: Metallica
 Track: 3
 mtime: 1241543559
-key: Metallica - 04 - Until It Sleeps.ogg
-file: Metallica/Load/Metallica - 04 - Until It Sleeps.ogg
+song_end
+song_begin: Metallica - 04 - Until It Sleeps.ogg
 Time: 268
 Genre: Metal
 Title: Until It Sleeps
@@ -503,8 +513,8 @@ MUSICBRAINZ_TRACKID: 12887ac8-2f6c-4cc9-9ee0-0869a0119c08
 ArtistSort: Metallica
 Track: 4
 mtime: 1241543561
-key: Metallica - 05 - King Nothing.ogg
-file: Metallica/Load/Metallica - 05 - King Nothing.ogg
+song_end
+song_begin: Metallica - 05 - King Nothing.ogg
 Time: 329
 Genre: Metal
 Title: King Nothing
@@ -520,8 +530,8 @@ MUSICBRAINZ_TRACKID: f5c07346-38c9-4c18-8a14-37818e8a4830
 ArtistSort: Metallica
 Track: 5
 mtime: 1241543562
-key: Metallica - 06 - Hero Of The Day.ogg
-file: Metallica/Load/Metallica - 06 - Hero Of The Day.ogg
+song_end
+song_begin: Metallica - 06 - Hero Of The Day.ogg
 Time: 261
 Genre: Metal
 Title: Hero Of The Day
@@ -537,8 +547,8 @@ MUSICBRAINZ_TRACKID: c8361f8a-ece3-4ad0-a5a6-4bb6d06083b9
 ArtistSort: Metallica
 Track: 6
 mtime: 1241543563
-key: Metallica - 07 - Bleeding Me.ogg
-file: Metallica/Load/Metallica - 07 - Bleeding Me.ogg
+song_end
+song_begin: Metallica - 07 - Bleeding Me.ogg
 Time: 497
 Genre: Metal
 Title: Bleeding Me
@@ -554,8 +564,8 @@ MUSICBRAINZ_TRACKID: 37a4fd0b-5fee-4cb8-8d1c-01f6217aaaa2
 ArtistSort: Metallica
 Track: 7
 mtime: 1241543565
-key: Metallica - 08 - Cure.ogg
-file: Metallica/Load/Metallica - 08 - Cure.ogg
+song_end
+song_begin: Metallica - 08 - Cure.ogg
 Time: 294
 Genre: Metal
 Title: Cure
@@ -571,8 +581,8 @@ MUSICBRAINZ_TRACKID: 5b154c76-99fa-4873-9ed8-2809a975e011
 ArtistSort: Metallica
 Track: 8
 mtime: 1241543566
-key: Metallica - 09 - Poor Twisted Me.ogg
-file: Metallica/Load/Metallica - 09 - Poor Twisted Me.ogg
+song_end
+song_begin: Metallica - 09 - Poor Twisted Me.ogg
 Time: 240
 Genre: Metal
 Title: Poor Twisted Me
@@ -588,8 +598,8 @@ MUSICBRAINZ_TRACKID: 79d45df4-61a3-41d4-a19b-b43a4942536b
 ArtistSort: Metallica
 Track: 9
 mtime: 1241543567
-key: Metallica - 10 - Wasting My Hate.ogg
-file: Metallica/Load/Metallica - 10 - Wasting My Hate.ogg
+song_end
+song_begin: Metallica - 10 - Wasting My Hate.ogg
 Time: 237
 Genre: Metal
 Title: Wasting My Hate
@@ -605,8 +615,8 @@ MUSICBRAINZ_TRACKID: 778296b9-0136-4e32-b223-481863923475
 ArtistSort: Metallica
 Track: 10
 mtime: 1241543568
-key: Metallica - 11 - Mama Said.ogg
-file: Metallica/Load/Metallica - 11 - Mama Said.ogg
+song_end
+song_begin: Metallica - 11 - Mama Said.ogg
 Time: 319
 Genre: Metal
 Title: Mama Said
@@ -622,8 +632,8 @@ MUSICBRAINZ_TRACKID: 666da4b6-ab54-4557-a4b5-beb9480ef0e9
 ArtistSort: Metallica
 Track: 11
 mtime: 1241543569
-key: Metallica - 12 - Thorn Within.ogg
-file: Metallica/Load/Metallica - 12 - Thorn Within.ogg
+song_end
+song_begin: Metallica - 12 - Thorn Within.ogg
 Time: 351
 Genre: Metal
 Title: Thorn Within
@@ -639,8 +649,8 @@ MUSICBRAINZ_TRACKID: a298d743-fdd2-44c0-8067-a4493f129bbd
 ArtistSort: Metallica
 Track: 12
 mtime: 1241543570
-key: Metallica - 13 - Ronnie.ogg
-file: Metallica/Load/Metallica - 13 - Ronnie.ogg
+song_end
+song_begin: Metallica - 13 - Ronnie.ogg
 Time: 317
 Genre: Metal
 Title: Ronnie
@@ -656,8 +666,8 @@ MUSICBRAINZ_TRACKID: 84ea7549-e70f-4733-9d61-0a0d0b606986
 ArtistSort: Metallica
 Track: 13
 mtime: 1241543571
-key: Metallica - 14 - The Outlaw Torn.ogg
-file: Metallica/Load/Metallica - 14 - The Outlaw Torn.ogg
+song_end
+song_begin: Metallica - 14 - The Outlaw Torn.ogg
 Time: 588
 Genre: Metal
 Title: The Outlaw Torn
@@ -673,20 +683,16 @@ MUSICBRAINZ_TRACKID: c41a1d32-ccce-40ae-9e33-0784e11d0cde
 ArtistSort: Metallica
 Track: 14
 mtime: 1241543573
-songList end
+song_end
 end: Metallica/Load
-songList begin
-songList end
 end: Metallica
 directory: The Offspring
-mtime: 1248010241
+mtime: 1273333573
 begin: The Offspring
 directory: Smash
-mtime: 1214484276
+mtime: 1273333832
 begin: The Offspring/Smash
-songList begin
-key: The Offspring - 01 - Time To Relax.ogg
-file: The Offspring/Smash/The Offspring - 01 - Time To Relax.ogg
+song_begin: The Offspring - 01 - Time To Relax.ogg
 Time: 25
 Genre: Punk Rock
 Genre: Rock
@@ -708,8 +714,8 @@ Date: 1995-08-25
 Track: 1
 MUSICBRAINZ_TRACKID: b3316b69-83b4-41d9-ac20-1ec328091819
 mtime: 1241533671
-key: The Offspring - 02 - Nitro [ Youth Energy ].ogg
-file: The Offspring/Smash/The Offspring - 02 - Nitro [ Youth Energy ].ogg
+song_end
+song_begin: The Offspring - 02 - Nitro [ Youth Energy ].ogg
 Time: 147
 Genre: Punk Rock
 Album: Smash
@@ -730,8 +736,8 @@ Date: 1995-08-25
 Track: 2
 MUSICBRAINZ_TRACKID: f428b88b-2984-4819-bb25-05a6f7b3eda0
 mtime: 1241533671
-key: The Offspring - 03 - Bad Habit.ogg
-file: The Offspring/Smash/The Offspring - 03 - Bad Habit.ogg
+song_end
+song_begin: The Offspring - 03 - Bad Habit.ogg
 Time: 224
 Genre: Punk Rock
 Album: Smash
@@ -752,8 +758,8 @@ Date: 1995-08-25
 Track: 3
 MUSICBRAINZ_TRACKID: bc76dad5-5b47-4ade-8c84-57e019efa73e
 mtime: 1241533671
-key: The Offspring - 04 - Gotta Get Away.ogg
-file: The Offspring/Smash/The Offspring - 04 - Gotta Get Away.ogg
+song_end
+song_begin: The Offspring - 04 - Gotta Get Away.ogg
 Time: 232
 Genre: Punk Rock
 Album: Smash
@@ -774,8 +780,8 @@ Date: 1995-08-25
 Track: 4
 MUSICBRAINZ_TRACKID: fc39986a-c26c-4373-9487-095f05f2de3b
 mtime: 1241533671
-key: The Offspring - 05 - Genocide.ogg
-file: The Offspring/Smash/The Offspring - 05 - Genocide.ogg
+song_end
+song_begin: The Offspring - 05 - Genocide.ogg
 Time: 211
 Genre: Punk Rock
 Album: Smash
@@ -796,8 +802,8 @@ Date: 1995-08-25
 Track: 5
 MUSICBRAINZ_TRACKID: 2f285996-d449-460b-95ef-aaccd150e6d9
 mtime: 1241533671
-key: The Offspring - 06 - Something To Believe In.ogg
-file: The Offspring/Smash/The Offspring - 06 - Something To Believe In.ogg
+song_end
+song_begin: The Offspring - 06 - Something To Believe In.ogg
 Time: 198
 Genre: Punk Rock
 Album: Smash
@@ -818,8 +824,8 @@ Date: 1995-08-25
 Track: 6
 MUSICBRAINZ_TRACKID: c2e27587-3954-4c42-8f0e-0291e7741acc
 mtime: 1241533671
-key: The Offspring - 07 - Come Out And Play.ogg
-file: The Offspring/Smash/The Offspring - 07 - Come Out And Play.ogg
+song_end
+song_begin: The Offspring - 07 - Come Out And Play.ogg
 Time: 198
 Genre: Punk Rock
 Album: Smash
@@ -840,8 +846,8 @@ Date: 1995-08-25
 Track: 7
 MUSICBRAINZ_TRACKID: c54a4411-f1c1-4693-ad23-89093534ab9c
 mtime: 1241533671
-key: The Offspring - 08 - Self Esteem.ogg
-file: The Offspring/Smash/The Offspring - 08 - Self Esteem.ogg
+song_end
+song_begin: The Offspring - 08 - Self Esteem.ogg
 Time: 258
 Genre: Punk Rock
 Album: Smash
@@ -862,8 +868,8 @@ Date: 1995-08-25
 Track: 8
 MUSICBRAINZ_TRACKID: 8f1e8420-bed6-4ae0-85dd-77cfe8ff23d3
 mtime: 1241533671
-key: The Offspring - 09 - It'll Be A Long Time.ogg
-file: The Offspring/Smash/The Offspring - 09 - It'll Be A Long Time.ogg
+song_end
+song_begin: The Offspring - 09 - It'll Be A Long Time.ogg
 Time: 163
 Genre: Punk Rock
 Album: Smash
@@ -884,8 +890,8 @@ Date: 1995-08-25
 Track: 9
 MUSICBRAINZ_TRACKID: 49b69ccc-d3cf-47ac-afc1-01231329cedd
 mtime: 1241533671
-key: The Offspring - 10 - Killboy Powerhead.ogg
-file: The Offspring/Smash/The Offspring - 10 - Killboy Powerhead.ogg
+song_end
+song_begin: The Offspring - 10 - Killboy Powerhead.ogg
 Time: 123
 Genre: Punk Rock
 Album: Smash
@@ -906,8 +912,8 @@ Date: 1995-08-25
 Track: 10
 MUSICBRAINZ_TRACKID: d6052c16-437f-4e02-8b56-94116195131a
 mtime: 1241533671
-key: The Offspring - 11 - What Happened To You .ogg
-file: The Offspring/Smash/The Offspring - 11 - What Happened To You .ogg
+song_end
+song_begin: The Offspring - 11 - What Happened To You.ogg
 Time: 132
 Genre: Punk Rock
 Album: Smash
@@ -928,8 +934,8 @@ Date: 1995-08-25
 Track: 11
 MUSICBRAINZ_TRACKID: 78b812c8-0a37-4af5-a634-e1b6df7bf4d6
 mtime: 1241533672
-key: The Offspring - 12 - So Alone.ogg
-file: The Offspring/Smash/The Offspring - 12 - So Alone.ogg
+song_end
+song_begin: The Offspring - 12 - So Alone.ogg
 Time: 77
 Genre: Punk Rock
 Album: Smash
@@ -950,8 +956,8 @@ Date: 1995-08-25
 Track: 12
 MUSICBRAINZ_TRACKID: 0cbd8cf9-dcbb-4097-9925-5582359b9cfb
 mtime: 1241533672
-key: The Offspring - 13 - Not The One.ogg
-file: The Offspring/Smash/The Offspring - 13 - Not The One.ogg
+song_end
+song_begin: The Offspring - 13 - Not The One.ogg
 Time: 175
 Genre: Punk Rock
 Album: Smash
@@ -972,8 +978,8 @@ Date: 1995-08-25
 Track: 13
 MUSICBRAINZ_TRACKID: 82855ec0-f7a7-4296-819c-953feedf8c24
 mtime: 1241533672
-key: The Offspring - 14 - Smash.ogg
-file: The Offspring/Smash/The Offspring - 14 - Smash.ogg
+song_end
+song_begin: The Offspring - 14 - Smash.ogg
 Time: 172
 Genre: Punk Rock
 Album: Smash
@@ -994,20 +1000,16 @@ Date: 1995-08-25
 Track: 14
 MUSICBRAINZ_TRACKID: 24d62483-9e72-4322-9061-6ab1b9203f3f
 mtime: 1241533672
-songList end
+song_end
 end: The Offspring/Smash
-songList begin
-songList end
 end: The Offspring
 directory: Ugly Kid Joe
-mtime: 1108219813
+mtime: 1273333945
 begin: Ugly Kid Joe
 directory: America's Least Wanted
-mtime: 1225233269
+mtime: 1259442687
 begin: Ugly Kid Joe/America's Least Wanted
-songList begin
-key: Ugly Kid Joe - 01 - Neighbor.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 01 - Neighbor.ogg
+song_begin: Ugly Kid Joe - 01 - Neighbor.ogg
 Time: 285
 Genre: Rock
 Title: Neighbor
@@ -1023,8 +1025,8 @@ MUSICBRAINZ_TRACKID: dbe632b9-9d97-44b5-b74a-ce5a92366ef9
 ArtistSort: Ugly Kid Joe
 Track: 1
 mtime: 1241533098
-key: Ugly Kid Joe - 02 - Goddamn Devil.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 02 - Goddamn Devil.ogg
+song_end
+song_begin: Ugly Kid Joe - 02 - Goddamn Devil.ogg
 Time: 295
 Genre: Rock
 Title: Goddamn Devil
@@ -1040,8 +1042,8 @@ MUSICBRAINZ_TRACKID: 5b0c1fb3-2349-4234-87c2-86ae14b8040b
 ArtistSort: Ugly Kid Joe
 Track: 2
 mtime: 1241533098
-key: Ugly Kid Joe - 03 - Come Tomorrow.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 03 - Come Tomorrow.ogg
+song_end
+song_begin: Ugly Kid Joe - 03 - Come Tomorrow.ogg
 Time: 294
 Genre: Rock
 Title: Come Tomorrow
@@ -1057,8 +1059,8 @@ MUSICBRAINZ_TRACKID: f37b7988-4618-4f38-902e-7bc1f4a1c4e4
 ArtistSort: Ugly Kid Joe
 Track: 3
 mtime: 1241533098
-key: Ugly Kid Joe - 04 - Panhandlin' Prince.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 04 - Panhandlin' Prince.ogg
+song_end
+song_begin: Ugly Kid Joe - 04 - Panhandlin' Prince.ogg
 Time: 341
 Genre: Rock
 Title: Panhandlin' Prince
@@ -1074,8 +1076,8 @@ MUSICBRAINZ_TRACKID: 2ed4c9b0-f230-4867-915b-c1bd854a27e8
 ArtistSort: Ugly Kid Joe
 Track: 4
 mtime: 1241533098
-key: Ugly Kid Joe - 05 - Busy Bee.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 05 - Busy Bee.ogg
+song_end
+song_begin: Ugly Kid Joe - 05 - Busy Bee.ogg
 Time: 250
 Genre: Rock
 Title: Busy Bee
@@ -1091,8 +1093,8 @@ MUSICBRAINZ_TRACKID: a00939dd-04cd-4fd9-a184-81c8055607c4
 ArtistSort: Ugly Kid Joe
 Track: 5
 mtime: 1241533099
-key: Ugly Kid Joe - 06 - Don't Go.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 06 - Don't Go.ogg
+song_end
+song_begin: Ugly Kid Joe - 06 - Don't Go.ogg
 Time: 271
 Genre: Rock
 Title: Don't Go
@@ -1108,8 +1110,8 @@ MUSICBRAINZ_TRACKID: ec4a1a24-8103-415a-9914-6aaf9746ac0b
 ArtistSort: Ugly Kid Joe
 Track: 6
 mtime: 1241533099
-key: Ugly Kid Joe - 07 - So Damn Cool.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 07 - So Damn Cool.ogg
+song_end
+song_begin: Ugly Kid Joe - 07 - So Damn Cool.ogg
 Time: 265
 Genre: Rock
 Title: So Damn Cool
@@ -1125,8 +1127,8 @@ MUSICBRAINZ_TRACKID: a22957cb-489f-49b1-8569-a2a3a958d667
 ArtistSort: Ugly Kid Joe
 Track: 7
 mtime: 1241533099
-key: Ugly Kid Joe - 08 - Same Side.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 08 - Same Side.ogg
+song_end
+song_begin: Ugly Kid Joe - 08 - Same Side.ogg
 Time: 290
 Genre: Rock
 Title: Same Side
@@ -1142,8 +1144,8 @@ MUSICBRAINZ_TRACKID: 54312f43-5c23-456e-9f77-3c726732d336
 ArtistSort: Ugly Kid Joe
 Track: 8
 mtime: 1241533099
-key: Ugly Kid Joe - 09 - Cats In The Cradle.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 09 - Cats In The Cradle.ogg
+song_end
+song_begin: Ugly Kid Joe - 09 - Cats In The Cradle.ogg
 Time: 242
 Genre: Rock
 Title: Cats In The Cradle
@@ -1159,8 +1161,8 @@ MUSICBRAINZ_TRACKID: 9d440305-b00a-479f-8178-8a7d8b5feb90
 ArtistSort: Ugly Kid Joe
 Track: 9
 mtime: 1241533099
-key: Ugly Kid Joe - 10 - I'll Keep Trying.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 10 - I'll Keep Trying.ogg
+song_end
+song_begin: Ugly Kid Joe - 10 - I'll Keep Trying.ogg
 Time: 299
 Genre: Rock
 Title: I'll Keep Tryin'
@@ -1176,8 +1178,8 @@ MUSICBRAINZ_TRACKID: 30e32618-24cd-40d5-81c8-ea1b4f32485a
 ArtistSort: Ugly Kid Joe
 Track: 10
 mtime: 1241533099
-key: Ugly Kid Joe - 11 - Everything About You.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 11 - Everything About You.ogg
+song_end
+song_begin: Ugly Kid Joe - 11 - Everything About You.ogg
 Time: 260
 Genre: Rock
 Title: Everything About You
@@ -1193,8 +1195,8 @@ MUSICBRAINZ_TRACKID: d00bcaee-7937-4493-81fb-515d4f9b6dbc
 ArtistSort: Ugly Kid Joe
 Track: 11
 mtime: 1241533099
-key: Ugly Kid Joe - 12 - Madman ('92 Remix).ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 12 - Madman ('92 Remix).ogg
+song_end
+song_begin: Ugly Kid Joe - 12 - Madman ('92 Remix).ogg
 Time: 216
 Genre: Rock
 Title: Madman ('92 Remix)
@@ -1210,8 +1212,8 @@ MUSICBRAINZ_TRACKID: 1a229601-c716-47ba-b2fc-2ebfe8ddca8e
 ArtistSort: Ugly Kid Joe
 Track: 12
 mtime: 1241533099
-key: Ugly Kid Joe - 13 - Mr. Recordman.ogg
-file: Ugly Kid Joe/America's Least Wanted/Ugly Kid Joe - 13 - Mr. Recordman.ogg
+song_end
+song_begin: Ugly Kid Joe - 13 - Mr. Recordman.ogg
 Time: 246
 Genre: Rock
 Title: Mr. Recordman
@@ -1227,24 +1229,20 @@ MUSICBRAINZ_TRACKID: 6dd85489-d892-4559-b691-b127015c2bee
 ArtistSort: Ugly Kid Joe
 Track: 13
 mtime: 1241533099
-songList end
+song_end
 end: Ugly Kid Joe/America's Least Wanted
-songList begin
-key: Ugly Kid Joe - 12 Cents.mp3
-file: Ugly Kid Joe/Ugly Kid Joe - 12 Cents.mp3
+song_begin: Ugly Kid Joe - 12 Cents.mp3
 Time: 169
 mtime: 1059757343
-key: Ugly Kid Joe - Candle Song.mp3
-file: Ugly Kid Joe/Ugly Kid Joe - Candle Song.mp3
+song_end
+song_begin: Ugly Kid Joe - Candle Song.mp3
 Time: 178
 Title: Candle Song
 Artist: Ugly Kid Joe
 mtime: 1061748391
-key: Ugly Kid Joe - Oompa.mp3
-file: Ugly Kid Joe/Ugly Kid Joe - Oompa.mp3
+song_end
+song_begin: Ugly Kid Joe - Oompa.mp3
 Time: 124
 mtime: 1059757344
-songList end
+song_end
 end: Ugly Kid Joe
-songList begin
-songList end
