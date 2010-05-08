@@ -24,6 +24,7 @@ static GError* check_std(gchar* l_out, gchar* l_err, gint l_result_code)
 static GError* spawn(gchar** l_argv)
 {
 	g_assert(l_argv != NULL);
+	g_usleep(0.05 * G_USEC_PER_SEC);
 
 	gchar* std_out = NULL;
 	gchar* std_err = NULL;
@@ -39,6 +40,7 @@ static GError* spawn(gchar** l_argv)
 	if(std_err != NULL)
 		g_free(std_err);
 
+	g_usleep(0.05 * G_USEC_PER_SEC);
 	return err;
 }
 
@@ -55,9 +57,7 @@ void fake_mpd_init(const gchar* l_config)
 	argv[1] = (gchar*) l_config;
 	argv[2] = NULL;
 
-	g_usleep(0.05 * G_USEC_PER_SEC);
 	g_assert_no_error(spawn(argv));
-
 	connection = mpd_new(HOST, PORT, NULL);
 	g_assert(mpd_connect(connection) == MPD_OK);
 }

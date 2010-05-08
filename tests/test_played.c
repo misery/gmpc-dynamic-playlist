@@ -54,7 +54,8 @@ static gint test_fill(dbList** l_list)
 	for(data = mpd_database_get_complete(connection); data != NULL; data = mpd_data_get_next(data))
 		if(data->song->artist != NULL && data->song->title != NULL)
 			*l_list = database_get_songs(*l_list, data->song->artist, data->song->title, &count);
-	g_assert(*l_list != NULL && count > 0);
+	g_assert(*l_list != NULL);
+	g_assert(count > 0);
 
 	GList* iter;
 	for(iter = *l_list; iter != NULL; iter = g_list_next(iter))
