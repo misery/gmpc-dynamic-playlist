@@ -1,6 +1,7 @@
 #include <glib.h>
 #include <stdlib.h>
 #include "fixture_mpd.h"
+#include "fixture_gmpc.h"
 #include <gmpc/plugin.h>
 #include "../src/played.h"
 #include "../src/database.h"
@@ -150,16 +151,20 @@ static void test_artist_some_check()
 
 static void test_artist_some_song()
 {
+	fake_gmpc_init();
 	set_played_limit_song(0);
 	set_played_limit_artist(3);
 	test_artist_some_check();
+	fake_gmpc_free();
 }
 
 static void test_artist_some_nosong()
 {
+	fake_gmpc_init();
 	set_played_limit_song(100);
 	set_played_limit_artist(3);
 	test_artist_some_check();
+	fake_gmpc_free();
 }
 
 static void test_artist_some_assert_less()
@@ -240,7 +245,6 @@ static void test_song_all()
 	free_played_list();
 
 	fake_mpd_free(CONFIG);
-
 }
 
 static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, gpointer l_data)
@@ -250,7 +254,7 @@ static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gc
 
 int main (int argc, char** argv)
 {
-	g_test_init(&argc, &argv, NULL);
+	gtk_test_init(&argc, &argv, NULL);
 
 	g_test_add_func("/played/set_limits/allowed", test_set_limits_allowed);
 	g_test_add_func("/played/set_limits/assert/song", test_set_limits_assert_song);
