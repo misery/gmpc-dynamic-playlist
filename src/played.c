@@ -18,7 +18,7 @@
 */
 
 #include "played.h"
-#include <string.h>
+#include "fuzzy.h"
 #include <gmpc/plugin.h>
 
 static gint m_song = 0;
@@ -50,9 +50,9 @@ void add_played_song(dbSong* l_song)
 static gboolean is_played_song_current(const gchar* l_artist, const gchar* l_title)
 {
 	mpd_Song* curSong = mpd_playlist_get_current_song(connection);
-	if(curSong != NULL && curSong->artist != NULL && strcasecmp(curSong->artist, l_artist) == 0)
+	if(curSong != NULL && curSong->artist != NULL && fuzzy_match_artist(l_artist, curSong->artist))
 	{
-		if(m_artist > 0 || (l_title != NULL && curSong->title != NULL && strcasecmp(curSong->title, l_title) == 0))
+		if(m_artist > 0 || (l_title != NULL && curSong->title != NULL && fuzzy_match_title(l_title, curSong->title)))
 			return TRUE;
 	}
 
@@ -76,7 +76,7 @@ gboolean is_played_song(const gchar* l_artist, const gchar* l_title)
 		for(i = 0; iter != NULL; iter = g_list_next(iter), ++i)
 		{
 			dbSong* song = (dbSong*) iter->data;
-			if(strcasecmp(song->artist, l_artist) != 0)
+			if(!fuzzy_match_artist(l_artist, song->artist))
 				continue;
 
 			if(i < m_artist)
@@ -85,7 +85,7 @@ gboolean is_played_song(const gchar* l_artist, const gchar* l_title)
 				return TRUE;
 			}
 
-			if(i < m_song && l_title != NULL && strcasecmp(song->title, l_title) == 0)
+			if(i < m_song && l_title != NULL && fuzzy_match_title(l_title, song->title))
 			{
 				g_debug("Song blocked: %s::%s", l_artist, l_title);
 				return TRUE;

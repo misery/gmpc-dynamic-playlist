@@ -28,6 +28,7 @@
 #include "icon.h"
 #include "prune.h"
 #include "prefs.h"
+#include "fuzzy.h"
 
 extern GmpcEasyCommand* gmpc_easy_command;
 
@@ -90,6 +91,7 @@ void dyn_init()
 	init_search();
 	init_blacklists();
 	init_played_list();
+	init_fuzzy();
 
 	/* GmpcEasyCommand */
 	gmpc_easy_command_add_entry(

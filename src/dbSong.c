@@ -18,6 +18,7 @@
 */
 
 #include "dbSong.h"
+#include "fuzzy.h"
 #include <string.h>
 
 dbSong* new_dbSong(const gchar* l_artist, const gchar* l_title, const gchar* l_path)
@@ -68,7 +69,7 @@ gboolean exists_dbList(const dbList* l_list, const gchar* l_artist, const gchar*
 	for(; l_list != NULL; l_list = g_list_next(l_list))
 	{
 		const dbSong* song = (const dbSong*) l_list->data;
-		if(strcasecmp(song->artist, l_artist) == 0 && strcasecmp(song->title, l_title) == 0)
+		if(fuzzy_match_artist(l_artist, song->artist) && fuzzy_match_title(l_title, song->title))
 			return TRUE;
 	}
 
