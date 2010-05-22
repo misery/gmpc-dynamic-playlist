@@ -38,6 +38,7 @@ MACRO(GETTEXT_CREATE_TRANSLATIONS _potFile _firstPoFileArg)
       GET_FILENAME_COMPONENT(_lang ${_absFile} NAME_WE)
       SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}.gmo)
       SET(_poFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}.merged.po)
+      SET_PROPERTY(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${_poFile})
 
       ADD_CUSTOM_COMMAND(
          OUTPUT ${_gmoFile}
