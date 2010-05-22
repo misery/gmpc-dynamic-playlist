@@ -119,4 +119,10 @@ SET(CPACK_SOURCE_GENERATOR TGZ)
 SET(CPACK_SOURCE_IGNORE_FILES "\\\\.hgignore" "\\\\.hgtags" "/\\\\.hg/")
 INCLUDE(CPack)
 
+FIND_PROGRAM(CPPCHECK_BIN cppcheck)
+IF(CPPCHECK_BIN)
+	FILE(GLOB C_TEST_FILES "tests/*.c")
+	ADD_CUSTOM_TARGET(cppcheck COMMAND ${CPPCHECK_BIN} -a -v --enable=all ${C_FILES} ${C_TEST_FILES})
+ENDIF()
+
 #vim:set ts=4 sw=4:
