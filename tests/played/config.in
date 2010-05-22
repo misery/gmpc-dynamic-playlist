@@ -1,8 +1,8 @@
-music_directory "DIR_SRC"
-playlist_directory "DIR_SRC/played/playlists"
-db_file "DIR_SRC/played/database"
-log_file "DIR_BIN/log"
-pid_file "DIR_BIN/pid"
+music_directory "@PROJECT_SOURCE_DIR@/tests"
+playlist_directory "@PROJECT_SOURCE_DIR@/tests/played/playlists"
+db_file "@PROJECT_SOURCE_DIR@/tests/played/database"
+log_file "@PROJECT_BINARY_DIR@/tests/log"
+pid_file "@PROJECT_BINARY_DIR@/tests/pid"
 
 bind_to_address		"localhost"
 port				"1904"
