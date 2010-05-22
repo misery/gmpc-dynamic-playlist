@@ -13,8 +13,7 @@ MACRO(ADD_TEST_CONFIG target def file)
 	SET(outfile "${PROJECT_BINARY_DIR}/tests/${file}")
 	CONFIGURE_FILE(${file}.in ${outfile} @ONLY)
 
-	GET_TARGET_PROPERTY(prev ${target} COMPILE_DEFINITIONS)
-	SET_TARGET_PROPERTIES(${target} PROPERTIES COMPILE_DEFINITIONS "${def}=\"${outfile}\";${prev}")
+	SET_PROPERTY(TARGET ${target} APPEND PROPERTY COMPILE_DEFINITIONS "${def}=\"${outfile}\"")
 ENDMACRO()
 
 MACRO(ADD_TEST_DATA target test_name)
