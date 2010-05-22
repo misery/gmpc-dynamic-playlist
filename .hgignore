@@ -3,12 +3,12 @@ CMakeFiles
 _CPack_Packages
 CPack*
 CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
 install_manifest.txt
 Makefile
 core
 Testing
-tests/test_*
-*.cmake
 *.so
 *.gmo
 *.pot
@@ -16,7 +16,13 @@ tests/test_*
 *.orig
 *.swp
 config
-pid
-log
+tests/pid
+tests/log
 error
 gmpc-dynamic-playlist-*.tar.gz
+build
+.project
+.cproject
+
+syntax: regexp
+^tests/test_(?:(?!\.).)*$
