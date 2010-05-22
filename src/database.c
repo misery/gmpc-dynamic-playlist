@@ -27,7 +27,7 @@ extern GRand* m_rand;
 
 static dbList* database_get_songs_fill_list(dbList* l_list, gint* l_out_count)
 {
-	g_assert(l_out_count != NULL && l_out_count >= 0);
+	g_assert(l_out_count != NULL && *l_out_count >= 0);
 
 	MpdData* data;
 	for(data = mpd_database_search_commit(connection); data != NULL; data = mpd_data_get_next(data))
