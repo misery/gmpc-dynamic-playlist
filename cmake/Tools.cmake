@@ -11,12 +11,11 @@ SET(CPACK_SOURCE_GENERATOR TGZ)
 SET(CPACK_SOURCE_IGNORE_FILES "\\\\.hgignore" "\\\\.hgtags" "/\\\\.hg/")
 INCLUDE(CPack)
 
-# CppCheck
+# CppCheck (http://cppcheck.sourceforge.net)
 FIND_PROGRAM(CPPCHECK_BIN cppcheck)
 IF(CPPCHECK_BIN)
-	FILE(GLOB C_TEST_FILES "tests/*.c")
 	SET(XML_FILE "${PROJECT_BINARY_DIR}/cppcheck.xml")
-	SET(CPPCHECK_CMD ${CPPCHECK_BIN} -a --enable=all ${C_FILES} ${C_TEST_FILES})
+	SET(CPPCHECK_CMD ${CPPCHECK_BIN} -a --enable=all ${SRC_DIR} ${TEST_DIR})
 
 	ADD_CUSTOM_COMMAND(OUTPUT ${XML_FILE} COMMAND ${CPPCHECK_CMD} -q --xml 2> ${XML_FILE})
 	ADD_CUSTOM_TARGET(cppcheck COMMAND ${CPPCHECK_CMD} -v)
