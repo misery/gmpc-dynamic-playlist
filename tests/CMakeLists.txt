@@ -4,7 +4,7 @@ IF(${PROJECT_NAME} STREQUAL "Project")
 	MESSAGE(FATAL_ERROR "call parent build file only")
 ENDIF()
 
-FIND_PACKAGE(Testing REQUIRED)
+INCLUDE(Testing)
 
 # Played List
 ADD_EXECUTABLE(test_played test_played.c)
