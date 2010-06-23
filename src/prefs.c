@@ -138,7 +138,7 @@ void pref_construct_signals_and_values(GtkBuilder* l_builder)
 	g_signal_connect(G_OBJECT(spin), "value-changed", G_CALLBACK(pref_spin), set_search_genre_max);
 }
 
-void pref_combo(GtkComboBox* l_combo, combo l_func)
+void pref_combo(GtkComboBox* l_combo, Combo l_func)
 {
 	GtkTreeIter iter;
 	GtkListStore* store = GTK_LIST_STORE(gtk_combo_box_get_model(l_combo));
@@ -160,7 +160,7 @@ void pref_toggle_menu(GtkCheckMenuItem* l_item, toggle l_func)
 	l_func( gtk_check_menu_item_get_active(l_item) );
 }
 
-void pref_spin(GtkSpinButton* l_button, spin l_func)
+void pref_spin(GtkSpinButton* l_button, Spin l_func)
 {
 	l_func( gtk_spin_button_get_value(l_button) );
 }
