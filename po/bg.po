@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-03-16 23:09+0100\n"
+"POT-Creation-Date: 2010-03-24 09:44+0100\n"
 "PO-Revision-Date: 2009-10-25 18:59+0000\n"
 "Last-Translator: vlood <vlood.vassilev@gmail.com>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-17 18:40+0000\n"
+"X-Launchpad-Export-Date: 2010-06-26 10:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/blacklist.c:38
@@ -185,3 +185,11 @@ msgstr "Търси макс. жанрове в базата данни:"
 #: src/dynlist-ui-options.xml:398
 msgid "Metadata"
 msgstr "Мета-данни"
+
+#: src/dynlist-ui-options.xml:459
+msgid "Artists of same tag"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:463
+msgid "Songs of same tag"
+msgstr ""

@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-03-16 23:09+0100\n"
-"PO-Revision-Date: 2009-10-15 16:27+0000\n"
-"Last-Translator: dpetrov83 <Unknown>\n"
+"POT-Creation-Date: 2010-03-24 09:44+0100\n"
+"PO-Revision-Date: 2010-06-19 09:51+0000\n"
+"Last-Translator: André Klitzing <andre@incubo.de>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-17 18:40+0000\n"
+"X-Launchpad-Export-Date: 2010-06-26 10:40+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/blacklist.c:38
 msgid "!Blacklist Genre"
-msgstr "!Blacklist Жанр"
+msgstr "!Черный список Жанр"
 
 #: src/blacklist.c:39
 msgid "!Blacklist Artist"
@@ -121,19 +121,19 @@ msgstr "Включить динамический поиск"
 
 #: src/dynlist-ui-options.xml:43
 msgid "Search songs with comment tag"
-msgstr ""
+msgstr "Поиск по комментариям"
 
 #: src/dynlist-ui-options.xml:56
 msgid "Search songs with genre tag"
-msgstr ""
+msgstr "Поиск по жанрам"
 
 #: src/dynlist-ui-options.xml:96
 msgid "Provide at least x songs to be played:"
-msgstr ""
+msgstr "Добавить как минимум x песен в список проигрывания"
 
 #: src/dynlist-ui-options.xml:106
 msgid "Keep x last played songs:"
-msgstr ""
+msgstr "Оставить x послених проигранных песен:"
 
 #: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
@@ -186,3 +186,11 @@ msgstr "Искать максимально жанров в базе:"
 #: src/dynlist-ui-options.xml:398
 msgid "Metadata"
 msgstr "Метаданные"
+
+#: src/dynlist-ui-options.xml:459
+msgid "Artists of same tag"
+msgstr "исполнители с этим тегом"
+
+#: src/dynlist-ui-options.xml:463
+msgid "Songs of same tag"
+msgstr "Композиции с этим тегом"
