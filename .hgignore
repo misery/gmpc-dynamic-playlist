@@ -23,6 +23,7 @@ gmpc-dynamic-playlist-*.tar.gz
 build
 .project
 .cproject
+.settings
 
 syntax: regexp
 ^tests/test_(?:(?!\.).)*$
