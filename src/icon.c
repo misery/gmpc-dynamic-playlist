@@ -39,14 +39,6 @@ gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_d
 	return TRUE;
 }
 
-void reload_icon()
-{
-	g_assert(m_box != NULL);
-	g_assert(m_image != NULL);
-	gtk_widget_set_sensitive(m_image, get_search_active());
-	gtk_widget_set_sensitive(m_box, dyn_get_enabled());
-}
-
 gboolean icon_integration(gpointer l_data)
 {
 	g_assert(m_box == NULL);
@@ -65,9 +57,43 @@ gboolean icon_integration(gpointer l_data)
 	return TRUE;
 }
 
+gboolean is_icon_added()
+{
+	return m_box != NULL;
+}
+
+void add_icon()
+{
+	icon_integration(NULL);
+}
+
+void remove_icon()
+{
+	g_assert(m_box != NULL);
+	g_assert(m_image != NULL);
+
+	gtk_widget_destroy(m_box);
+	m_box = NULL;
+	m_image = NULL;
+}
+
+void reload_icon()
+{
+	if(dyn_get_enabled())
+	{
+		if(!is_icon_added())
+			add_icon();
+
+		gtk_widget_set_sensitive(m_image, get_search_active());
+	}
+	else if(is_icon_added())
+		remove_icon();
+}
+
 void init_icon()
 {
-	gtk_init_add(icon_integration, NULL);
+	if(dyn_get_enabled())
+		gtk_init_add(icon_integration, NULL);
 }
 
 /* vim:set ts=4 sw=4: */
