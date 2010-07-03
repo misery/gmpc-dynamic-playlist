@@ -5,20 +5,37 @@
 #include "fixture_gmpc.h"
 #include "../src/plugin.h"
 #include "../src/prefs.h"
+#include "../src/icon.h"
+
+static GtkMenu* m_menu = NULL;
 
 /* init */
-GtkMenu* m_menu = NULL;
+gboolean quit_main()
+{
+	gtk_main_quit();
+	return FALSE;
+}
+
 void fake_gmpc_init()
 {
+	gtk_init_add(quit_main, NULL);
 	dyn_init();
 	m_menu = GTK_MENU(gtk_menu_new());
 	dyn_tool_menu_integration(m_menu);
+
+	gtk_main();
+	while(gtk_events_pending())
+	{
+		gtk_main_iteration();
+	}
 }
 
 void fake_gmpc_free()
 {
 	gtk_widget_destroy(GTK_WIDGET(m_menu));
 	dyn_destroy();
+	if(is_icon_added())
+		remove_icon();
 }
 
 
@@ -75,7 +92,7 @@ guint gmpc_easy_command_add_entry(GmpcEasyCommand* l_self,
 /* Icon */
 void main_window_add_status_icon(GtkWidget* l_icon)
 {
-
+	g_assert(l_icon != NULL);
 }
 
 /* vim:set ts=4 sw=4: */
