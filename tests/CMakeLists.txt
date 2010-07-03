@@ -21,4 +21,9 @@ ADD_EXECUTABLE(test_database test_database.c)
 ADD_TEST_DATA(test_database "Database")
 ADD_TEST_CONFIG(test_database "CONFIG_BL_ALL" "database/blacklist/all/config")
 
+# Prune
+ADD_EXECUTABLE(test_prune test_prune.c)
+ADD_TEST_DATA(test_prune "Pruning")
+ADD_TEST_CONFIG(test_prune "CONFIG" "played/config")
+
 #vim:set ts=4 sw=4:
