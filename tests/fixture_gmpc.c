@@ -2,14 +2,24 @@
 #include <gmpc/gmpc-extras.h>
 #include <gmpc/playlist3-messages.h>
 #include <gmpc/plugin.h>
+#include <string.h>
 #include "fixture_gmpc.h"
 #include "../src/plugin.h"
 #include "../src/prefs.h"
 #include "../src/icon.h"
 
+static GQueue m_queue = G_QUEUE_INIT;
 static GtkMenu* m_menu = NULL;
 
 /* init */
+void clear_queue()
+{
+	GList* list;
+	for(list = m_queue.head; list != NULL; list = list->next)
+		g_free(list->data);
+	g_queue_clear(&m_queue);
+}
+
 gboolean quit_main()
 {
 	gtk_main_quit();
@@ -34,6 +44,7 @@ void fake_gmpc_free()
 {
 	gtk_widget_destroy(GTK_WIDGET(m_menu));
 	dyn_destroy();
+	clear_queue();
 	if(is_icon_added())
 		remove_icon();
 }
@@ -74,6 +85,28 @@ const GList* meta_data_get_text_list(const MetaData* l_data)
 void playlist3_show_error_message(const gchar* l_message, ErrorLevel l_level)
 {
 	g_test_message("show message: %s | %d", l_message, l_level);
+	if(l_message != NULL)
+		g_queue_push_tail(&m_queue, g_strdup(l_message));
+}
+
+void g_assert_message(const gchar* l_msg)
+{
+	g_assert_message_do(l_msg, 1);
+}
+
+void g_assert_message_do(const gchar* l_msg, int l_count)
+{
+	int i = 0;
+	GList* list;
+	for(list = m_queue.tail; i < l_count && list != NULL; list = list->next)
+	{
+		if(strcasecmp(l_msg, (gchar*)list->data) == 0)
+			return;
+		++i;
+	}
+
+	g_message("Message expected but not found: '%s'", l_msg);
+	g_assert_not_reached();
 }
 
 
