@@ -4,6 +4,17 @@
 #include "../src/database.h"
 #include "../src/blacklist.h"
 
+void setup()
+{
+	fake_mpd_init(CONFIG_BL_ALL);
+	fake_gmpc_init();
+}
+
+void tear_down()
+{
+	fake_gmpc_free();
+	fake_mpd_free(CONFIG_BL_ALL);
+}
 
 gint test_database_search_songs_blacklist(dbList** l_list)
 {
@@ -31,9 +42,6 @@ gint test_database_search_songs_blacklist(dbList** l_list)
 */
 void test_database_search_songs_blacklist_found_zero()
 {
-	fake_mpd_init(CONFIG_BL_ALL);
-	fake_gmpc_init();
-
 	set_active_blacklist(TRUE);
 	dbList* list = NULL;
 
@@ -43,16 +51,10 @@ void test_database_search_songs_blacklist_found_zero()
 	g_test_message("count: %d", count);
 	g_assert(list == NULL);
 	g_assert(count == 0);
-
-	fake_gmpc_free();
-	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 void test_database_search_songs_blacklist_found_all()
 {
-	fake_mpd_init(CONFIG_BL_ALL);
-	fake_gmpc_init();
-
 	set_active_blacklist(FALSE);
 	dbList* list = NULL;
 
@@ -78,16 +80,10 @@ void test_database_search_songs_blacklist_found_all()
 	/* 69 unique + 2 doubled (because of EXACT = FALSE)*/
 	g_assert(count == 71);
 	free_dbList(list);
-
-	fake_gmpc_free();
-	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 void test_database_search_artists_blacklist()
 {
-	fake_mpd_init(CONFIG_BL_ALL);
-	fake_gmpc_init();
-
 	set_active_blacklist(TRUE);
 	strList* list = NULL;
 	gint count = 0;
@@ -107,16 +103,10 @@ void test_database_search_artists_blacklist()
 	g_assert(exists_strList(list, "The Offspring"));
 	g_assert(count == 3);
 	free_strList(list);
-
-	fake_gmpc_free();
-	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 void test_database_search_artists_parameter()
 {
-	fake_mpd_init(CONFIG_BL_ALL);
-	fake_gmpc_init();
-
 	set_active_blacklist(FALSE);
 	strList* list = NULL;
 	gint count = 0;
@@ -181,9 +171,6 @@ void test_database_search_artists_parameter()
 
 	list = database_get_artists(list, "NoArtist", "Rock", &count);
 	g_assert(count == 0 && list == NULL);
-
-	fake_gmpc_free();
-	fake_mpd_free(CONFIG_BL_ALL);
 }
 
 static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, gpointer l_data)
@@ -195,10 +182,10 @@ int main (int argc, char** argv)
 {
 	gtk_test_init(&argc, &argv, NULL);
 
-	g_test_add_func("/database/search/songs/blacklist/nofound", test_database_search_songs_blacklist_found_zero);
-	g_test_add_func("/database/search/songs/blacklist/found", test_database_search_songs_blacklist_found_all);
-	g_test_add_func("/database/search/artists/blacklist", test_database_search_artists_blacklist);
-	g_test_add_func("/database/search/artists/parameter", test_database_search_artists_parameter);
+	g_test_add("/database/search/songs/blacklist/nofound",  void, NULL, setup, test_database_search_songs_blacklist_found_zero, tear_down);
+	g_test_add("/database/search/songs/blacklist/found",  void, NULL, setup, test_database_search_songs_blacklist_found_all, tear_down);
+	g_test_add("/database/search/artists/blacklist",  void, NULL, setup, test_database_search_artists_blacklist, tear_down);
+	g_test_add("/database/search/artists/parameter",  void, NULL, setup, test_database_search_artists_parameter, tear_down);
 
 	/* mute standard debug output from plugin */
 	g_log_set_handler("dynlist", G_LOG_LEVEL_DEBUG, redirect_log, NULL);
