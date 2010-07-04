@@ -60,7 +60,10 @@ void set_active_blacklist(gboolean l_value)
 		return;
 
 	if(!m_enabled && l_value)
+	{
 		reload_blacklists();
+		create_blacklists();
+	}
 
 	m_enabled = l_value;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "blacklist", m_enabled);
@@ -167,6 +170,13 @@ gboolean is_blacklisted_song(const gchar* l_artist, const gchar* l_title)
 
 void create_blacklists()
 {
+	if(!mpd_check_connected(connection))
+	{
+		reload_blacklists();
+		playlist3_show_error_message(_("Cannot create blacklists! GMPC is not connected."), ERROR_WARNING);
+		return;
+	}
+
 	MpdData* lists = mpd_database_playlist_list(connection);
 	gint created = 0;
 	gint8 i;

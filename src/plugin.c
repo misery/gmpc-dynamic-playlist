@@ -124,7 +124,11 @@ void dyn_set_enabled(gboolean l_enabled)
 		return;
 
 	if(!m_enabled && l_enabled)
+	{
 		reload_blacklists();
+		if(get_active_blacklist())
+			create_blacklists();
+	}
 
 	if(!l_enabled)
 		reset_search_delay();
