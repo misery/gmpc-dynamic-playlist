@@ -162,7 +162,7 @@ void pref_toggle_menu(GtkCheckMenuItem* l_item, toggle l_func)
 
 void pref_spin(GtkSpinButton* l_button, Spin l_func)
 {
-	l_func( gtk_spin_button_get_value(l_button) );
+	l_func( gtk_spin_button_get_value_as_int(l_button) );
 }
 
 int dyn_tool_menu_integration(GtkMenu* l_menu)

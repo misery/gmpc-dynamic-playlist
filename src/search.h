@@ -37,8 +37,8 @@ void set_search_active(gboolean l_value);
 void set_search_active_easy(gpointer l_data, const gchar* l_param);
 gboolean get_search_active();
 
-gint get_queue_songs();
-void set_queue_songs(gint l_value);
+guint8 get_queue_songs();
+void set_queue_songs(guint8 l_value);
 
 void set_local_search_genre(gboolean l_value);
 gboolean get_local_search_genre();
@@ -49,8 +49,8 @@ searchStyle get_local_search_genre_style();
 void set_local_search_comment(gboolean l_value);
 gboolean get_local_search_comment();
 
-gint get_delay_time();
-void set_delay_time(gint l_value);
+guint8 get_delay_time();
+void set_delay_time(guint8 l_value);
 
 gboolean get_search_artist();
 void set_search_artist(gboolean l_value);

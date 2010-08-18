@@ -29,7 +29,7 @@ static void flush_played_list(gint l_max)
 {
 	g_assert(l_max >= 0);
 
-	const gint max = g_queue_get_length(&m_list) - l_max;
+	const gint max = (gint)g_queue_get_length(&m_list) - l_max;
 	gint i;
 	for(i = 0; i < max; ++i)
 		free_dbSong( (dbSong*) g_queue_pop_tail(&m_list) );

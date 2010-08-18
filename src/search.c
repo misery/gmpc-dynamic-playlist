@@ -50,8 +50,8 @@ static gboolean m_is_searching = FALSE;
 
 void init_search()
 {
-	m_queue_songs = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "queue_songs", 1);
-	m_delay_timeout = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "delayTimeout", 0);
+	m_queue_songs = (guint8) cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "queue_songs", 1);
+	m_delay_timeout = (guint8) cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "delayTimeout", 0);
 	m_similar_songs_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxSongs", 20);
 	m_similar_artists_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxArtists", 30);
 	m_similar_genre_max = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "maxGenres", 20);
@@ -70,19 +70,19 @@ static status getNextStatus(status l_status)
 {
 	status ret = NotFound;
 
-	gint available[STATUS_COUNT-1];
+	guint available[STATUS_COUNT-1];
 	gint count = 0;
-	gint i;
+	guint i;
 	for(i = 1; i < STATUS_COUNT; ++i) /* index 0 is Found/NotFound */
 	{
-		if( !(1 << i & l_status) )
+		if( !((guint)1 << i & l_status) )
 			available[count++] = i;
 	}
 
 	if(count > 0)
 	{
 		ret = Found;
-		ret |= 1 << available[ g_rand_int_range(m_rand, 0, count) ];
+		ret |= (guint)1 << available[ g_rand_int_range(m_rand, 0, count) ];
 	}
 
 	return ret;
@@ -350,11 +350,11 @@ static void set_search_delay(mpd_Song* l_song)
 	g_assert(l_song != NULL);
 	reset_search_delay();
 
-	gint timeout;
+	guint timeout;
 	if(l_song->time == MPD_SONG_NO_TIME || l_song->time > m_delay_timeout + BUFFER_SECONDS)
 		timeout = m_delay_timeout;
 	else
-		timeout = l_song->time - BUFFER_SECONDS;
+		timeout = (guint) l_song->time - BUFFER_SECONDS;
 
 	m_delay_source = g_timeout_add_seconds(timeout,
 						(GSourceFunc) search_delayed, l_song);
@@ -515,23 +515,23 @@ gboolean get_local_search_comment()
 	return m_search_comment;
 }
 
-gint get_queue_songs()
+guint8 get_queue_songs()
 {
 	return m_queue_songs;
 }
 
-void set_queue_songs(gint l_value)
+void set_queue_songs(guint8 l_value)
 {
 	m_queue_songs = l_value;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "queue_songs", m_queue_songs);
 }
 
-gint get_delay_time()
+guint8 get_delay_time()
 {
 	return m_delay_timeout;
 }
 
-void set_delay_time(gint l_value)
+void set_delay_time(guint8 l_value)
 {
 	m_delay_timeout = l_value;
 	cfg_set_single_value_as_int(config, "dynamic-playlist", "delayTimeout", m_delay_timeout);

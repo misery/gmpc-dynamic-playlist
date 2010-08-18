@@ -26,8 +26,8 @@ static gint8 m_title = 0;
 
 void init_fuzzy()
 {
-	m_artist = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "fuzzy_artist", 80);
-	m_title = cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "fuzzy_title", 80);
+	m_artist = (gint8) cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "fuzzy_artist", 80);
+	m_title = (gint8) cfg_get_single_value_as_int_with_default(config, "dynamic-playlist", "fuzzy_title", 80);
 }
 
 static inline gboolean fuzzy_exact_compare(const gchar* l_first, const gchar* l_second)
