@@ -131,10 +131,10 @@ static dbList* add_random_song(gint l_count, dbList* l_list)
 	g_assert(l_count > 0);
 	g_assert(l_list != NULL);
 
-	gint random = g_rand_int_range(m_rand, 0, l_count);
+	gint selected = g_rand_int_range(m_rand, 0, l_count);
 	gint i = 0;
 	dbList* listIter;
-	for(listIter = l_list; i < random; ++i)
+	for(listIter = l_list; i < selected; ++i)
 		listIter = g_list_next(listIter);
 
 	dbSong* song = (dbSong*) listIter->data;

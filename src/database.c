@@ -152,11 +152,11 @@ gboolean database_tryToAdd_artist(const gchar* l_artist)
 	{
 		g_assert(prev != NULL);
 
-		gint random = g_rand_int_range(m_rand, 0, count);
+		gint selected = g_rand_int_range(m_rand, 0, count);
 		g_debug("Artist selected: %s", l_artist);
-		g_debug("Song selected: %d, count: %d", random, count);
+		g_debug("Song selected: %d, count: %d", selected, count);
 		gint i = 0;
-		for(data = mpd_data_get_first(prev); i < random; ++i)
+		for(data = mpd_data_get_first(prev); i < selected; ++i)
 			data = mpd_data_get_next_real(data, FALSE);
 		g_assert(data != NULL);
 
@@ -180,12 +180,12 @@ gboolean database_tryToAdd_artists(strList** l_out_list, gint l_count)
 	gboolean found = FALSE;
 	do
 	{
-		gint random = g_rand_int_range(m_rand, 0, l_count);
-		g_debug("Artist selected: %d, count: %d", random, l_count);
+		gint selected = g_rand_int_range(m_rand, 0, l_count);
+		g_debug("Artist selected: %d, count: %d", selected, l_count);
 		gint i = 0;
 		strList* prev = NULL;
 		strList* iter;
-		for(iter = *l_out_list; i < random; ++i)
+		for(iter = *l_out_list; i < selected; ++i)
 		{
 			prev = iter;
 			iter = g_slist_next(iter);
