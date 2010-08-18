@@ -36,7 +36,7 @@ static gboolean m_enabled = TRUE;
 GRand* m_rand = NULL;
 
 
-void dyn_changed_status(MpdObj* l_mi, ChangedStatusType l_what, void* l_userdata)
+void dyn_changed_status(G_GNUC_UNUSED MpdObj* l_mi, ChangedStatusType l_what, G_GNUC_UNUSED void* l_userdata)
 {
 	if(!m_enabled)
 		return;

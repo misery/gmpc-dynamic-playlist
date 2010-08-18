@@ -470,7 +470,7 @@ void set_search_active(gboolean l_value)
 		reset_search_delay();
 }
 
-void set_search_active_easy(gpointer l_data, const gchar* l_param)
+void set_search_active_easy(G_GNUC_UNUSED gpointer l_data, const gchar* l_param)
 {
 	g_assert(l_param != NULL);
 

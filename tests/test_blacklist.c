@@ -36,9 +36,9 @@ void test_empty_blacklist()
 	fake_mpd_free(CONFIG_EMPTY);
 }
 
-static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, gpointer l_data)
+static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, G_GNUC_UNUSED gpointer l_data)
 {
-	g_test_message("redirected: %s", l_message);
+	g_test_message("redirected: %s | domain: %s | flag: %d", l_message, l_domain, l_flags);
 }
 
 int main (int argc, char** argv)

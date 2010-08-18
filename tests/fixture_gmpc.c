@@ -52,12 +52,12 @@ void fake_gmpc_free()
 
 /* Config settings */
 config_obj* config = NULL;
-void cfg_set_single_value_as_int(config_obj *cfg, const char* l_class, const char* l_key, int l_value)
+void cfg_set_single_value_as_int(G_GNUC_UNUSED config_obj* l_cfg, const char* l_class, const char* l_key, int l_value)
 {
 	g_test_message("set int value: %s | %s | %d", l_class, l_key, l_value);
 }
 
-int cfg_get_single_value_as_int_with_default(config_obj* l_cfg, const char* l_class, const char* l_key, int l_def)
+int cfg_get_single_value_as_int_with_default(G_GNUC_UNUSED config_obj* l_cfg, const char* l_class, const char* l_key, int l_def)
 {
 	g_test_message("get int with default: %s | %s | %d", l_class, l_key, l_def);
 	return l_def;
@@ -66,16 +66,17 @@ int cfg_get_single_value_as_int_with_default(config_obj* l_cfg, const char* l_cl
 
 /* Metadata */
 GmpcMetaWatcher* gmw = NULL;
-void gmpc_meta_watcher_get_meta_path_callback(GmpcMetaWatcher* l_self,
-					mpd_Song* l_song,
-					MetaDataType l_type,
-					MetaDataCallback l_callback,
-					gpointer l_data)
+void gmpc_meta_watcher_get_meta_path_callback(
+					G_GNUC_UNUSED GmpcMetaWatcher* l_self,
+					G_GNUC_UNUSED mpd_Song* l_song,
+					G_GNUC_UNUSED MetaDataType l_type,
+					G_GNUC_UNUSED MetaDataCallback l_callback,
+					G_GNUC_UNUSED gpointer l_data)
 {
 
 }
 
-const GList* meta_data_get_text_list(const MetaData* l_data)
+const GList* meta_data_get_text_list(G_GNUC_UNUSED const MetaData* l_data)
 {
 	return NULL;
 }
@@ -112,13 +113,15 @@ void g_assert_message_do(const gchar* l_msg, int l_count)
 
 /* Gmpc Easy Command */
 GmpcEasyCommand* gmpc_easy_command = 0;
-guint gmpc_easy_command_add_entry(GmpcEasyCommand* l_self,
+guint gmpc_easy_command_add_entry(
+					G_GNUC_UNUSED GmpcEasyCommand* l_self,
 					const char* l_name,
 					const char* l_pattern,
 					const char* l_hint,
-					GmpcEasyCommandCallback* l_callback,
-					gpointer l_data)
+					G_GNUC_UNUSED GmpcEasyCommandCallback* l_callback,
+					G_GNUC_UNUSED gpointer l_data)
 {
+	g_message("Add easy command '%s' with pattern '%s' and hint '%s'", l_name, l_pattern, l_hint);
 	return 0;
 }
 

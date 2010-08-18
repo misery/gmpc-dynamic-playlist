@@ -25,7 +25,7 @@
 static GtkWidget* m_box = NULL;
 static GtkWidget* m_image = NULL;
 
-gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_data)
+gboolean icon_clicked(G_GNUC_UNUSED GtkWidget* l_widget, GdkEventButton* l_event, G_GNUC_UNUSED gpointer l_data)
 {
 	if(l_event->button == 1) // left mouse button
 		set_search_active(!get_search_active());
@@ -39,7 +39,7 @@ gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_d
 	return TRUE;
 }
 
-gboolean icon_integration(gpointer l_data)
+gboolean icon_integration(G_GNUC_UNUSED gpointer l_data)
 {
 	g_assert(m_box == NULL);
 	g_assert(m_image == NULL);

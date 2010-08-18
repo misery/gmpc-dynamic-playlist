@@ -58,7 +58,7 @@ void prune_playlist_value(gint l_curPos, gint l_keep)
 	mpd_playlist_queue_commit(connection);
 }
 
-void prune_playlist_easy(gpointer l_data, const gchar* l_param)
+void prune_playlist_easy(G_GNUC_UNUSED gpointer l_data, const gchar* l_param)
 {
 	g_assert(l_param != NULL);
 
