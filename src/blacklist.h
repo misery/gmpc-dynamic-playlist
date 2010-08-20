@@ -2,7 +2,6 @@
 #define _DYN_LIST_PLUGIN_BLACKLIST
 
 #include <gmpc/plugin.h>
-#include <libmpd/libmpd.h>
 
 void set_active_blacklist(gboolean l_value);
 gboolean get_active_blacklist();

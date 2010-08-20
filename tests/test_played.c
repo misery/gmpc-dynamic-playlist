@@ -1,5 +1,4 @@
 #include <glib.h>
-#include <stdlib.h>
 #include "fixture_mpd.h"
 #include "fixture_gmpc.h"
 #include <gmpc/plugin.h>

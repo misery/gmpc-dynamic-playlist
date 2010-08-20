@@ -2,7 +2,6 @@
 #include <gmpc/gmpc-extras.h>
 #include <gmpc/playlist3-messages.h>
 #include <gmpc/plugin.h>
-#include <string.h>
 #include "fixture_gmpc.h"
 #include "../src/plugin.h"
 #include "../src/prefs.h"

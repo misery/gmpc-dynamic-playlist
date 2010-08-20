@@ -2,7 +2,6 @@
 #define _DYN_LIST_PLUGIN_SEARCH
 
 #include <gmpc/plugin.h>
-#include <gmpc/playlist3-messages.h>
 
 #define STATUS_COUNT 4
 typedef enum

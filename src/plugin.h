@@ -1,7 +1,6 @@
 #ifndef _DYN_LIST_PLUGIN
 #define _DYN_LIST_PLUGIN
 
-#include "dbSong.h"
 #include <gmpc/plugin.h>
 #include <libmpd/libmpd.h>
 
