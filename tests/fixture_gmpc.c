@@ -120,7 +120,7 @@ guint gmpc_easy_command_add_entry(
 					G_GNUC_UNUSED GmpcEasyCommandCallback* l_callback,
 					G_GNUC_UNUSED gpointer l_data)
 {
-	g_message("Add easy command '%s' with pattern '%s' and hint '%s'", l_name, l_pattern, l_hint);
+	g_test_message("Add easy command '%s' with pattern '%s' and hint '%s'", l_name, l_pattern, l_hint);
 	return 0;
 }
 
