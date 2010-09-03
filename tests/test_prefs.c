@@ -27,8 +27,8 @@ void assert_child(GtkWidget* l_container, gint l_size)
 void test_combo_value()
 {
 	GtkListStore* store = gtk_list_store_new(2, G_TYPE_INT, G_TYPE_STRING);
-	gtk_list_store_insert_with_values(store, NULL, 99, 0, 123, 1, "first", -1);
-	gtk_list_store_insert_with_values(store, NULL, 100, 0, 987, 1, "second", -1);
+	gtk_list_store_insert_with_values(store, NULL, 0, 0, 123, 1, "first", -1);
+	gtk_list_store_insert_with_values(store, NULL, 1, 0, 987, 1, "second", -1);
 	GtkWidget* box = gtk_combo_box_new_with_model(GTK_TREE_MODEL(store));
 
 	nextIntValue = 666;
