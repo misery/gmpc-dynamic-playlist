@@ -21,6 +21,10 @@ tests/log
 error
 gmpc-dynamic-playlist-*.tar.gz
 build
+coverage.info
+coverage.report
+cppcheck.xml
+cppncss.xml
 .project
 .cproject
 .settings
