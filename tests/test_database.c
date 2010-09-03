@@ -173,11 +173,6 @@ void test_database_search_artists_parameter()
 	g_assert(count == 0 && list == NULL);
 }
 
-static void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, G_GNUC_UNUSED gpointer l_data)
-{
-	g_test_message("redirected: %s | domain: %s | flag: %d", l_message, l_domain, l_flags);
-}
-
 int main (int argc, char** argv)
 {
 	gtk_test_init(&argc, &argv, NULL);

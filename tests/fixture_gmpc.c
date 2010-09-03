@@ -109,6 +109,11 @@ void g_assert_message_do(const gchar* l_msg, int l_count)
 	g_assert_not_reached();
 }
 
+void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, G_GNUC_UNUSED gpointer l_data)
+{
+	g_test_message("redirected: %s | domain: %s | flag: %d", l_message, l_domain, l_flags);
+}
+
 
 /* Gmpc Easy Command */
 GmpcEasyCommand* gmpc_easy_command = 0;
