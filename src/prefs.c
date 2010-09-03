@@ -34,7 +34,7 @@ void pref_destroy(GtkWidget* l_con)
 {
 	GtkWidget* child = gtk_bin_get_child(GTK_BIN(l_con));
 	if(child)
-		gtk_container_remove(GTK_CONTAINER(l_con), child);
+		gtk_widget_destroy(child);
 }
 
 void pref_construct(GtkWidget* l_con)
