@@ -26,4 +26,8 @@ ADD_EXECUTABLE(test_prune test_prune.c)
 ADD_TEST_DATA(test_prune "Pruning")
 ADD_TEST_CONFIG(test_prune "CONFIG" "played/config")
 
+# Prefs
+ADD_EXECUTABLE(test_prefs test_prefs.c)
+ADD_TEST_DATA(test_prefs "Preferences")
+
 #vim:set ts=4 sw=4:
