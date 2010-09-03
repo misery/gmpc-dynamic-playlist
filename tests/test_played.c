@@ -246,7 +246,7 @@ static void test_song_all()
 	fake_mpd_free(CONFIG);
 }
 
-int main (int argc, char** argv)
+int main(int argc, char** argv)
 {
 	gtk_test_init(&argc, &argv, NULL);
 

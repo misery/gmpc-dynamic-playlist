@@ -91,7 +91,7 @@ void test_prune_playlist_easy_stopped()
 	g_assert_message("Cannot prune playlist! You need to play a song for pruning.");
 }
 
-int main (int argc, char** argv)
+int main(int argc, char** argv)
 {
 	gtk_test_init(&argc, &argv, NULL);
 

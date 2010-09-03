@@ -173,7 +173,7 @@ void test_database_search_artists_parameter()
 	g_assert(count == 0 && list == NULL);
 }
 
-int main (int argc, char** argv)
+int main(int argc, char** argv)
 {
 	gtk_test_init(&argc, &argv, NULL);
 

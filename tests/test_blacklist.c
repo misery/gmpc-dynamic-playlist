@@ -36,7 +36,7 @@ void test_empty_blacklist()
 	fake_mpd_free(CONFIG_EMPTY);
 }
 
-int main (int argc, char** argv)
+int main(int argc, char** argv)
 {
 	gtk_test_init(&argc, &argv, NULL);
 
