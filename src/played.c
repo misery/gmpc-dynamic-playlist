@@ -21,8 +21,8 @@
 #include "fuzzy.h"
 #include <gmpc/plugin.h>
 
-static gint m_song = 0;
-static gint m_artist = 0;
+static gint m_song = -1;
+static gint m_artist = -1;
 static dbQueue m_list = G_QUEUE_INIT;
 
 static void flush_played_list(gint l_max)

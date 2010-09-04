@@ -21,8 +21,8 @@
 #include <string.h>
 #include "fuzzy.h"
 
-static gint8 m_artist = 0;
-static gint8 m_title = 0;
+static gint8 m_artist = -1;
+static gint8 m_title = -1;
 
 void init_fuzzy()
 {
