@@ -30,4 +30,8 @@ ADD_TEST_CONFIG(test_prune "CONFIG" "played/config")
 ADD_EXECUTABLE(test_prefs test_prefs.c)
 ADD_TEST_DATA(test_prefs "Preferences")
 
+# dbSong
+ADD_EXECUTABLE(test_dbSong test_dbSong.c)
+ADD_TEST_DATA(test_dbSong "dbSong")
+
 #vim:set ts=4 sw=4:
