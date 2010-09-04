@@ -50,7 +50,7 @@ void test_database_search_songs_blacklist_found_zero()
 
 	g_test_message("count: %d", count);
 	g_assert(list == NULL);
-	g_assert(count == 0);
+	g_assert_cmpint(count, ==, 0);
 }
 
 void test_database_search_songs_blacklist_found_all()
@@ -62,7 +62,7 @@ void test_database_search_songs_blacklist_found_all()
 	gint count = test_database_search_songs_blacklist(&list);
 	g_test_message("count: %d", count);
 	g_assert(list != NULL);
-	g_assert(count > 0);
+	g_assert_cmpint(count, >, 0);
 
 	/* check that EVERY song was found */
 	MpdData* data;
@@ -78,7 +78,7 @@ void test_database_search_songs_blacklist_found_all()
 	g_assert(!exists_dbList(list, artist, "Oompa"));
 
 	/* 69 unique + 2 doubled (because of EXACT = FALSE)*/
-	g_assert(count == 71);
+	g_assert_cmpint(count, ==, 71);
 	free_dbList(list);
 }
 
@@ -101,7 +101,7 @@ void test_database_search_artists_blacklist()
 	g_assert(exists_strList(list, "Metallica"));
 	g_assert(exists_strList(list, "Ugly Kid Joe"));
 	g_assert(exists_strList(list, "The Offspring"));
-	g_assert(count == 3);
+	g_assert_cmpint(count, ==, 3);
 	free_strList(list);
 }
 
@@ -112,47 +112,51 @@ void test_database_search_artists_parameter()
 	gint count = 0;
 
 	list = database_get_artists(list, "Metallica", NULL, &count);
-	g_assert(count == 1);
+	g_assert_cmpint(count, ==, 1);
 	g_assert(exists_strList(list, "Metallica"));
 	free_strList(list);
 	list = NULL;
 	count = 0;
 
 	list = database_get_artists(list, "Metallica", "Metal", &count);
-	g_assert(count == 1);
+	g_assert_cmpint(count, ==, 1);
 	g_assert(exists_strList(list, "Metallica"));
 	free_strList(list);
 	list = NULL;
 	count = 0;
 
 	list = database_get_artists(list, "Metallica", "Thrash Metal", &count);
-	g_assert(count == 1);
+	g_assert_cmpint(count, ==, 1);
 	g_assert(exists_strList(list, "Metallica"));
 	free_strList(list);
 	list = NULL;
 	count = 0;
 
 	list = database_get_artists(list, "Metallica", "Trance", &count);
-	g_assert(count == 0 && list == NULL);
+	g_assert_cmpint(count, ==, 0);
+	g_assert(list == NULL);
 
 	list = database_get_artists(list, NULL, "Metal", &count);
-	g_assert(count == 1);
+	g_assert_cmpint(count, ==, 1);
 	g_assert(exists_strList(list, "Metallica"));
 	free_strList(list);
 	list = NULL;
 	count = 0;
 
 	list = database_get_artists(list, NULL, "NoGenre", &count);
-	g_assert(count == 0 && list == NULL);
+	g_assert_cmpint(count, ==, 0);
+	g_assert(list == NULL);
 
 	list = database_get_artists(list, "NoArtist", "NoGenre", &count);
-	g_assert(count == 0 && list == NULL);
+	g_assert_cmpint(count, ==, 0);
+	g_assert(list == NULL);
 
 	list = database_get_artists(list, "NoArtist", NULL, &count);
-	g_assert(count == 0 && list == NULL);
+	g_assert_cmpint(count, ==, 0);
+	g_assert(list == NULL);
 
 	list = database_get_artists(list, NULL, NULL, &count);
-	g_assert(count == 4);
+	g_assert_cmpint(count, ==, 4);
 	g_assert(exists_strList(list, "Metallica"));
 	g_assert(exists_strList(list, "The Offspring"));
 	g_assert(exists_strList(list, "Bela B."));
@@ -162,7 +166,7 @@ void test_database_search_artists_parameter()
 	count = 0;
 
 	list = database_get_artists(list, NULL, "Rock", &count);
-	g_assert(count == 2);
+	g_assert_cmpint(count, ==, 2);
 	g_assert(exists_strList(list, "The Offspring"));
 	g_assert(exists_strList(list, "Ugly Kid Joe"));
 	free_strList(list);
@@ -170,7 +174,8 @@ void test_database_search_artists_parameter()
 	count = 0;
 
 	list = database_get_artists(list, "NoArtist", "Rock", &count);
-	g_assert(count == 0 && list == NULL);
+	g_assert_cmpint(count, ==, 0);
+	g_assert(list == NULL);
 }
 
 int main(int argc, char** argv)

@@ -59,7 +59,7 @@ void fake_mpd_init(const gchar* l_config)
 
 	g_assert_no_error(spawn(argv));
 	connection = mpd_new(HOST, PORT, NULL);
-	g_assert(mpd_connect(connection) == MPD_OK);
+	g_assert_cmpint(mpd_connect(connection), ==, MPD_OK);
 }
 
 void fake_mpd_kill(const gchar* l_config, gboolean l_try)
@@ -83,7 +83,7 @@ void fake_mpd_free(const gchar* l_config)
 {
 	g_assert(connection != NULL);
 
-	g_assert(mpd_disconnect(connection) == MPD_OK);
+	g_assert_cmpint(mpd_disconnect(connection), ==, MPD_OK);
 	mpd_free(connection);
 	connection = NULL;
 

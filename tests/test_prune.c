@@ -7,8 +7,8 @@
 
 void clear_playlist()
 {
-	g_assert(mpd_player_stop(connection) == 0);
-	g_assert(mpd_playlist_clear(connection) == 0);
+	g_assert_cmpint(mpd_player_stop(connection), ==, 0);
+	g_assert_cmpint(mpd_playlist_clear(connection), ==, 0);
 	g_assert_cmpint(mpd_playlist_get_playlist_length(connection), ==, 0);
 }
 
