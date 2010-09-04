@@ -169,10 +169,10 @@ static void test_artist_some_nosong()
 
 static void test_artist_some_assert_less()
 {
+	set_played_limit_song(g_test_rand_int_range(0, 666));
+	set_played_limit_artist(g_test_rand_int_range(0, 3));
 	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
 	{
-		set_played_limit_song(g_test_rand_int_range(0, 666));
-		set_played_limit_artist(g_test_rand_int_range(0, 3));
 		test_artist_some_check();
 		exit(EXIT_SUCCESS);
 	}
@@ -181,10 +181,10 @@ static void test_artist_some_assert_less()
 
 static void test_artist_some_assert_more()
 {
+	set_played_limit_song(g_test_rand_int_range(0, 666));
+	set_played_limit_artist(g_test_rand_int_range(4, 666));
 	if(g_test_trap_fork(0, G_TEST_TRAP_SILENCE_STDERR))
 	{
-		set_played_limit_song(g_test_rand_int_range(0, 666));
-		set_played_limit_artist(g_test_rand_int_range(4, 666));
 		test_artist_some_check();
 		exit(EXIT_SUCCESS);
 	}
