@@ -6,6 +6,11 @@ ENDIF()
 
 INCLUDE(Testing)
 
+# Fixture
+ADD_EXECUTABLE(test_fixture test_fixture.c)
+ADD_TEST_DATA(test_fixture "Fixture")
+ADD_TEST_CONFIG(test_fixture "CONFIG" "played/config")
+
 # Played List
 ADD_EXECUTABLE(test_played test_played.c)
 ADD_TEST_DATA(test_played "Played")
