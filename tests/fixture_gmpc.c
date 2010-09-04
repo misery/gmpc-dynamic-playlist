@@ -1,4 +1,3 @@
-#include <glib.h>
 #include <gmpc/gmpc-extras.h>
 #include <gmpc/playlist3-messages.h>
 #include <gmpc/plugin.h>
