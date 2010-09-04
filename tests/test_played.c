@@ -1,7 +1,6 @@
-#include <glib.h>
+#include <gmpc/plugin.h>
 #include "fixture_mpd.h"
 #include "fixture_gmpc.h"
-#include <gmpc/plugin.h>
 #include "../src/played.h"
 #include "../src/database.h"
 
@@ -10,8 +9,8 @@ static void test_set_limits_allowed()
 	int set1 = 0;
 	int set2 = 500;
 
-	g_assert_cmpint(get_played_limit_song(), ==, 0);
-	g_assert_cmpint(get_played_limit_artist(), ==, 0);
+	g_assert_cmpint(get_played_limit_song(), ==, -1);
+	g_assert_cmpint(get_played_limit_artist(), ==, -1);
 
 	set_played_limit_song(set1);
 	set_played_limit_artist(set1);
@@ -66,6 +65,7 @@ static gint test_fill(dbList** l_list)
 
 static void test_artist_zero()
 {
+	fake_gmpc_init();
 	fake_mpd_init(CONFIG);
 
 	set_played_limit_song(100);
@@ -85,6 +85,7 @@ static void test_artist_zero()
 	free_played_list();
 
 	fake_mpd_free(CONFIG);
+	fake_gmpc_free();
 }
 
 static void test_artist_all()
