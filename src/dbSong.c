@@ -132,7 +132,7 @@ gboolean exists_strList(const strList* l_list, const gchar* l_value)
 
 	for(; l_list != NULL; l_list = g_slist_next(l_list))
 	{
-		if(strcasecmp((gchar*) (l_list->data), l_value) == 0)
+		if(l_list->data != NULL && strcasecmp((gchar*) (l_list->data), l_value) == 0)
 			return TRUE;
 	}
 
