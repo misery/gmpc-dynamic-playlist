@@ -95,6 +95,8 @@ void g_assert_message(const gchar* l_msg)
 
 void g_assert_message_do(const gchar* l_msg, int l_count)
 {
+	g_assert(l_msg != NULL);
+
 	int i = 0;
 	GList* list;
 	for(list = m_queue.tail; i < l_count && list != NULL; list = list->next)
