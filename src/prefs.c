@@ -150,12 +150,12 @@ void pref_combo(GtkComboBox* l_combo, Combo l_func)
 	}
 }
 
-void pref_toggle(GtkToggleButton* l_button, toggle l_func)
+void pref_toggle(GtkToggleButton* l_button, Toggle l_func)
 {
 	l_func( gtk_toggle_button_get_active(l_button) );
 }
 
-void pref_toggle_menu(GtkCheckMenuItem* l_item, toggle l_func)
+void pref_toggle_menu(GtkCheckMenuItem* l_item, Toggle l_func)
 {
 	l_func( gtk_check_menu_item_get_active(l_item) );
 }
