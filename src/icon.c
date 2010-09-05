@@ -39,6 +39,12 @@ gboolean icon_clicked(G_GNUC_UNUSED GtkWidget* l_widget, GdkEventButton* l_event
 	return TRUE;
 }
 
+static void refresh_icon_state()
+{
+	g_assert(m_image != NULL);
+	gtk_widget_set_sensitive(m_image, get_search_active());
+}
+
 gboolean icon_integration(G_GNUC_UNUSED gpointer l_data)
 {
 	g_assert(m_box == NULL);
@@ -50,7 +56,7 @@ gboolean icon_integration(G_GNUC_UNUSED gpointer l_data)
 	gtk_widget_set_tooltip_text(m_box, _("Dynamic Playlist"));
 	g_signal_connect(G_OBJECT(m_box), "button-release-event", G_CALLBACK(icon_clicked), NULL);
 
-	reload_icon();
+	refresh_icon_state();
 	gtk_widget_show_all(m_box);
 	main_window_add_status_icon(m_box);
 
@@ -81,10 +87,10 @@ void reload_icon()
 {
 	if(dyn_get_enabled())
 	{
-		if(!is_icon_added())
+		if(is_icon_added())
+			refresh_icon_state();
+		else
 			add_icon();
-
-		gtk_widget_set_sensitive(m_image, get_search_active());
 	}
 	else if(is_icon_added())
 		remove_icon();
