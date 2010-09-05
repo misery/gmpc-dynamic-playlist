@@ -41,6 +41,6 @@ ADD_TEST_DATA(test_dbSong "dbSong")
 
 # Icon
 ADD_EXECUTABLE(test_icon test_icon.c)
-ADD_TEST_DATA(test_icon "icon")
+ADD_TEST_DATA(test_icon "Icon")
 
 #vim:set ts=4 sw=4:
