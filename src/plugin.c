@@ -94,13 +94,13 @@ void dyn_init()
 
 	/* GmpcEasyCommand */
 	gmpc_easy_command_add_entry(
-			gmpc_easy_command, _("prune"), "[0-9]*",  _("Prune playlist"),
+			gmpc_easy_command, _("prune"), "[0-9]*", _("Prune playlist"),
 			(GmpcEasyCommandCallback*) prune_playlist_easy, NULL);
 	gmpc_easy_command_add_entry(
-			gmpc_easy_command, _("dynamic"), "(on|off|)",  _("Dynamic search (on|off)"),
+			gmpc_easy_command, _("dynamic"), "(on|off|)", _("Dynamic search (on|off)"),
 			(GmpcEasyCommandCallback*) set_search_active_easy, NULL);
 	gmpc_easy_command_add_entry(
-			gmpc_easy_command, _("similar"), "",  _("Search for similar song/artist/genre"),
+			gmpc_easy_command, _("similar"), "", _("Search for similar song/artist/genre"),
 			(GmpcEasyCommandCallback*) search_easy, NULL);
 }
 
