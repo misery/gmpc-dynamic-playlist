@@ -1,8 +1,9 @@
 #ifndef _DYN_LIST_PLUGIN_ICON
 #define _DYN_LIST_PLUGIN_ICON
 
-#include <glib.h>
+#include <gtk/gtk.h>
 
+gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_data);
 gboolean is_icon_added();
 void init_icon();
 void add_icon();
