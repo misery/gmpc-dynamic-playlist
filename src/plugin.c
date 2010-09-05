@@ -72,6 +72,7 @@ gboolean dyn_check_search(gboolean l_force_no_delay)
 
 void dyn_init()
 {
+	g_debug("Version: %d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 #ifdef HG_REV
 	g_debug("Revision: %s", HG_REV);
 #endif
