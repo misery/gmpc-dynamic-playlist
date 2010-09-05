@@ -106,7 +106,7 @@ void g_assert_queue(GQueue* l_queue, const gchar* l_msg, int l_count)
 
 	int i = 0;
 	GList* list;
-	for(list = l_queue->tail; i < l_count && list != NULL; list = list->next)
+	for(list = l_queue->tail; i < l_count && list != NULL; list = list->prev)
 	{
 		if(strcasecmp(l_msg, (gchar*)list->data) == 0)
 			return;
