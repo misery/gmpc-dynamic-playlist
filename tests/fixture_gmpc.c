@@ -103,6 +103,7 @@ void playlist3_show_error_message(const gchar* l_message, ErrorLevel l_level)
 void g_assert_queue(GQueue* l_queue, const gchar* l_msg, int l_count)
 {
 	g_assert(l_msg != NULL);
+	g_assert_cmpint(l_count, >, 0);
 
 	int i = 0;
 	GList* list;
