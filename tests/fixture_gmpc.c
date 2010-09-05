@@ -6,16 +6,29 @@
 #include "../src/prefs.h"
 #include "../src/icon.h"
 
-static GQueue m_queue = G_QUEUE_INIT;
+static GQueue m_queue_msg = G_QUEUE_INIT;
+static GQueue m_queue_log = G_QUEUE_INIT;
 static GtkMenu* m_menu = NULL;
 
 /* init */
-void clear_queue()
+static void clear_queue(GQueue* l_queue)
 {
 	GList* list;
-	for(list = m_queue.head; list != NULL; list = list->next)
+	for(list = l_queue->head; list != NULL; list = list->next)
 		g_free(list->data);
-	g_queue_clear(&m_queue);
+	g_queue_clear(l_queue);
+}
+
+static void clear_all_queues()
+{
+	clear_queue(&m_queue_msg);
+	clear_queue(&m_queue_log);
+}
+
+static void add_to_queue(GQueue* l_queue, const char* l_msg)
+{
+	if(l_msg != NULL)
+		g_queue_push_tail(l_queue, g_strdup(l_msg));
 }
 
 gboolean quit_main()
@@ -42,7 +55,7 @@ void fake_gmpc_free()
 {
 	gtk_widget_destroy(GTK_WIDGET(m_menu));
 	dyn_destroy();
-	clear_queue();
+	clear_all_queues();
 	if(is_icon_added())
 		remove_icon();
 }
@@ -84,22 +97,16 @@ const GList* meta_data_get_text_list(G_GNUC_UNUSED const MetaData* l_data)
 void playlist3_show_error_message(const gchar* l_message, ErrorLevel l_level)
 {
 	g_test_message("show message: %s | %d", l_message, l_level);
-	if(l_message != NULL)
-		g_queue_push_tail(&m_queue, g_strdup(l_message));
+	add_to_queue(&m_queue_msg, l_message);
 }
 
-void g_assert_message(const gchar* l_msg)
-{
-	g_assert_message_do(l_msg, 1);
-}
-
-void g_assert_message_do(const gchar* l_msg, int l_count)
+void g_assert_queue(GQueue* l_queue, const gchar* l_msg, int l_count)
 {
 	g_assert(l_msg != NULL);
 
 	int i = 0;
 	GList* list;
-	for(list = m_queue.tail; i < l_count && list != NULL; list = list->next)
+	for(list = l_queue->tail; i < l_count && list != NULL; list = list->next)
 	{
 		if(strcasecmp(l_msg, (gchar*)list->data) == 0)
 			return;
@@ -110,9 +117,20 @@ void g_assert_message_do(const gchar* l_msg, int l_count)
 	g_assert_not_reached();
 }
 
+void g_assert_message(const gchar* l_msg)
+{
+	g_assert_queue(&m_queue_msg, l_msg, 1);
+}
+
+void g_assert_log(const gchar* l_msg)
+{
+	g_assert_queue(&m_queue_log, l_msg, 1);
+}
+
 void redirect_log(const gchar* l_domain, GLogLevelFlags l_flags, const gchar* l_message, G_GNUC_UNUSED gpointer l_data)
 {
 	g_test_message("redirected: %s | domain: %s | flag: %d", l_message, l_domain, l_flags);
+	add_to_queue(&m_queue_log, l_message);
 }
 
 
