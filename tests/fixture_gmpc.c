@@ -37,18 +37,29 @@ gboolean quit_main()
 	return FALSE;
 }
 
-void fake_gmpc_init()
+void prepare_main_iteration()
 {
 	gtk_init_add(quit_main, NULL);
-	dyn_init();
-	m_menu = GTK_MENU(gtk_menu_new());
-	dyn_tool_menu_integration(m_menu);
+}
 
+void start_main_iteration()
+{
 	gtk_main();
 	while(gtk_events_pending())
 	{
 		gtk_main_iteration();
 	}
+}
+
+void fake_gmpc_init()
+{
+	prepare_main_iteration();
+
+	dyn_init();
+	m_menu = GTK_MENU(gtk_menu_new());
+	dyn_tool_menu_integration(m_menu);
+
+	start_main_iteration();
 }
 
 void fake_gmpc_free()

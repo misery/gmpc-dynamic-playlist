@@ -4,6 +4,9 @@
 void fake_gmpc_init();
 void fake_gmpc_free();
 
+void prepare_main_iteration();
+void start_main_iteration();
+
 void g_assert_message(const gchar* l_msg);
 void g_assert_log(const gchar* l_msg);
 
