@@ -68,6 +68,12 @@ gboolean is_icon_added()
 	return m_box != NULL;
 }
 
+gboolean is_grayed_out()
+{
+	g_assert(m_image != NULL);
+	return gtk_widget_get_sensitive(m_image);
+}
+
 void add_icon()
 {
 	icon_integration(NULL);

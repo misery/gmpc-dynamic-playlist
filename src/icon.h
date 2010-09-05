@@ -5,6 +5,7 @@
 
 gboolean icon_clicked(GtkWidget* l_widget, GdkEventButton* l_event, gpointer l_data);
 gboolean is_icon_added();
+gboolean is_grayed_out();
 void init_icon();
 void add_icon();
 void remove_icon();
