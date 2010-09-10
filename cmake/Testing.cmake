@@ -1,6 +1,6 @@
 FIND_PROGRAM(MPD_BIN mpd)
 IF(NOT MPD_BIN)
-	MESSAGE(FATAL_ERROR "cannot find mpd binary")
+	MESSAGE(FATAL_ERROR "Binary 'mpd' is required for testing!")
 ENDIF()
 
 ADD_DEFINITIONS(-D MPD_BINARY="\\"${MPD_BIN}\\"")
