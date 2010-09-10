@@ -43,4 +43,7 @@ ADD_TEST_DATA(test_dbSong "dbSong")
 ADD_EXECUTABLE(test_icon test_icon.c)
 ADD_TEST_DATA(test_icon "Icon")
 
+# Add test.report target
+ADD_GTESTER(${TEST_TARGETS} ${CMAKE_CURRENT_BINARY_DIR})
+
 #vim:set ts=4 sw=4:
