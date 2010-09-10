@@ -3,6 +3,11 @@ IF(NOT MPD_BIN)
 	MESSAGE(FATAL_ERROR "Binary 'mpd' is required for testing!")
 ENDIF()
 
+FIND_PROGRAM(GTESTER_BIN gtester)
+IF(NOT GTESTER_BIN)
+	MESSAGE(FATAL_ERROR "Binary 'gtester' is required for testing!")
+ENDIF()
+
 ADD_DEFINITIONS(-D MPD_BINARY="\\"${MPD_BIN}\\"")
 SET_DIRECTORY_PROPERTIES(PROPERTIES COMPILE_DEFINITIONS G_LOG_DOMAIN="dynlist_tests")
 
