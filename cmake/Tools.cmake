@@ -63,3 +63,5 @@ FIND_PROGRAM(PMCCABE_BIN pmccabe)
 IF(PMCCABE_BIN)
 	ADD_CUSTOM_TARGET(pmccabe COMMAND ${PMCCABE_BIN} -v ${SRC_DIR}/*.c ${TEST_DIR}/*.c)
 ENDIF()
+
+#vim:set ts=4 sw=4:
