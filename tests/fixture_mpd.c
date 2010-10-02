@@ -4,6 +4,7 @@
 
 #define HOST "localhost"
 #define PORT 1904
+#define WAIT_FRACTION 20
 
 MpdObj* connection = NULL;
 
@@ -24,7 +25,7 @@ static GError* check_std(gchar* l_out, gchar* l_err, gint l_result_code)
 static GError* spawn(gchar** l_argv)
 {
 	g_assert(l_argv != NULL);
-	g_usleep(0.05 * G_USEC_PER_SEC);
+	g_usleep(G_USEC_PER_SEC / WAIT_FRACTION);
 
 	gchar* std_out = NULL;
 	gchar* std_err = NULL;
@@ -40,7 +41,7 @@ static GError* spawn(gchar** l_argv)
 	if(std_err != NULL)
 		g_free(std_err);
 
-	g_usleep(0.05 * G_USEC_PER_SEC);
+	g_usleep(G_USEC_PER_SEC / WAIT_FRACTION);
 	return err;
 }
 
