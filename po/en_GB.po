@@ -1,16 +1,16 @@
-# Dutch translation for gmpc
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# English (United Kingdom) translation for gmpc
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the gmpc package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-24 09:44+0100\n"
-"PO-Revision-Date: 2010-09-17 14:49+0000\n"
-"Last-Translator: Alex van Oostenrijk <Unknown>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2010-08-24 11:57+0000\n"
+"Last-Translator: Lee Jarratt <lee.jarratt@gmail.com>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr "!Blacklist Genre"
 
 #: src/blacklist.c:39
 msgid "!Blacklist Artist"
-msgstr "!Blacklist Artiest"
+msgstr "!Blacklist Artist"
 
 #: src/blacklist.c:40
 msgid "!Blacklist Album"
@@ -31,7 +31,7 @@ msgstr "!Blacklist Album"
 
 #: src/blacklist.c:41
 msgid "!Blacklist Song"
-msgstr "!Blacklist Liedje"
+msgstr "!Blacklist Song"
 
 #: src/blacklist.c:187
 #, c-format
@@ -39,157 +39,157 @@ msgid ""
 "Created %d playlist(s) that are used to blacklist artist, album, song or "
 "genre!"
 msgstr ""
-"Er zijn %d speellijsten aangemaakt die woren gebruikt om artiesten, albums, "
-"nummers of genres op de zwarte lijst te zetten!"
+"Created %d playlist(s) that are used to blacklist artist, album, song or "
+"genre"
 
 #: src/prune.c:67
 #: src/search.c:395
 msgid "Dynamic playlist is disabled"
-msgstr "Dynamische afspeellijst is uitgeschakeld"
+msgstr "Dynamic playlist is disabled"
 
 #: src/prune.c:74
 msgid "Cannot prune playlist! You need to play a song for pruning."
-msgstr ""
+msgstr "Cannot prune playlist! You need to play a song for pruning."
 
 #: src/search.c:269
 msgid "Dynamic search cannot find a new song"
-msgstr "Dynamisch zoeken kan geen nieuwe liedjes vinden"
+msgstr "Dynamic search cannot find a new song"
 
 #: src/search.c:401
 msgid "Dynamic search is already busy"
-msgstr "Dynamisch zoeken is al bezig"
+msgstr "Dynamic search is already busy"
 
 #: src/search.c:408
 msgid "You need to play a song that will be used"
-msgstr "Je moet een liedje spelen dat gebruikt zal worden"
+msgstr "You need to play a song that will be used"
 
 #: src/search.c:477
 msgid "on"
-msgstr "aan"
+msgstr "on"
 
 #: src/search.c:479
 msgid "off"
-msgstr "uit"
+msgstr "off"
 
 #: src/icon.c:58
 #: src/plugin.c:150
 #: src/prefs.c:170
 msgid "Dynamic Playlist"
-msgstr "Dynamische afspeellijst"
+msgstr "Dynamic Playlist"
 
 #: src/plugin.c:96
 msgid "prune"
-msgstr ""
+msgstr "prune"
 
 #: src/plugin.c:96
 msgid "Prune playlist"
-msgstr ""
+msgstr "Prune playlist"
 
 #: src/plugin.c:99
 msgid "dynamic"
-msgstr "dynamisch"
+msgstr "dynamic"
 
 #: src/plugin.c:99
 msgid "Dynamic search (on|off)"
-msgstr "Dynamisch zoeken (aan|uit)"
+msgstr "Dynamic search (on|off)"
 
 #: src/plugin.c:102
 msgid "similar"
-msgstr "gelijksoortige"
+msgstr "similar"
 
 #: src/plugin.c:102
 msgid "Search for similar song/artist/genre"
-msgstr "Zoeken naar gelijksoortige liedjes/artiesten/genres"
+msgstr "Search for similar song/artist/genre"
 
 #: src/prefs.c:176
 msgid "Dynamic search"
-msgstr "Dynamisch zoeken"
+msgstr "Dynamic search"
 
 #: src/prefs.c:180
 #: src/dynlist-ui-options.xml:30
 msgid "Use blacklists"
-msgstr "Blacklists gebruiken"
+msgstr "Use blacklists"
 
 #: src/prefs.c:184
 msgid "Add similar song"
-msgstr "Gelijksoortige liedjes toevoegen"
+msgstr "Add similar song"
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
-msgstr "Dynamisch zoeken inschakelen"
+msgstr "Enable dynamic search"
 
 #: src/dynlist-ui-options.xml:43
 msgid "Search songs with comment tag"
-msgstr ""
+msgstr "Search songs with comment tag"
 
 #: src/dynlist-ui-options.xml:56
 msgid "Search songs with genre tag"
-msgstr ""
+msgstr "Search songs with genre tag"
 
 #: src/dynlist-ui-options.xml:96
 msgid "Provide at least x songs to be played:"
-msgstr ""
+msgstr "Provide at least x songs to be played:"
 
 #: src/dynlist-ui-options.xml:106
 msgid "Keep x last played songs:"
-msgstr ""
+msgstr "Keep x last played songs:"
 
 #: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
-msgstr ""
+msgstr "Delay dynamic search for x seconds:"
 
 #: src/dynlist-ui-options.xml:126
 msgid "Block played song for at least x songs:"
-msgstr "Blokkeer gespeeld liedje voor minstens x liedjes:"
+msgstr "Block played song for at least x songs:"
 
 #: src/dynlist-ui-options.xml:136
 msgid "Block played artist for at least x songs:"
-msgstr "Blokkeer gespeelde artiest voor minstens x liedjes:"
+msgstr "Block played artist for at least x songs:"
 
 #: src/dynlist-ui-options.xml:220
 msgid "Local"
-msgstr "Lokaal"
+msgstr "Local"
 
 #: src/dynlist-ui-options.xml:234
 msgid "Search songs in 'similar songs'"
-msgstr "Zoeken naar liedjes in 'gelijksoortige liedjes'"
+msgstr "Search songs in 'similar songs'"
 
 #: src/dynlist-ui-options.xml:247
 msgid "Search songs in 'similar artists'"
-msgstr "Zoeken naar liedjes in 'gelijksoortige artiesten'"
+msgstr "Search songs in 'similar artists'"
 
 #: src/dynlist-ui-options.xml:260
 msgid "Same artist is also 'similar'"
-msgstr "Dezelfde artiest is ook 'gelijksoortig'"
+msgstr "Same artist is also 'similar'"
 
 #: src/dynlist-ui-options.xml:273
 msgid "Search songs in 'similar genre'"
-msgstr "Zoeken naar liedjes in 'gelijksoortig genre'"
+msgstr "Search songs in 'similar genre'"
 
 #: src/dynlist-ui-options.xml:286
 msgid "Same genre is also 'similar'"
-msgstr "Hetzelfde genre is ook 'gelijksoortig'"
+msgstr "Same genre is also 'similar'"
 
 #: src/dynlist-ui-options.xml:310
 msgid "Search max. songs in database:"
-msgstr "Maximaal aantal liedjes te zoeken in database:"
+msgstr "Search max. songs in database:"
 
 #: src/dynlist-ui-options.xml:320
 msgid "Search max. artists in database:"
-msgstr "Maximaal aantal artiesten te zoeken in database:"
+msgstr "Search max. artists in database:"
 
 #: src/dynlist-ui-options.xml:330
 msgid "Search max. genre in database:"
-msgstr "Maximaal aantal genres te zoeken in database:"
+msgstr "Search max. genre in database:"
 
 #: src/dynlist-ui-options.xml:398
 msgid "Metadata"
-msgstr "Metagegevens"
+msgstr "Metadata"
 
 #: src/dynlist-ui-options.xml:459
 msgid "Artists of same tag"
-msgstr "Artiest met hetzelfde etiket"
+msgstr "Artists of same tag"
 
 #: src/dynlist-ui-options.xml:463
 msgid "Songs of same tag"
-msgstr "Nummers met hetzelfde etiket"
+msgstr "Songs of same tag"

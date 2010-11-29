@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-24 09:44+0100\n"
-"PO-Revision-Date: 2009-10-25 18:59+0000\n"
-"Last-Translator: vlood <vlood.vassilev@gmail.com>\n"
+"PO-Revision-Date: 2010-11-12 17:13+0000\n"
+"Last-Translator: Nedyalko Radev <nedyalkor@gmail.com>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-06-26 10:40+0000\n"
+"X-Launchpad-Export-Date: 2010-11-29 10:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/blacklist.c:38
@@ -132,7 +132,7 @@ msgstr ""
 
 #: src/dynlist-ui-options.xml:106
 msgid "Keep x last played songs:"
-msgstr ""
+msgstr "Запази последните X песни:"
 
 #: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
@@ -188,8 +188,8 @@ msgstr "Мета-данни"
 
 #: src/dynlist-ui-options.xml:459
 msgid "Artists of same tag"
-msgstr ""
+msgstr "Артисти със същия таг"
 
 #: src/dynlist-ui-options.xml:463
 msgid "Songs of same tag"
-msgstr ""
+msgstr "Песни със същия таг"

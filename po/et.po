@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-24 09:44+0100\n"
-"PO-Revision-Date: 2010-06-25 18:45+0000\n"
-"Last-Translator: lyyser <logard.1961@gmail.com>\n"
+"PO-Revision-Date: 2010-06-27 20:26+0000\n"
+"Last-Translator: lyyser <Unknown>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-06-26 10:40+0000\n"
+"X-Launchpad-Export-Date: 2010-11-29 10:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/blacklist.c:38
@@ -152,35 +152,35 @@ msgstr "Kohalik"
 
 #: src/dynlist-ui-options.xml:234
 msgid "Search songs in 'similar songs'"
-msgstr ""
+msgstr "Otsi laulud 'sarnased laulud'"
 
 #: src/dynlist-ui-options.xml:247
 msgid "Search songs in 'similar artists'"
-msgstr ""
+msgstr "Otsi laulud 'sarnased esitajad'"
 
 #: src/dynlist-ui-options.xml:260
 msgid "Same artist is also 'similar'"
-msgstr ""
+msgstr "Sama esitaja on ka 'samalaadne'"
 
 #: src/dynlist-ui-options.xml:273
 msgid "Search songs in 'similar genre'"
-msgstr ""
+msgstr "Otsi laulud 'sarnased zanrid'"
 
 #: src/dynlist-ui-options.xml:286
 msgid "Same genre is also 'similar'"
-msgstr ""
+msgstr "Sama zanr on ka 'samalaadne'"
 
 #: src/dynlist-ui-options.xml:310
 msgid "Search max. songs in database:"
-msgstr ""
+msgstr "Otsi max. laule andmebaasis:"
 
 #: src/dynlist-ui-options.xml:320
 msgid "Search max. artists in database:"
-msgstr ""
+msgstr "Otsi max. esitajaid andmebaasis:"
 
 #: src/dynlist-ui-options.xml:330
 msgid "Search max. genre in database:"
-msgstr ""
+msgstr "Otsi max. zanreid andmebaasis:"
 
 #: src/dynlist-ui-options.xml:398
 msgid "Metadata"
@@ -188,8 +188,8 @@ msgstr "Metaandmed"
 
 #: src/dynlist-ui-options.xml:459
 msgid "Artists of same tag"
-msgstr ""
+msgstr "Artistid sama märksõnaga"
 
 #: src/dynlist-ui-options.xml:463
 msgid "Songs of same tag"
-msgstr ""
+msgstr "Laulud sama märksõnaga"

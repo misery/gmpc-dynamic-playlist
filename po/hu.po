@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-24 09:44+0100\n"
-"PO-Revision-Date: 2009-10-31 10:55+0000\n"
+"PO-Revision-Date: 2010-08-16 18:32+0000\n"
 "Last-Translator: Polesz <polesz@nedudu.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-06-26 10:40+0000\n"
+"X-Launchpad-Export-Date: 2010-11-29 10:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/blacklist.c:38
@@ -122,19 +122,19 @@ msgstr "Dinamikus keresés engedélyezése"
 
 #: src/dynlist-ui-options.xml:43
 msgid "Search songs with comment tag"
-msgstr ""
+msgstr "Dalok keresése megjegyzés szerint"
 
 #: src/dynlist-ui-options.xml:56
 msgid "Search songs with genre tag"
-msgstr ""
+msgstr "Dalok keresése múfaj szerint"
 
 #: src/dynlist-ui-options.xml:96
 msgid "Provide at least x songs to be played:"
-msgstr ""
+msgstr "Legalább x dalt kell lejátszani:"
 
 #: src/dynlist-ui-options.xml:106
 msgid "Keep x last played songs:"
-msgstr ""
+msgstr "Megtart x lejátszott dalt:"
 
 #: src/dynlist-ui-options.xml:116
 msgid "Delay dynamic search for x seconds:"
@@ -190,8 +190,8 @@ msgstr "Metaadat"
 
 #: src/dynlist-ui-options.xml:459
 msgid "Artists of same tag"
-msgstr ""
+msgstr "Előadók azonos címkék szerint"
 
 #: src/dynlist-ui-options.xml:463
 msgid "Songs of same tag"
-msgstr ""
+msgstr "Dalok azonos címkék szerint"
