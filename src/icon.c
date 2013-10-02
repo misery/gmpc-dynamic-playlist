@@ -21,6 +21,7 @@
 #include "search.h"
 #include "plugin.h"
 #include <glib/gi18n-lib.h>
+#include <gmpc/status_icon.h>
 
 static GtkWidget* m_box = NULL;
 static GtkWidget* m_image = NULL;
