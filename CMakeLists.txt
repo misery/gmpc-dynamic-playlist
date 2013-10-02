@@ -42,8 +42,8 @@ ELSE()
 	ENDIF()
 ENDIF()
 
-pkg_check_modules(GMPC REQUIRED gmpc>=0.18.1)
-pkg_check_modules(LIBMPD REQUIRED libmpd>=0.18)
+pkg_check_modules(GMPC REQUIRED gmpc>=11.8.90)
+pkg_check_modules(LIBMPD REQUIRED libmpd>=11.8.90)
 pkg_check_modules(DEPS REQUIRED
 	glib-2.0>=2.16
 	gtk+-3.0>=3.7
