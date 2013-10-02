@@ -26,6 +26,7 @@
 #include "icon.h"
 #include <glib/gi18n-lib.h>
 #include <gmpc/playlist3-messages.h>
+#include <gmpc/metadata.h>
 
 #define BUFFER_SECONDS 5
 extern GRand* m_rand;
@@ -242,17 +243,17 @@ void tryToAdd_select(const status l_status, mpd_Song* l_song)
 		if(next & Song)
 		{
 			g_debug("Try similar song... %s - %s", l_song->artist, l_song->title);
-			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_SONG_SIMILAR, tryToAdd_songs, GINT_TO_POINTER(l_status));
+			meta_data_get_path_callback(l_song, META_SONG_SIMILAR, tryToAdd_songs, GINT_TO_POINTER(l_status));
 		}
 		else if(next & Artist)
 		{
 			g_debug("Try similar artist... %s", l_song->artist);
-			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_ARTIST_SIMILAR, tryToAdd_artists, GINT_TO_POINTER(l_status));
+			meta_data_get_path_callback(l_song, META_ARTIST_SIMILAR, tryToAdd_artists, GINT_TO_POINTER(l_status));
 		}
 		else if(next & Genre)
 		{
 			g_debug("Try similar genre... %s", l_song->genre);
-			gmpc_meta_watcher_get_meta_path_callback(gmw, l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, GINT_TO_POINTER(l_status));
+			meta_data_get_path_callback(l_song, META_GENRE_SIMILAR, tryToAdd_multiple_genre, GINT_TO_POINTER(l_status));
 		}
 		else
 			g_assert_not_reached();
