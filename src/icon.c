@@ -104,8 +104,7 @@ void reload_icon()
 
 void init_icon()
 {
-	if(dyn_get_enabled())
-		gtk_init_add(icon_integration, NULL);
+	icon_integration(NULL);
 }
 
 /* vim:set ts=4 sw=4: */
