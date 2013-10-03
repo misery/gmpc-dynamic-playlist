@@ -40,8 +40,8 @@ void dyn_changed_status(G_GNUC_UNUSED MpdObj* l_mi, ChangedStatusType l_what, G_
 	if(!m_enabled)
 		return;
 
-	if(l_what & MPD_CST_PLAYLIST || l_what & MPD_CST_SONGPOS ||
-			(l_what & MPD_CST_STATE && mpd_player_get_state(connection) == MPD_PLAYER_PLAY))
+	if((l_what & MPD_CST_PLAYLIST) || (l_what & MPD_CST_SONGPOS) ||
+			((l_what & MPD_CST_STATE) && mpd_player_get_state(connection) == MPD_PLAYER_PLAY))
 	{
 		dyn_check_search(FALSE);
 	}
@@ -49,7 +49,7 @@ void dyn_changed_status(G_GNUC_UNUSED MpdObj* l_mi, ChangedStatusType l_what, G_
 	if(l_what & MPD_CST_STORED_PLAYLIST)
 		reload_blacklists();
 
-	if(l_what & MPD_CST_STATE && is_search_delayed() && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
+	if((l_what & MPD_CST_STATE) && is_search_delayed() && mpd_player_get_state(connection) == MPD_PLAYER_STOP)
 		reset_search_delay();
 }
 
