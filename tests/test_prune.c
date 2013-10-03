@@ -4,6 +4,7 @@
 #include "fixture_gmpc.h"
 #include "../src/plugin.h"
 #include "../src/prune.h"
+#include "../src/defaults.h"
 
 void clear_playlist()
 {

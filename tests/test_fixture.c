@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "fixture_gmpc.h"
 #include "fixture_mpd.h"
+#include "../src/defaults.h"
 
 void test_mpd_init()
 {

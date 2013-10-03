@@ -3,6 +3,7 @@
 #include "fixture_gmpc.h"
 #include "../src/database.h"
 #include "../src/blacklist.h"
+#include "../src/defaults.h"
 
 void setup()
 {

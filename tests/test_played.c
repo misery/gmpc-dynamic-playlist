@@ -3,6 +3,7 @@
 #include "fixture_gmpc.h"
 #include "../src/played.h"
 #include "../src/database.h"
+#include "../src/defaults.h"
 
 static void test_set_limits_allowed()
 {

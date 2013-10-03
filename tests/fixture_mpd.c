@@ -1,6 +1,7 @@
 #include "fixture_mpd.h"
 #include <libmpd/libmpd.h>
 #include <sys/wait.h>
+#include "../src/defaults.h"
 
 #define HOST "localhost"
 #define PORT 1904

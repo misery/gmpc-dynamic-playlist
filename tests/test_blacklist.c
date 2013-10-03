@@ -2,6 +2,7 @@
 #include "fixture_mpd.h"
 #include "fixture_gmpc.h"
 #include "../src/blacklist.h"
+#include "../src/defaults.h"
 
 void test_set_blacklist_active()
 {

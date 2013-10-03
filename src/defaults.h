@@ -49,6 +49,22 @@
 #define UI_OPTIONS "/usr/local/lib/gmpc/plugins/dynlist-ui-options.xml"
 #endif
 
+#ifndef MPD_BINARY
+#define MPD_BINARY "/usr/bin/mpd"
+#endif
+
+#ifndef CONFIG
+#define CONFIG "played/config"
+#endif
+
+#ifndef CONFIG_EMPTY
+#define CONFIG_EMPTY "blacklist/empty/config"
+#endif
+
+#ifndef CONFIG_BL_ALL
+#define CONFIG_BL_ALL "database/blacklist/all/config"
+#endif
+
 #endif
 
 /* vim:set ts=4 sw=4: */
