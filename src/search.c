@@ -222,7 +222,7 @@ static void tryToAdd_multiple_genre(mpd_Song* l_song, MetaDataResult l_result, M
 
 static void check_for_search(gboolean l_force_no_delay)
 {
-	g_idle_add((GSourceFunc) dyn_check_search, (gpointer) l_force_no_delay);
+	g_idle_add((GSourceFunc) dyn_check_search, GINT_TO_POINTER(l_force_no_delay));
 }
 
 void tryToAdd_select(const status l_status, mpd_Song* l_song)
