@@ -23,6 +23,7 @@
 #include <gmpc/playlist3-messages.h>
 #include <glib/gi18n-lib.h>
 #include <libmpd/libmpd-internal.h>
+#include "defaults.h"
 
 #define BLACKLIST_COUNT 4
 typedef enum _blacklist_name

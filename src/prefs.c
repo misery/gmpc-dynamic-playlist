@@ -23,6 +23,7 @@
 #include "played.h"
 #include "prune.h"
 #include "blacklist.h"
+#include "defaults.h"
 
 /* Menu */
 static GtkWidget* m_menu_item = NULL;

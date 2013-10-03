@@ -27,6 +27,7 @@
 #include "prune.h"
 #include "prefs.h"
 #include "fuzzy.h"
+#include "defaults.h"
 
 extern GmpcEasyCommand* gmpc_easy_command;
 

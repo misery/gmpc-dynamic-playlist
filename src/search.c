@@ -27,6 +27,7 @@
 #include <glib/gi18n-lib.h>
 #include <gmpc/playlist3-messages.h>
 #include <gmpc/metadata.h>
+#include "defaults.h"
 
 #define BUFFER_SECONDS 5
 extern GRand* m_rand;

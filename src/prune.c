@@ -22,6 +22,7 @@
 #include <gmpc/playlist3-messages.h>
 #include <libmpd/libmpd.h>
 #include <glib/gi18n-lib.h>
+#include "defaults.h"
 
 static gint m_keep = -1;
 
