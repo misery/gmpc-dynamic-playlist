@@ -7,33 +7,105 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-03-24 09:44+0100\n"
+"POT-Creation-Date: 2013-10-05 03:54+0200\n"
 "PO-Revision-Date: 2010-04-09 16:07+0000\n"
 "Last-Translator: Konki <pavel.konkol@seznam.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-29 10:16+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2013-10-05 22:48+0000\n"
+"X-Generator: Launchpad (build 16791)\n"
 
-#: src/blacklist.c:38
+#: src/plugin.c:98
+msgid "prune"
+msgstr "odstranit"
+
+#: src/plugin.c:98
+msgid "Prune playlist"
+msgstr "Odstranit seznam skladeb"
+
+#: src/plugin.c:101
+msgid "dynamic"
+msgstr "dynamicky"
+
+#: src/plugin.c:101
+msgid "Dynamic search (on|off)"
+msgstr "Dynamické vyhledávání (zap|vyp)"
+
+#: src/plugin.c:104
+msgid "similar"
+msgstr "podobný"
+
+#: src/plugin.c:104
+msgid "Search for similar song/artist/genre"
+msgstr "Vyhledat podobnou skladbu/umělce/žánr"
+
+#: src/plugin.c:156
+#: src/prefs.c:171
+#: src/icon.c:58
+msgid "Dynamic Playlist"
+msgstr "Dynamický seznam skladeb"
+
+#: src/prefs.c:177
+msgid "Dynamic search"
+msgstr "Dynamické vyhledávání"
+
+#: src/prefs.c:181
+#: src/dynlist-ui-options.xml:30
+msgid "Use blacklists"
+msgstr "Použít černé listiny"
+
+#: src/prefs.c:185
+msgid "Add similar song"
+msgstr "Přidat podobnou skladbu"
+
+#: src/search.c:272
+msgid "Dynamic search cannot find a new song"
+msgstr "Dynamické vyhledávání nemůže najít novou skladbu"
+
+#: src/search.c:398
+#: src/prune.c:68
+msgid "Dynamic playlist is disabled"
+msgstr "Dynamický seznam skladeb je vypnutý"
+
+#: src/search.c:404
+msgid "Dynamic search is already busy"
+msgstr "Dynamické vyhledávání je nyní zaneprázdněno"
+
+#: src/search.c:411
+msgid "You need to play a song that will be used"
+msgstr "Potřebujete přehrát skladbu, která bude použita."
+
+#: src/search.c:480
+msgid "on"
+msgstr "zapnout"
+
+#: src/search.c:482
+msgid "off"
+msgstr "vypnout"
+
+#: src/blacklist.c:39
 msgid "!Blacklist Genre"
 msgstr "!Černá listina žánrů"
 
-#: src/blacklist.c:39
+#: src/blacklist.c:40
 msgid "!Blacklist Artist"
 msgstr "!Černá listina umělců"
 
-#: src/blacklist.c:40
+#: src/blacklist.c:41
 msgid "!Blacklist Album"
 msgstr "!Černá listina alb"
 
-#: src/blacklist.c:41
+#: src/blacklist.c:42
 msgid "!Blacklist Song"
 msgstr "!Černá listina skladeb"
 
-#: src/blacklist.c:187
+#: src/blacklist.c:177
+msgid "Cannot create blacklists! GMPC is not connected."
+msgstr ""
+
+#: src/blacklist.c:198
 #, c-format
 msgid ""
 "Created %d playlist(s) that are used to blacklist artist, album, song or "
@@ -42,154 +114,90 @@ msgstr ""
 "Vytvořen %d seznam skladeb, které se používají na černou listinu umělce, "
 "skladby nebo žánru!"
 
-#: src/prune.c:67
-#: src/search.c:395
-msgid "Dynamic playlist is disabled"
-msgstr "Dynamický seznam skladeb je vypnutý"
-
-#: src/prune.c:74
+#: src/prune.c:75
 msgid "Cannot prune playlist! You need to play a song for pruning."
 msgstr "Nemohu odstranit seznam skladeb! Musíte přehrát skladbu pro smazání."
-
-#: src/search.c:269
-msgid "Dynamic search cannot find a new song"
-msgstr "Dynamické vyhledávání nemůže najít novou skladbu"
-
-#: src/search.c:401
-msgid "Dynamic search is already busy"
-msgstr "Dynamické vyhledávání je nyní zaneprázdněno"
-
-#: src/search.c:408
-msgid "You need to play a song that will be used"
-msgstr "Potřebujete přehrát skladbu, která bude použita."
-
-#: src/search.c:477
-msgid "on"
-msgstr "zapnout"
-
-#: src/search.c:479
-msgid "off"
-msgstr "vypnout"
-
-#: src/icon.c:58
-#: src/plugin.c:150
-#: src/prefs.c:170
-msgid "Dynamic Playlist"
-msgstr "Dynamický seznam skladeb"
-
-#: src/plugin.c:96
-msgid "prune"
-msgstr "odstranit"
-
-#: src/plugin.c:96
-msgid "Prune playlist"
-msgstr "Odstranit seznam skladeb"
-
-#: src/plugin.c:99
-msgid "dynamic"
-msgstr "dynamicky"
-
-#: src/plugin.c:99
-msgid "Dynamic search (on|off)"
-msgstr "Dynamické vyhledávání (zap|vyp)"
-
-#: src/plugin.c:102
-msgid "similar"
-msgstr "podobný"
-
-#: src/plugin.c:102
-msgid "Search for similar song/artist/genre"
-msgstr "Vyhledat podobnou skladbu/umělce/žánr"
-
-#: src/prefs.c:176
-msgid "Dynamic search"
-msgstr "Dynamické vyhledávání"
-
-#: src/prefs.c:180
-#: src/dynlist-ui-options.xml:30
-msgid "Use blacklists"
-msgstr "Použít černé listiny"
-
-#: src/prefs.c:184
-msgid "Add similar song"
-msgstr "Přidat podobnou skladbu"
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
 msgstr "Zapnout dynamické vyhledávání"
 
-#: src/dynlist-ui-options.xml:43
+#: src/dynlist-ui-options.xml:34
+msgid "Use special playlists named '!Blacklist ...'"
+msgstr ""
+
+#: src/dynlist-ui-options.xml:44
 msgid "Search songs with comment tag"
 msgstr "vyhledat skladby s komentářem"
 
-#: src/dynlist-ui-options.xml:56
+#: src/dynlist-ui-options.xml:57
 msgid "Search songs with genre tag"
 msgstr "Vyhledat skladby s žánrem"
 
-#: src/dynlist-ui-options.xml:96
+#: src/dynlist-ui-options.xml:97
 msgid "Provide at least x songs to be played:"
 msgstr "Poskytne minimálně x skladeb pro přehrávání:"
 
-#: src/dynlist-ui-options.xml:106
+#: src/dynlist-ui-options.xml:107
 msgid "Keep x last played songs:"
 msgstr "Nechat x naposledy přehrávaných skladeb:"
 
-#: src/dynlist-ui-options.xml:116
+#: src/dynlist-ui-options.xml:117
 msgid "Delay dynamic search for x seconds:"
 msgstr "Zdržet dynamické vyhledávání na x sekund:"
 
-#: src/dynlist-ui-options.xml:126
+#: src/dynlist-ui-options.xml:127
 msgid "Block played song for at least x songs:"
 msgstr "Blokovat přehranou skladbu nejméně x skladeb:"
 
-#: src/dynlist-ui-options.xml:136
+#: src/dynlist-ui-options.xml:137
 msgid "Block played artist for at least x songs:"
 msgstr "Blokovat přehraného umělce nejméně x skladeb:"
 
-#: src/dynlist-ui-options.xml:220
+#: src/dynlist-ui-options.xml:221
 msgid "Local"
 msgstr "Místní"
 
-#: src/dynlist-ui-options.xml:234
+#: src/dynlist-ui-options.xml:235
 msgid "Search songs in 'similar songs'"
 msgstr "Vyhledat skladby v \"podobných skladbách\""
 
-#: src/dynlist-ui-options.xml:247
+#: src/dynlist-ui-options.xml:248
 msgid "Search songs in 'similar artists'"
 msgstr "Vyhledat skladby v \"podobných umělců\""
 
-#: src/dynlist-ui-options.xml:260
+#: src/dynlist-ui-options.xml:261
 msgid "Same artist is also 'similar'"
 msgstr "Stejný umělec je jako \"podobný\""
 
-#: src/dynlist-ui-options.xml:273
+#: src/dynlist-ui-options.xml:274
 msgid "Search songs in 'similar genre'"
 msgstr "Hledat skladby v \"podobném žánru\""
 
-#: src/dynlist-ui-options.xml:286
+#: src/dynlist-ui-options.xml:287
 msgid "Same genre is also 'similar'"
 msgstr "Stejný žánr je také \"podobný\""
 
-#: src/dynlist-ui-options.xml:310
+#: src/dynlist-ui-options.xml:311
 msgid "Search max. songs in database:"
 msgstr "Vyhledat max. skladeb v databázi:"
 
-#: src/dynlist-ui-options.xml:320
+#: src/dynlist-ui-options.xml:321
 msgid "Search max. artists in database:"
 msgstr "Vyhledat max. umělců v databázi:"
 
-#: src/dynlist-ui-options.xml:330
+#: src/dynlist-ui-options.xml:331
 msgid "Search max. genre in database:"
 msgstr "Vyhledat max. žánrů v databázi:"
 
-#: src/dynlist-ui-options.xml:398
+#: src/dynlist-ui-options.xml:399
 msgid "Metadata"
 msgstr "Metadata"
 
-#: src/dynlist-ui-options.xml:459
+#: src/dynlist-ui-options.xml:460
 msgid "Artists of same tag"
 msgstr "Umělci se stejným označením"
 
-#: src/dynlist-ui-options.xml:463
+#: src/dynlist-ui-options.xml:464
 msgid "Songs of same tag"
 msgstr "Skladby se stejným označením"

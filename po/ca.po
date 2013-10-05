@@ -1,16 +1,16 @@
-# Brazilian Portuguese translation for gmpc
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Catalan translation for gmpc
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the gmpc package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gmpc\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-10-05 03:54+0200\n"
-"PO-Revision-Date: 2010-08-27 01:47+0000\n"
-"Last-Translator: Matheus Cavalcante <Unknown>\n"
-"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
+"PO-Revision-Date: 2012-06-29 17:04+0000\n"
+"Last-Translator: Rafael Ferran i Peralta <rferran@terra.es>\n"
+"Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,87 +19,87 @@ msgstr ""
 
 #: src/plugin.c:98
 msgid "prune"
-msgstr "expurgar"
+msgstr "redueix"
 
 #: src/plugin.c:98
 msgid "Prune playlist"
-msgstr "Expurgar lista de reprodução"
+msgstr "Redueix la llista de reproducció"
 
 #: src/plugin.c:101
 msgid "dynamic"
-msgstr "dinâmico"
+msgstr "dinàmica"
 
 #: src/plugin.c:101
 msgid "Dynamic search (on|off)"
-msgstr "Busca dinâmica (ligado|desligado)"
+msgstr "Cerca dinàmica (activa/inactiva)"
 
 #: src/plugin.c:104
 msgid "similar"
-msgstr "similar"
+msgstr "semblant"
 
 #: src/plugin.c:104
 msgid "Search for similar song/artist/genre"
-msgstr "Procurar por música/artista/gênero similares"
+msgstr "Cerca cançons/artistes/gèneres semblants"
 
 #: src/plugin.c:156
 #: src/prefs.c:171
 #: src/icon.c:58
 msgid "Dynamic Playlist"
-msgstr "Lista de execução Dinâmica"
+msgstr "Llista de reproducció dinàmica"
 
 #: src/prefs.c:177
 msgid "Dynamic search"
-msgstr "Busca dinâmica"
+msgstr "Cerca dinàmica"
 
 #: src/prefs.c:181
 #: src/dynlist-ui-options.xml:30
 msgid "Use blacklists"
-msgstr "Usar listas negras"
+msgstr "Utilitza llistes negres"
 
 #: src/prefs.c:185
 msgid "Add similar song"
-msgstr "Adicionar música similar"
+msgstr "Afegeix la cançó semblant"
 
 #: src/search.c:272
 msgid "Dynamic search cannot find a new song"
-msgstr "Busca dinâmica não pode encontrar uma nova música"
+msgstr "La cerca dinàmica no pot trobar una cançó nova"
 
 #: src/search.c:398
 #: src/prune.c:68
 msgid "Dynamic playlist is disabled"
-msgstr "Lista de execução dinâmica está desabilitada"
+msgstr "S'ha desactivat la llista de reproducció dinàmica"
 
 #: src/search.c:404
 msgid "Dynamic search is already busy"
-msgstr "Pesquisa dinâmica já está ocupada"
+msgstr "La cerca dinàmica ja està en marxa"
 
 #: src/search.c:411
 msgid "You need to play a song that will be used"
-msgstr "Você precisa tocar uma música que será usada"
+msgstr "Heu de reproduir la cançó que s'utilitzarà"
 
 #: src/search.c:480
 msgid "on"
-msgstr "ativado"
+msgstr "actiu"
 
 #: src/search.c:482
 msgid "off"
-msgstr "desativado"
+msgstr "inactiu"
 
 #: src/blacklist.c:39
 msgid "!Blacklist Genre"
-msgstr "!Lista Negra de Gêneros"
+msgstr "Posa el gènera a la llista negra"
 
 #: src/blacklist.c:40
 msgid "!Blacklist Artist"
-msgstr "!Lista Negra de Artistas"
+msgstr "Posa l'artista a la llista negra"
 
 #: src/blacklist.c:41
 msgid "!Blacklist Album"
-msgstr "!Lista Negra de Álbums"
+msgstr "Posa l'àlbum a la llista negra"
 
 #: src/blacklist.c:42
 msgid "!Blacklist Song"
-msgstr "!Lista Negra de Músicas"
+msgstr "Posa la cançó a la llista negra"
 
 #: src/blacklist.c:177
 msgid "Cannot create blacklists! GMPC is not connected."
@@ -111,18 +111,18 @@ msgid ""
 "Created %d playlist(s) that are used to blacklist artist, album, song or "
 "genre!"
 msgstr ""
-"Foram criadas %d lista(s) de reprodução que são usadas para incluir o "
-"artista, álbum música ou gênero na lista negra!"
+"S'han creat les llistes de reproducció %d, usades com a llistes negres "
+"d'artistes, àlbums, cançons o gèneres."
 
 #: src/prune.c:75
 msgid "Cannot prune playlist! You need to play a song for pruning."
 msgstr ""
-"Não é possível expurgar a lista de reprodução! Você precisa tocar uma música "
-"para expurgá-la."
+"No es pot reduir la llista de reproducció. Per fer-ho, heu d'estar "
+"reproduint una cançó."
 
 #: src/dynlist-ui-options.xml:17
 msgid "Enable dynamic search"
-msgstr "Habilitar pesquisa dinâmica"
+msgstr "Habilita la cerca dinàmica"
 
 #: src/dynlist-ui-options.xml:34
 msgid "Use special playlists named '!Blacklist ...'"
@@ -130,31 +130,31 @@ msgstr ""
 
 #: src/dynlist-ui-options.xml:44
 msgid "Search songs with comment tag"
-msgstr "Procurar músicas com tag de comentários"
+msgstr "Cerca cançons amb l'etiqueta de comentari"
 
 #: src/dynlist-ui-options.xml:57
 msgid "Search songs with genre tag"
-msgstr "Procurar músicas com tag de gênero"
+msgstr "Cerca cançons amb l'etiqueta de gènere"
 
 #: src/dynlist-ui-options.xml:97
 msgid "Provide at least x songs to be played:"
-msgstr "Oferecer pelo menos x músicas para serem tocadas:"
+msgstr "Proporciona almenys x cançons per reproduir:"
 
 #: src/dynlist-ui-options.xml:107
 msgid "Keep x last played songs:"
-msgstr "Manter x últimas músicas tocadas"
+msgstr "Conserva les darreres x cançons reproduïdes:"
 
 #: src/dynlist-ui-options.xml:117
 msgid "Delay dynamic search for x seconds:"
-msgstr "Atrasar busca dinâmica por x segundos:"
+msgstr "Aplaça la cerca dinàmica durant x segons:"
 
 #: src/dynlist-ui-options.xml:127
 msgid "Block played song for at least x songs:"
-msgstr "Bloquear música tocada por pelo menos x músicas:"
+msgstr "Bloqueja la cançó reproduïda almenys durant x cançons:"
 
 #: src/dynlist-ui-options.xml:137
 msgid "Block played artist for at least x songs:"
-msgstr "Bloquear artista tocado por pelo menos x músicas:"
+msgstr "Bloqueja l'artista reproduït almenys durant x cançons:"
 
 #: src/dynlist-ui-options.xml:221
 msgid "Local"
@@ -162,44 +162,44 @@ msgstr "Local"
 
 #: src/dynlist-ui-options.xml:235
 msgid "Search songs in 'similar songs'"
-msgstr "Pesquisar músicas em 'músicas similares'"
+msgstr "Cerca cançons a «cançons semblants»"
 
 #: src/dynlist-ui-options.xml:248
 msgid "Search songs in 'similar artists'"
-msgstr "Pesquisar músicas em 'Artistas similares'"
+msgstr "Cerca cançons a «artistes semblants»"
 
 #: src/dynlist-ui-options.xml:261
 msgid "Same artist is also 'similar'"
-msgstr "Mesmo artista também é 'parecido'"
+msgstr "El mateix artista també és «semblant»"
 
 #: src/dynlist-ui-options.xml:274
 msgid "Search songs in 'similar genre'"
-msgstr "Pesquisar músicas em 'gênero similar'"
+msgstr "Cerca cançons a «gènere semblant»"
 
 #: src/dynlist-ui-options.xml:287
 msgid "Same genre is also 'similar'"
-msgstr "Mesmo gênero também é 'parecido'"
+msgstr "El mateix gènere també és «semblant»"
 
 #: src/dynlist-ui-options.xml:311
 msgid "Search max. songs in database:"
-msgstr "Procurar número máximo de músicas no banco de dados:"
+msgstr "Cerca màxima de cançons a la base de dades:"
 
 #: src/dynlist-ui-options.xml:321
 msgid "Search max. artists in database:"
-msgstr "Procurar número máximo de artistas no banco de dados:"
+msgstr "Cerca màxima d'artistes a la base de dades:"
 
 #: src/dynlist-ui-options.xml:331
 msgid "Search max. genre in database:"
-msgstr "Procurar número máximo de gêneros no banco de dados:"
+msgstr "Cerca màxima de gèneres a la base de dades:"
 
 #: src/dynlist-ui-options.xml:399
 msgid "Metadata"
-msgstr "Metadados"
+msgstr "Metadades"
 
 #: src/dynlist-ui-options.xml:460
 msgid "Artists of same tag"
-msgstr "Artistas da mesma tag"
+msgstr "Artistes amb la mateixa etiqueta"
 
 #: src/dynlist-ui-options.xml:464
 msgid "Songs of same tag"
-msgstr "Músicas da mesma tag"
+msgstr "Cançons amb la mateixa etiqueta"
