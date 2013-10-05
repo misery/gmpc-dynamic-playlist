@@ -31,7 +31,8 @@ ELSE()
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${POT_FILE}
 		COMMAND ${GETTEXT_XGETTEXT_BIN} --omit-header --keyword=_ --keyword=N_ ${C_FILES} -o ${POT_FILE}
-		COMMAND ${GETTEXT_XGETTEXT_BIN} --omit-header -L Glade ${UI_FILES} -j -o ${POT_FILE}
+		COMMAND ${GETTEXT_XGETTEXT_BIN} -L Glade ${UI_FILES} -j -o ${POT_FILE}
+			--package-name=${PROJECT_NAME} --package-version=${VERSION} --msgid-bugs-address=andre@incubo.de
 		)
 
 	IF(PO_FILES)
